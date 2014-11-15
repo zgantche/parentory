@@ -1,0 +1,903 @@
+/*
+ Theme Name:     Parentory
+ Description:    Parentory
+ Author:         Zlatko
+ Template:       the-bootstrap
+ Version:        1.0.0             
+*/
+
+
+blockquote cite:before {
+	content: '\2014 \00A0';
+}
+
+blockquote cite {
+	color: #999999;
+	display: block;
+	font-size: 13px;
+	line-height: 18px;
+}
+
+figure {
+	margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6, .clear {
+	clear: both;
+}
+
+h1 {
+	font-family: "Arial Narrow", Arial, sans-serif;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+
+/* =Classes
+-------------------------------------------------------------- */
+
+.arial-narrow {
+	font-family: "Arial Narrow", Arial, sans-serif;
+	font-weight: bold;
+}
+
+.assistive-text {
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute !important;
+}
+
+body > .container {
+	margin: 0px auto;
+}
+
+/* Right Content */
+.sidebar-content #primary,
+.sidebar-content #attachment-comment {
+	float: right;
+	margin: 0 20px 0 0;
+}
+
+.block {
+	display: block;
+}
+
+/* =Header
+-------------------------------------------------------------- */
+
+
+.header {
+	padding: 0 20px;
+}
+
+#branding {
+	margin-left: 0px;
+}
+
+.leaderboard-ad {
+	float:right;
+	padding: 0 20px;
+	margin: 0;
+}
+
+.navbar-inner{
+	background-color: #905E5E;
+	background: url(http://test.parentory.ca/wp-content/uploads/2014/05/menu-background.png);
+	
+	border: 0px;
+	border-radius: 0px;
+	box-shadow: 0px 4px 5px #111;
+}
+
+.navbar {
+	margin-bottom: 0px;
+
+	position: relative;
+	z-index: 1;
+}
+
+.navbar .nav>li>a {
+	font-family: "Arial Narrow", Arial, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	letter-spacing: 0px;
+
+	color: #CCC;
+	text-shadow: none;
+}
+.navbar .nav>li>a:hover {
+	color: #FFF;
+}
+
+/* collapsable menu */
+.nav-collapse .nav>li>a:hover {
+	background-color: #222;
+}
+.navbar .btn-navbar {
+	border: none;
+	background: #111;
+}
+.navbar .btn-navbar:hover {
+	background: #777;
+}
+.navbar .btn-navbar .icon-bar{
+
+}
+
+
+.navbar .nav>.active>a, .navbar .nav>.active>a:hover, .navbar .nav>.active>a:focus {
+	background-color: #111;
+	color: #FFF;
+}
+
+
+#simpleSearch {
+	border-radius: 0px;
+	background: url(http://test.parentory.ca/wp-content/uploads/2014/05/menu-search-background.png);
+	border: 1px solid #555;
+
+	padding: 0px 0px;
+	margin: 2px 0px;
+}
+
+.navbar-search .search-field {
+	color: #CDCDCD;
+	font-weight: normal;
+
+	border-radius: 0px;
+	background-color: transparent;
+	border: none;
+
+	margin: 2px 2px;
+	padding: 0px 0px;
+}
+
+.searchButton {
+	background-color: #555;
+	background-image: linear-gradient(transparent,transparent),url(http://test.parentory.ca/wp-content/uploads/2014/07/search.png);
+	background-position: center center;
+	background-repeat: no-repeat;
+	border: none;
+
+	padding: 2px 15px;
+
+	height: 100%;
+}
+
+/* =School Posts - Single
+-------------------------------------------------------------- */
+.contact-info {
+	background: #F8F8F8;
+	border: 1px solid #DDDDDD;
+	padding: 10px 10px 30px 20px;
+}
+
+.float-img-contact {
+	float:left;
+	margin:0 20px 20px 0;
+}
+
+
+/* =Page
+-------------------------------------------------------------- */
+
+#main-image {
+	width: 100%;
+	margin: 0px;
+
+	border-bottom:1px solid #CCC;
+}
+
+#feature-images {
+	width: 94%;
+	margin: 30px 0 40px 30px;
+}
+
+
+#page {
+	background-color: #FFFFFF;
+	margin-right: -20px;
+	padding: 14px 0 0;
+	border-color: #AAA;
+    box-shadow: 0 0 10px #AAA;
+}
+
+#header-image {
+	display: block;
+}
+
+#menu-alert {
+	margin: 4px 0 0;
+	padding: 6px 35px 6px 14px;
+	position: absolute;
+}
+
+#branding hgroup,
+#header-image,
+.entry-content {
+	margin-bottom: 10px;
+}
+
+.entry-attachment {
+	margin-bottom: 36px;
+}
+
+.single #author-info,
+.author #author-info,
+.single article.post,
+.single article.page {
+	margin-bottom: 54px;
+}
+
+#author-info,
+article.post,
+article.page {
+	margin-bottom: 72px;
+}
+
+.page-header,
+.entry-content {
+	word-wrap: break-word;
+}
+
+.post-password-form legend {
+	font-size: inherit;
+}
+
+.entry-content .twitter-tweet-rendered {
+    max-width: 100% !important;
+}
+
+
+/* =Blog Posts
+-------------------------------------------------------------- */
+
+h2 {
+	font-family: "Arial Narrow", Arial, sans-serif;
+	font-size: 23px;
+}
+
+.entry-title {
+	font-size: 16px;
+	font-weight: bold;
+
+	margin-bottom: 0px;
+}
+
+.entry-title>a {
+	color: #333;
+}
+
+.entry-meta {
+	color: #999;
+}
+
+.entry-meta a {
+	color: #999;
+}
+
+.page-header {
+	margin-bottom: 0px;
+	border-bottom: none;
+	border-top: 1px solid #eeeeee;
+}
+
+#author-info, article.post, article.page {
+	margin-bottom: 20px;
+}
+
+#author-info, article.post, article.page {
+	margin-bottom: 30px;
+}
+
+
+/* =School Posts - Single
+-------------------------------------------------------------- */
+
+#school-title {
+	font-family: "Arial Narrow", Arial, sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+
+	text-align: center;
+
+	padding: 30px 0px 10px 0px;
+}
+
+#school-address {
+	font-family: "Arial Narrow", Arial, sans-serif;
+	font-size: 17px;
+	font-weight: normal;
+
+	text-align: center;
+
+	padding: 0px 0px 20px 0px;
+}
+
+#school-description {
+	padding: 40px 0px 20px 0px;
+}
+
+ul.tabs{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+ul.tabs li{
+	background: #f3f3f3;
+
+	border: 1px solid #e7e7e7;
+	border-bottom: none;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 3px 3px 0px 0px;
+	border-radius: 3px 3px 0px 0px; 
+
+	display: inline-block;
+	padding: 10px 15px;
+	cursor: pointer;
+
+	font-weight: normal;
+	color: #6a6a6a;
+}
+
+ul.tabs li.current{
+	background: #e7e7e7;
+
+	border: 1px solid #CCC;
+	border-bottom: none;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 3px 3px 0px 0px;
+	border-radius: 3px 3px 0px 0px; 
+
+	color: #333;
+	font-weight: bold;
+}
+
+.tab-content{
+	border-top: 2px solid #DDD;
+	display: none;
+	background: none;
+	padding: 15px;
+}
+
+.tab-content.current{
+	display: inherit;
+}
+
+
+/* =School Posts - Archive
+-------------------------------------------------------------- */
+
+#school-title-archive {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	color: #333;
+}
+
+#school-archive-entry {
+	padding: 20px 0px 20px 0px;
+}
+
+
+/* =Contact School Form
+-------------------------------------------------------------- */
+
+#school-sidebar {
+	padding: 30px 0px;
+}
+
+#form-title {
+	color: #EEE;
+	font-size: 15px;
+
+	padding: 5px 0px 5px 40px;
+
+	background-image: -webkit-gradient(
+		linear,
+		right bottom,
+		left bottom,
+		color-stop(0, #242424),
+		color-stop(0.5, #424242),
+		color-stop(1, #1C1C1C)
+	);
+	background-image: -o-linear-gradient(left, #242424 0%, #5C5C5C 50%, #1C1C1C 100%);
+	background-image: -moz-linear-gradient(left, #242424 0%, #5C5C5C 50%, #1C1C1C 100%);
+	background-image: -webkit-linear-gradient(left, #242424 0%, #5C5C5C 50%, #1C1C1C 100%);
+	background-image: -ms-linear-gradient(left, #242424 0%, #5C5C5C 50%, #1C1C1C 100%);
+	background-image: linear-gradient(to left, #242424 0%, #5C5C5C 50%, #1C1C1C 100%);
+}
+
+#contactForm {
+	border: 2px solid #CCC;
+	border-top: none;
+	text-align: center;
+
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px 0px 10px 10px;
+	border-radius: 0px 0px 10px 10px;
+
+	padding: 20px 0px;
+
+	/* Safari 4-5, Chrome 1-9 */
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F4F4F4), to(#FFFFFF));
+	/* Safari 5.1, Chrome 10+ */
+	background: -webkit-linear-gradient(top, #FFFFFF, #F4F4F4);
+	/* Firefox 3.6+ */
+	background: -moz-linear-gradient(top, #FFFFFF, #F4F4F4);
+	/* IE 10 */
+	background: -ms-linear-gradient(top, #FFFFFF, #F4F4F4);
+	/* Opera 11.10+ */
+	background: -o-linear-gradient(top, #FFFFFF, #F4F4F4);
+
+	-webkit-box-shadow: 0 21px 16px -20px black;
+	-moz-box-shadow: 0 21px 16px -20px black;
+	box-shadow: 0 21px 16px -20px black;
+
+}
+
+.formElement {
+	border: 1px solid #CCC !important;
+
+}
+
+.submitButton {
+
+    color:#f7f7f7;
+	background-color:#4A9C81;
+
+    font-family:sans-serif;
+    font-size:14px;
+    
+
+	border:1px solid #49836A;
+	border-radius:7px;
+
+	padding: 5px 85px;
+	margin-top: 7px;
+
+	/* Safari 4-5, Chrome 1-9 */
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#318D64), to(#4C9E78));
+	/* Safari 5.1, Chrome 10+ */
+	background: -webkit-linear-gradient(top, #4C9E78, #318D64);
+	/* Firefox 3.6+ */
+	background: -moz-linear-gradient(top, #4C9E78, #318D64);
+	/* IE 10 */
+	background: -ms-linear-gradient(top, #4C9E78, #318D64);
+	/* Opera 11.10+ */
+	background: -o-linear-gradient(top, #4C9E78, #318D64);
+}
+
+
+/* =Comments
+-------------------------------------------------------------- */
+
+#comments-title {
+	border-bottom: 1px solid #EEEEEE;
+	font-size: 19.5px;
+    margin: 0 0 27px;
+}
+
+#comment,
+.entry-content iframe,
+.entry-content embed {
+	max-width: 100%;
+}
+
+.commentlist > li {
+	margin-bottom: 36px;
+}
+
+.commentlist ul.children {
+	margin: 10px 0 18px;
+	list-style: none;
+}
+
+#reply-title {
+	position: relative;
+}
+
+#reply-title small {
+	position: absolute;
+	right: 0;
+	top: 7px;
+}
+
+
+/* =Sidebar
+-------------------------------------------------------------- */
+
+.form-search {
+	margin: 0;
+}
+
+.widget {
+	word-wrap: break-word;
+}
+
+.widget .wp-caption {
+	display: inline-block;
+}
+
+
+/* =Images
+-------------------------------------------------------------- */
+
+.entry-content .post-thumbnail {
+	margin: 0 20px 20px 0;
+}
+
+.entry-attachment .thumbnail.attachment-table {
+	display: table;
+	margin: 0 auto;
+}
+
+.thumbnail > img {
+	width: auto\9; /* Cure IE8 max-width bug */
+}
+
+img.wp-smiley {
+	border: none;
+	margin-bottom: 0;
+	margin-top: 0;
+	padding: 0;
+}
+
+.gallery-columns-3.thumbnails [class*="span"] {
+	width: 29.3%;
+}
+.gallery-columns-5.thumbnails [class*="span"] {
+	width: 15.9%;
+}
+.gallery-columns-6.thumbnails [class*="span"] {
+	width: 12.6%;
+}
+.gallery-columns-7.thumbnails [class*="span"] {
+	width: 10.2%;
+}
+
+
+/* =Footer
+-------------------------------------------------------------- */
+
+#colophon {
+	width: 100%;
+
+	margin: 0px;
+	padding-top: 30px;
+
+	background: url(http://test.parentory.ca/wp-content/uploads/2014/05/menu-background.png);
+}
+
+#colophon .credits {
+	margin: 0;
+}
+
+#colophon::after {
+	content: '';
+	width: 100%;
+	height: 20px;
+	display: block;
+	margin-top: 30px;
+	background-color: #222222;
+}
+
+.footer-title {
+	font-family: "Arial Narrow", Arial, sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+	letter-spacing: 0px;
+
+	padding-bottom: 10px;
+	color: #DDD;
+}
+
+#menu-footer-1 {
+	margin-left: 5px;
+}
+
+.footer-menu-items {
+	margin-left: 5px;
+}
+
+.footer-nav>li {
+	list-style-type: none;
+}
+
+.footer-nav>li>a {
+	font-family: "Arial Narrow", Arial, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	letter-spacing: 0px;
+
+	color: #DDD;
+}
+
+.footer-nav>li>a:hover {
+	text-decoration: none;
+	color: #FFF;
+}
+
+#site-generator {
+	float: right;
+	font-family: Georgia, "Bitstream Charter", serif;
+	font-style: italic;
+}
+
+#site-generator a {
+	background: url("img/wordpress.png") no-repeat scroll left center transparent;
+	color: #787878;
+	display: inline-block;
+	line-height: 16px;
+	padding-left: 20px;
+	text-decoration: none;
+}
+
+#site-generator.footer-nav-menu a {
+	margin-top: 10px;
+}
+
+table .label {
+	background-color: transparent;
+	border-radius: none;
+	color: inherit;
+	font-size: inherit;
+	text-transform: inherit;
+}
+
+
+/* =MailChimp Footer Form Styling
+-------------------------------------------------------------- */
+
+#mc-embedded-subscribe-form {
+	margin: 0px 0px;
+}
+
+div.mc-field-group input {
+	width: 150px;
+}
+
+#mc-embedded-subscribe {
+    color:#f7f7f7;
+	background-color:#4A9C81;
+
+    font-family: "Arial Narrow", Arial, sans-serif
+    font-size:14px;
+    font-weight: bold;
+
+	border:1px solid #479B77;
+	border-radius:7px;
+
+	padding: 5px 41px;
+	margin-top: 7px;
+}
+
+/* =Jetpack Support
+-------------------------------------------------------------- */
+
+.comment-subscription-form > input[type=checkbox] {
+	position: absolute;
+}
+
+.comment-subscription-form > label {
+	min-height: 18px;
+    padding-left: 18px;
+}
+
+
+/* =Bootstrap Adjustments
+-------------------------------------------------------------- */
+
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+	position: fixed;
+}
+
+#comment,
+.thumbnail {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.label .post-edit-link,
+.label .comment-edit-link {
+	color: #FFFFFF;
+}
+
+.navbar-search {
+	height: 34px;
+}
+
+.pagination span {
+	background-color: #f5f5f5;
+	color: #999999;
+	cursor: default;
+}
+
+.pagination span.dots {
+	background-color: #FFFFFF;
+}
+
+
+/* =WordPress Core
+-------------------------------------------------------------- */
+
+.aligncenter {
+    display:block;
+    margin: 0 auto 20px;
+}
+
+.alignright {
+    float:right;
+    margin: 0 0 20px 20px;
+}
+
+.alignleft {
+    float:left;
+    margin: 0 20px 20px 0;
+}
+
+.wp-caption {
+	max-width: 100%;
+}
+
+.wp-caption .wp-caption-text,
+.gallery-caption,
+.entry-caption {
+	padding: 0 9px 9px;
+	text-align: center;
+}
+
+.wp-caption .wp-caption-text {
+	padding-top: 9px;
+}
+
+.wp-caption.alignnone {
+    margin: 5px 20px 20px 0;
+}
+
+.wp-caption.alignleft {
+    margin: 5px 20px 20px 0;
+}
+
+.wp-caption.alignright {
+    margin: 5px 0 20px 20px;
+}
+
+.sticky {}
+.bypostauthor {}
+
+
+/* =Responsiveness
+-------------------------------------------------------------- */
+
+@media (max-width: 767px) {
+	#feature-images {
+		margin: 20px 0 20px 20px;
+		width: 100%;
+	}
+	#feature-images > .span4 {
+		padding-right: 40px;
+	}
+	body {
+		padding:0;
+	}
+	.container {
+		width: auto;
+		padding: 0 10px;
+	}
+	#page {
+		margin: 0;
+		
+	}
+	.thumbnail[class*="span"],
+	.gallery [class*="span"] .thumbnail {
+		display: table;
+		float: left;
+	}
+	.carousel .item > img {
+		width: 100%;
+	}
+	.thumbnails > li {
+		float: left;
+		margin-left: 20px;
+	}
+	.gallery-columns-2.thumbnails > li:nth-child(2n+1),
+	.gallery-columns-3.thumbnails > li:nth-child(3n+1),
+	.gallery-columns-4.thumbnails > li:nth-child(4n+1),
+	.gallery-columns-5.thumbnails > li:nth-child(5n+1),
+	.gallery-columns-6.thumbnails > li:nth-child(6n+1),
+	.gallery-columns-7.thumbnails > li:nth-child(7n+1),
+	.gallery-columns-8.thumbnails > li:nth-child(8n+1),
+	.gallery-columns-1.thumbnails > li {
+		margin-left:0;
+	}
+	.gallery-columns-2.thumbnails [class*="span"] {
+		width: 47.4%;
+	}
+	.gallery-columns-3.thumbnails [class*="span"] {
+		width: 29.9%;
+	}
+	.gallery-columns-4.thumbnails [class*="span"] {
+		width: 21.2%;
+	}
+	.gallery-columns-6.thumbnails [class*="span"] {
+		width: 12.4%;
+	}
+	.gallery-columns-7.thumbnails [class*="span"] {
+		width: 9.9%;
+	}
+	.gallery-columns-8.thumbnails [class*="span"] {
+		width: 8.7%;
+	}
+	.sidebar-content #primary,
+	.sidebar-content #attachment-comment {
+		float: none;
+		margin: inherit;
+	}
+	#s {
+		display: inline-block;
+	}
+	#site-generator,
+	#site-generator.footer-nav-menu a {
+		float: none;
+		margin-top: 5px;
+	}
+	textarea[class*="span"] {
+		height: auto;
+	}
+	.navbar-fixed-top, .navbar-fixed-bottom {
+		margin: 0;
+	}
+}
+@media (min-width: 768px) and (max-width: 778px) {
+	#page {
+		margin-right: -15px;
+	}
+}
+@media (min-width: 768px) and (max-width: 979px) {
+	#feature-images {
+		margin: 30px 0 30px 30px;
+	}
+	.dl-horizontal dt {
+		width: 85px;`
+	}
+	.dl-horizontal dd {
+		margin-left: 95px;
+	}
+}
+@media (min-width: 1200px) {
+	#page {
+		margin-right: -30px;
+		padding: 24px 0 0px;
+	}
+	.sidebar-content #primary,
+	.sidebar-content #attachment-comment {
+		margin-right: 30px;
+	}
+	.wp-caption {
+		display: table;
+	}
+
+	/*
+	.row {
+		margin-left: 0px;
+	}
+	*/
+
+	.container{width:940px;}
+	.span12{width:940px;}
+	.span11{width:860px;}
+	.span10{width:780px;}
+	.span9{width:700px;}
+	.span8{width:620px;}
+	.span7{width:540px;}
+	.span6{width:460px;}
+	.span5{width:380px;}
+	.span4{width:300px;}
+	.span3{width:220px;}
+	.span2{width:140px;}
+	.span1{width:60px;}
+}
+
+
+/* End of file style.css */
+/* Location: ./wp-content/themes/the-bootstrap-child/style.css */

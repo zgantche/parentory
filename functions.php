@@ -1,0 +1,667 @@
+<?php
+
+// This theme uses wp_nav_menu() in two locations.  
+register_nav_menus( array(  
+  'footer-2' => __('Footer Menu 2', 'the-bootstrap-child'),
+  'footer-3' => __('Footer Menu 3', 'the-bootstrap-child')
+) );
+
+
+/**
+ * Adds The Bootstrap navbar classes
+ *
+ * @author	Zlatko
+ * @since	15.04.2014
+ *
+ * @return	void
+ */
+function the_bootstrap_navbar_class() {
+	echo 'class="navbar"';
+}
+
+/**
+ * Print a menu's title
+ *
+ * @author	Zlatko
+ * @since	15.04.2014
+ *
+ * @return	void
+ */
+function get_menu_title() {
+	$menu_location = 'header';
+	$menu_locations = get_nav_menu_locations();
+	$menu_object = (isset($menu_locations[$menu_location]) ? wp_get_nav_menu_object($menu_locations[$menu_location]) : null);
+	$menu_name = (isset($menu_object->name) ? $menu_object->name : '');
+
+	echo esc_html($menu_name);
+}
+
+
+/**
+ * Returns or echoes searchform mark up, specifically for the navbar.
+ * (originally the_bootstrap_navbar_searchform)
+ *
+ * @author	Zlatko Gantchev
+ * @since	07.30.2014
+ * 
+ * @param	bool	$echo	Optional - whether to echo the form
+ *
+ * @return	void
+ */
+function my_navbar_search( $echo = true ) {
+	$searchform = '	<form id="searchform" class="navbar-search pull-right" method="get" action="' . esc_url( home_url( '/' ) ) . '">
+						<div id="simpleSearch">
+							<label for="s" class="assistive-text hidden">' . __( 'Search', 'the-bootstrap' ) . '</label>
+							<input type="search" class="search-field" name="s" id="s" placeholder="' . esc_attr__( 'Search', 'the-bootstrap' ) . '" />
+							<input type="submit" value="" class="searchButton" />
+						</div>
+					</form>';
+
+	if ( $echo )
+		echo $searchform;
+
+	return $searchform;
+}
+
+
+
+/**
+ * Change excerpt length to be 20 char
+ *
+ * @author	Zlatko
+ * @since	02.05.2014
+ *
+ * @return	void
+ */
+function custom_excerpt_length( $length ) {
+	return 20;
+}
+add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+
+
+/**
+ * Change excerpt "Read More" message
+ *
+ * @author	Zlatko
+ * @since	02.05.2014
+ *
+ * @return	void
+ */
+function new_excerpt_more( $more ) {
+	return ' <a class="read-more" href="'. get_permalink( get_the_ID() ) . '">' . '<i>(learn more)</i>' . '</a>';
+}
+add_filter( 'excerpt_more', 'new_excerpt_more', 999 );
+
+
+/**
+ * Modifies custom post interaction messages
+ *
+ * @author	Zlatko
+ * @since	29.04.2014
+ *
+ * @return	$messages - modified array of messages
+ */
+function my_updated_messages_school( $messages ) {
+	global $post, $post_ID;
+	$messages['school'] = array(
+		0 => '',
+		1 => sprintf( __('School updated. <a href="%s">View school</a>'), esc_url( get_permalink($post_ID) ) ),
+		2 => __('Custom field updated.'),
+		3 => __('Custom field deleted.'),
+		4 => __('School updated.'),
+		5 => isset($_GET['revision']) ? sprintf( __('School restored to revision from %s'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+		6 => sprintf( __('School record published. <a href="%s">View school</a>'), esc_url( get_permalink($post_ID) ) ),
+		7 => __('School record saved.'),
+		8 => sprintf( __('School submitted. <a target="_blank" href="%s">Preview school</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+		9 => sprintf( __('School scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview school</a>'), date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+		10 => sprintf( __('School draft updated. <a target="_blank" href="%s">Preview School</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+	);
+	return $messages;
+}
+add_filter( 'post_updated_messages', 'my_updated_messages_school' );
+
+
+/**
+ * Creates a "Schools" custom post type
+ *
+ * @author	Zlatko
+ * @since	29.04.2014
+ *
+ * @return	void
+ */
+function my_custom_post_school() {
+
+	$labels = array(
+		'name'               => _x( 'Schools', 'post type general name' ),
+		'singular_name'      => _x( 'School', 'post type singular name' ),
+		'add_new'            => _x( 'Add New', 'school' ),
+		'add_new_item'       => __( 'Add New School' ),
+		'edit_item'          => __( 'Edit School' ),
+		'new_item'           => __( 'New School' ),
+		'all_items'          => __( 'All Schools' ),
+		'view_item'          => __( 'View School' ),
+		'search_items'       => __( 'Search Schools' ),
+		'not_found'          => __( 'No schools found' ),
+		'not_found_in_trash' => __( 'No schools found in the Trash' ), 
+		'parent_item_colon'  => '',
+		'menu_name'          => 'Schools'
+	);
+	$args = array(
+		'labels'        => $labels,
+		'description'   => 'Holds our schools and school specific data',
+		'public'        => true,
+		'menu_position' => 5,
+		'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments' ),
+		'has_archive'   => true,
+	);
+
+	register_post_type( 'school', $args );
+	flush_rewrite_rules();
+}
+
+
+/**
+ * Register Custom Taxonomies
+ *
+ * @author	Zlatko
+ * @since	23.09.2014
+ *
+ * @return	void
+ *
+ */
+function school_taxonomies_init() {
+	// create a new taxonomy
+	register_taxonomy(
+		'arts',
+		'school',
+		array(
+			'label' => __( 'Arts' ),
+			'rewrite' => array( 'slug' => 'arts' ),
+			'show_ui' => false
+		)
+	);
+	register_taxonomy(
+		'languages',
+		'school',
+		array(
+			'label' => __( 'Languages' ),
+			'rewrite' => array( 'slug' => 'languages_and_social_sciences' ),
+			'show_ui' => false
+		)
+	);
+}
+
+
+function school_insert_taxonomy_terms() {
+	/* --- register taxonomy terms --- */
+
+	// Arts
+	wp_insert_term('Band', 'arts');
+	wp_insert_term('Choir', 'arts');
+	wp_insert_term('Music Theatre', 'arts');
+	wp_insert_term('Vocal', 'arts');
+	wp_insert_term('Test', 'arts');
+
+	// Languages
+	wp_insert_term('Italian', 'languages');
+	wp_insert_term('ESL', 'languages');
+	wp_insert_term('Politics', 'languages');
+	wp_insert_term('Cantonese', 'languages');
+	wp_insert_term('Spanish', 'languages');
+	wp_insert_term('Religion', 'languages');
+	wp_insert_term('French', 'languages');
+	wp_insert_term('Geography', 'languages');
+	wp_insert_term('German', 'languages');
+	wp_insert_term('History', 'languages');
+}
+
+/**
+ * Initiate Custom Post, Custom Taxonomies, and populate Taxonomies in order
+ *
+ * @author	Zlatko
+ * @since	04.10.2014
+ *
+ * @return	void
+ */
+function initialization_order(){
+	my_custom_post_school();
+	school_taxonomies_init();
+	school_insert_taxonomy_terms();
+}
+add_action( 'init', 'initialization_order' );
+
+
+
+//*===================================================================================================================================================*//
+//*-------------------------------------------------------- < SCHOOL UI CODE > -----------------------------------------------------------------------*//
+//*===================================================================================================================================================*//
+
+/**
+ * Removes unnecessary default metaboxes from Schools Post Type
+ *
+ * @author	Zlatko
+ * @since	17.09.2014
+ *
+ * @return	void
+ */
+function my_remove_meta_boxes() {
+  //Remove Excerpt Metabox
+  remove_meta_box( 'postexcerpt', 'school', 'normal' );
+
+  //Remove Comments Metabox
+  remove_meta_box('commentsdiv', 'school', 'normal');
+  remove_meta_box( 'commentstatusdiv', 'school', 'normal' );
+
+  //Remove Account Type Metabox if user is not Admin -- NOT TESTED!!!
+  if ( !current_user_can( 'manage_options' ) ) {
+    remove_action( 'media_buttons', 'media_buttons' );
+  }
+
+  /*
+  if (!is_admin()){
+  	remove_meta_box( 'account_type', 'school', 'normal' );
+  }
+  */
+}
+
+
+/**
+ * Defines all custom META BOXES within each School post
+ *
+ * Meta Boxes so far:
+ * 		- Contact Info
+ *		- School Info
+ * 		- Acount Type
+ *
+ * @author	Zlatko
+ * @since	25.08.2014
+ *
+ * @return	void
+ */
+function custom_meta_boxes() {
+	//remove unnecessary metaboxes
+	my_remove_meta_boxes();
+
+    add_meta_box(
+    	'contact_info_box',
+    	__( 'Contact Information'),
+        'contact_info_box_content',
+        'school',
+        'normal',
+        'high'
+	);
+
+    add_meta_box(
+        'school_info_box',
+        __( 'School Information'),
+        'school_info_box_content',
+        'school',
+        'normal',
+        'low'
+    );
+
+	add_meta_box(
+    	'arts',
+    	__( 'Arts'),
+        'arts_tax_box_content',
+        'school',
+        'side',
+        'low'
+	);
+
+	add_meta_box(
+    	'languages',
+    	__( 'Languages and Social Sciences'),
+        'languages_tax_box_content',
+        'school',
+        'side',
+        'low'
+	);
+
+}
+add_action( 'add_meta_boxes', 'custom_meta_boxes' );
+
+
+/**
+ * Defines "Contact Information" META BOX CONTENT
+ *
+ * @author	Zlatko
+ * @since	25.08.2014
+ *
+ * @return	void
+ *
+ * address, website, phone number
+ */
+function contact_info_box_content( $post ) {
+	// insert hidden nonce form field
+	wp_nonce_field( plugin_basename( __FILE__ ), 'contact_info_box_content_nonce' );
+	?>
+	<table cellspacing="20px">
+		<tr>
+			<td>
+				<label for="school-street-address">Street Address:</label><br />
+				<input type="text" id="school-street-address" name="school-street-address" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-street-address', true ) ); ?>" />
+			</td>
+			<td>
+				<label for="school-city">City:</label><br />
+				<input type="text" id="school-city" name="school-city" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-city', true ) ); ?>" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="school-province">Province:</label><br />
+				<input type="text" id="school-province" name="school-province" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-province', true ) ); ?>" />
+			</td>
+			<td>
+				<label for="school-postal-code">Postal Code:</label><br />
+				<input type="text" id="school-postal-code" name="school-postal-code" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-postal-code', true ) ); ?>" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="school-phone-number">Phone Number:</label><br />
+				<input type="text" id="school-phone-number" name="school-phone-number" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-phone-number', true ) ); ?>" />
+			</td>
+			<td>
+				<label for="school-website">Website:</label><br />
+				<input type="text" id="school-website" name="school-website" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-website', true ) ); ?>" />
+			</td>
+		</tr>
+	</table>
+	
+	<br />
+<?php
+}
+
+/**
+ * Defines "School Information" META BOX CONTENT
+ *
+ * @author	Zlatko
+ * @since	29.04.2014
+ *
+ * @return	void
+ *
+ * school type, age group, , annual tuition cost, class size
+ */
+function school_info_box_content( $post ) {
+	// insert hidden nonce form field
+	wp_nonce_field( plugin_basename( __FILE__ ), 'school_info_box_content_nonce' );
+	?>
+
+	<table cellspacing="20px">
+		<tr>
+			<td colspan="2">
+				<label for="school-type">School Type:</label><br />
+				<input type="text" id="school-type" name="school-type" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-type', true ) ); ?>" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="school-age-group">Age Group:</label><br />
+				<input type="text" id="school-age-group" name="school-age-group" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-age-group', true ) ); ?>" />
+			</td>
+			<td>
+				<label for="school-class-size">Class Size:</label><br />
+				<input type="text" id="school-class-size" name="school-class-size" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-class-size', true ) ); ?>" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="school-annual-tuition">Annual Tuition:</label><br />
+				<input type="text" id="school-annual-tuition" name="school-annual-tuition" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-annual-tuition', true ) ); ?>" />
+			</td>
+		</tr>
+	</table>
+	
+<?php
+}
+
+/**
+ * Defines Arts Taxonomy META BOX CONTENT
+ *
+ * @author	Zlatko
+ * @since	04.10.2014
+ *
+ * @return	void
+ *
+ */
+function arts_tax_box_content( $post ) {
+	// insert hidden nonce form field
+	wp_nonce_field( plugin_basename( __FILE__ ), 'arts_tax_box_content_nonce' );
+
+
+    if ( taxonomy_exists('arts') ) {
+	    // get all taxonomy terms
+	    $arts = get_terms('arts', array( 'hide_empty' => false ));
+
+	    foreach($arts as $art){
+	    	echo "<input type='checkbox' id='" . $art->slug . "' value='" . $art->slug . "'>";
+	    	echo "<label for='" . $art->slug . "'>" . $art->name . "</label><br />";
+	    }
+	}
+    else
+    	echo "Arts taxonomy doesn't exist!";
+
+}
+
+/**
+ * Defines Languages and Social Sciences Taxonomy META BOX CONTENT
+ *
+ * @author	Zlatko
+ * @since	04.10.2014
+ *
+ * @return	void
+ *
+ */
+function languages_tax_box_content( $post ) {
+	// insert hidden nonce form field
+	wp_nonce_field( plugin_basename( __FILE__ ), 'languages_tax_box_content_nonce' );
+
+
+    if ( taxonomy_exists('languages') ){
+	    // get all taxonomy terms
+	    $languages = get_terms('languages', array( 'hide_empty' => false ));
+
+	    foreach($languages as $language){
+			echo "<input type='checkbox' id='" . $language->slug . "' value='" . $language->slug . "'>";
+			echo "<label for='" . $language->slug . "'>" . $language->name . "</label><br />";
+	    }
+    }
+    else
+		echo "Languages taxonomy doesn't exist!";
+
+}
+
+/**
+ * Defines custom instance for Attachments plugin, as per template
+ *
+ * @author	Zlatko
+ * @since	04.11.2014
+ *
+ * @return	void
+ *
+ */
+function my_pictures( $attachments )
+{
+  $fields         = array(
+    array(
+      'name'      => 'title',                         // unique field name
+      'type'      => 'text',                          // registered field type
+      'label'     => __( 'Title', 'pictures' ),       // label to display
+      'default'   => 'title',                         // default value upon selection
+    ),
+  );
+
+  $args = array(
+    // title of the meta box (string)
+    'label'         => 'My Pictures',
+
+    // all post types to utilize (string|array)
+    'post_type'     => array( 'school' ),
+
+    // meta box position (string) (normal, side or advanced)
+    'position'      => 'normal',
+
+    // meta box priority (string) (high, default, low, core)
+    'priority'      => 'high',
+
+    // allowed file type(s) (array) (image|video|text|audio|application)
+    'filetype'      => null,  // no filetype limit
+
+    // include a note within the meta box (string)
+    'note'          => 'Attach pictures here!',
+
+    // by default new Attachments will be appended to the list
+    // but you can have then prepend if you set this to false
+    'append'        => true,
+
+    // text for 'Attach' button in meta box (string)
+    'button_text'   => __( 'Attach Images', 'pictures' ),
+
+    // text for modal 'Attach' button (string)
+    'modal_text'    => __( 'Attach', 'pictures' ),
+
+    // which tab should be the default in the modal (string) (browse|upload)
+    'router'        => 'browse',
+
+    // fields array
+    'fields'        => $fields,
+  );
+
+  $attachments->register( 'my_pictures', $args ); // unique instance name
+}
+add_action( 'attachments_register', 'my_pictures' );
+
+add_filter( 'attachments_default_instance', '__return_false' ); // disable the default instance
+
+
+//*===================================================================================================================================================*//
+//*------------------------------------------------------- </ SCHOOL UI CODE > -----------------------------------------------------------------------*//
+//*===================================================================================================================================================*//
+
+
+
+
+/**
+ * Handle SUBMITTED Meta Box content
+ *
+ * @author	Zlatko
+ * @since	25.08.2014
+ *
+ * @return	void
+ */
+function custom_meta_box_save( $post_id ) {
+	
+	// stop WP from clearing custom fields on autosave
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+		return;
+
+	// verify nonce before continuing
+	if ( !wp_verify_nonce( $_POST['school_info_box_content_nonce'], plugin_basename( __FILE__ ) ) )
+		return;
+
+	// check if user has permissions to edit post & page
+	if ( 'page' == $_POST['post_type'] ) {
+		if ( !current_user_can( 'edit_page', $post_id ) )
+			return;
+	} else {
+		if ( !current_user_can( 'edit_post', $post_id ) )
+			return;
+	}
+
+	
+	//loop through all the meta keys, and update each as necessary
+	foreach (array(
+					'school-street-address',
+					'school-city',
+					'school-province',
+					'school-postal-code',
+					'school-website', 
+					'school-phone-number', 
+					'school-type', 
+					'school-age-group', 
+					'school-class-size', 
+					'school-annual-tuition') as $meta_key)
+	{
+		//current meta value
+		$meta_value = get_post_meta( $post_id, $meta_key, true );
+		//get new meta data
+		$new_meta_value = ( isset( $_POST[$meta_key] ) ? sanitize_text_field( $_POST[$meta_key] ) : '' );
+		
+		//If there is no new meta value but an old value exists, delete it
+		if ( '' == $new_meta_value && isset($meta_value) )
+			delete_post_meta( $post_id, $meta_key, $meta_value );
+		//else, add or update the meta value
+		else
+			update_post_meta( $post_id, $meta_key, $new_meta_value );
+	}
+}
+add_action( 'save_post', 'custom_meta_box_save' );
+
+
+
+/**
+ * Perform Validation of form entry fields
+ *
+ * @author	Zlatko
+ * @since	07.05.2014
+ *
+ * @return	void
+ */
+
+function validate_form($school_id) {
+
+	//reset error message to empty
+	$formError = "";
+
+	//set up email-related variables
+	$email_address = $_POST["email"];
+	$subject = $_POST["subject"];
+	$message = $_POST["message"];
+
+	//validate email address
+	if ( !is_email($email_address) ) {
+		$formError = "Email not valid";
+		return;
+	}
+
+	//check if Subject field is empty
+	if ( empty($subject) ) {
+		$formError = "Subject is required";
+		return;
+	}
+
+	//check if Message field is empty
+	if ( empty($message) ) {
+		$formError = "Message is required";
+		return;
+	}
+	echo "SUCCESS!";
+
+	//echo htmlspecialchars($_SERVER['REQUEST_URI']);
+}
+
+
+/**
+ * Perform Validation of form entry fields, and send email out
+ *
+ * @author	Zlatko
+ * @since	07.05.2014
+ *
+ * @return	void
+ */
+
+function email_school($school_id) {
+	$email_address = $_POST["email"];
+	
+	//send email to school
+	//get_post_meta( $school_id, 'school-street-address', true );
+	//mail("webmaster@example.com", sanitize_text_field($subject), sanitize_text_field($message), "From: $from\n");
+
+	//confirmation message
+
+	return $email_address;
+}
+
+
+?>
