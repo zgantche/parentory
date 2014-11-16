@@ -546,7 +546,7 @@ add_filter( 'attachments_default_instance', '__return_false' ); // disable the d
  * Handle SUBMITTED Meta Box content
  *
  * @author	Zlatko
- * @since	25.08.2014
+ * @since	14.11.2014
  *
  * @return	void
  */
