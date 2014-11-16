@@ -326,7 +326,7 @@ add_action( 'add_meta_boxes', 'custom_meta_boxes' );
  * Defines "Contact Information" META BOX CONTENT
  *
  * @author	Zlatko
- * @since	25.08.2014
+ * @since	14.11.2014
  *
  * @return	void
  *
