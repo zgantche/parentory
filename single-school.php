@@ -107,37 +107,39 @@ get_header(); ?>
 				<!-- image & info -->
 				<div class="row-fluid">
 					<!-- school main image -->
-					<div id="school-picture" class="span3">
-						<?php the_post_thumbnail(); ?>
+					<div id="school-thumbnail-holder" class="span4">
+						<span class="vertical-align-helper"></span>
+						<?php 
+							$default_attr = array(
+								'class' => "school-thumbnail"
+							);
+
+							the_post_thumbnail( "full", $default_attr ); 
+						?>
 					</div>
 
 					<!-- school content -->
-					<div id="school-info" class="span9">
-						<b>Age Group:</b>
-						<?php echo get_post_meta( $school_id, 'school-age-group', true ); ?>
-						<br />
+					<div id="school-info" class="span8">
+						<div class="school-info-criteria"><b>Age Group:</b></div>
+						<div class="school-info-data"><?php echo get_post_meta( $school_id, 'school-age-group', true ); ?></div>
 
-						<b>School Type:</b>
-						<?php echo sanitize_text_field( get_post_meta( $school_id, 'school-type', true ) ); ?>
-						<br />
+						<div class="school-info-criteria"><b>Class Size:</b></div>
+						<div class="school-info-data"><?php echo sanitize_text_field( get_post_meta( $school_id, 'school-class-size', true ) ); ?></div>
 
-						<b>Website:</b>
-						<a href="<?php echo sanitize_text_field( get_post_meta( $school_id, 'school-website', true ) ); ?>" target="_new">
-							<?php echo sanitize_text_field( get_post_meta( $school_id, 'school-website', true ) ); ?>
-						</a>
-						<br />
+						<div class="school-info-criteria"><b>School Type:</b></div>
+						<div class="school-info-data"><?php echo sanitize_text_field( get_post_meta( $school_id, 'school-type', true ) ); ?></div>
 
-						<b>Annual Tuition:</b>
-						<?php echo sanitize_text_field( get_post_meta( $school_id, 'school-annual-tuition', true ) ); ?>
-						<br />
+						<div class="school-info-criteria"><b>Annual Tuition:</b></div>
+						<div class="school-info-data"><?php echo sanitize_text_field( get_post_meta( $school_id, 'school-annual-tuition', true ) ); ?></div>
 
-						<b>Class Size:</b>
-						<?php echo sanitize_text_field( get_post_meta( $school_id, 'school-class-size', true ) ); ?>
-						<br />
+						<div class="school-info-criteria"><b>Phone Number:</b></div>
+						<div class="school-info-data"><?php echo sanitize_text_field( get_post_meta( $school_id, 'school-phone-number', true ) ); ?></div>
 
-						<b>Phone Number:</b>
-						<?php echo sanitize_text_field( get_post_meta( $school_id, 'school-phone-number', true ) ); ?>
-						<br />
+						<div class="school-info-criteria"><b>Website:</b></div>
+						<div class="school-info-data"><a href="<?php echo sanitize_text_field( get_post_meta( $school_id, 'school-website', true ) ); ?>" target="_new">
+								<?php echo sanitize_text_field( get_post_meta( $school_id, 'school-website', true ) ); ?>
+							</a>
+						</div>
 					</div>
 				</div>
 				
@@ -236,7 +238,7 @@ get_header(); ?>
 
 					<input type="submit" name="submit" class="submitButton" value="Submit"> 
 				</form>
-
+				
 				<div class="fb-like-box" data-href="https://www.facebook.com/ElmwoodSchool" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="true"></div>
 			</div>
 		</div>

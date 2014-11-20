@@ -108,6 +108,7 @@ body > .container {
 	color: #FFF;
 }
 
+
 /* collapsable menu */
 .nav-collapse .nav>li>a:hover {
 	background-color: #222;
@@ -294,7 +295,7 @@ h2 {
 -------------------------------------------------------------- */
 
 #school-title {
-	font-family: "Arial Narrow", Arial, sans-serif;
+	font-family: "Arial", Arial, sans-serif;
 	font-size: 20px;
 	font-weight: bold;
 
@@ -304,13 +305,50 @@ h2 {
 }
 
 #school-address {
-	font-family: "Arial Narrow", Arial, sans-serif;
+	font-family: "Arial", Arial, sans-serif;
 	font-size: 17px;
 	font-weight: normal;
 
 	text-align: center;
-
 	padding: 0px 0px 20px 0px;
+}
+
+#school-thumbnail-holder {
+	white-space: nowrap;
+    text-align: center; margin: 1em 0;
+}
+
+.school-thumbnail {
+	width: 80%;
+	height: 80%;
+
+	max-width: 200px;
+	max-height: 200px;
+}
+
+.vertical-align-helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+#school-info {
+	margin-left: 0;
+	margin-top: 20px;
+}
+
+div.school-info-criteria {
+	width: 49%;
+	float: left;
+	padding-top: 5px;
+	text-align: right;
+}
+
+div.school-info-data {
+	width: 50%;
+	float: right;
+	padding-top: 5px;
+	text-align: left;
 }
 
 #school-description {
@@ -387,6 +425,7 @@ ul.tabs li.current{
 #form-title {
 	color: #EEE;
 	font-size: 15px;
+	font-family: "Arial", Arial, sans-serif;
 
 	padding: 5px 0px 5px 40px;
 
@@ -415,6 +454,7 @@ ul.tabs li.current{
 	border-radius: 0px 0px 10px 10px;
 
 	padding: 20px 0px;
+	margin-bottom: 50px;
 
 	/* Safari 4-5, Chrome 1-9 */
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F4F4F4), to(#FFFFFF));
