@@ -68,17 +68,14 @@ body > .container {
 .header {
 	padding: 0 20px;
 }
-
 #branding {
 	margin-left: 0px;
 }
-
 .leaderboard-ad {
 	float:right;
 	padding: 0 20px;
 	margin: 0;
 }
-
 .navbar-inner{
 	background-color: #905E5E;
 	background: url(http://test.parentory.ca/wp-content/uploads/2014/05/menu-background.png);
@@ -87,7 +84,6 @@ body > .container {
 	border-radius: 0px;
 	box-shadow: 0px 4px 5px #111;
 }
-
 .navbar {
 	margin-bottom: 0px;
 
@@ -95,7 +91,9 @@ body > .container {
 	z-index: 1;
 }
 
-.navbar .nav>li>a {
+
+/* regular & collapsable NON-ACTIVE menu link */
+.navbar .nav>li>a:link {
 	font-family: "Arial Narrow", Arial, sans-serif;
 	font-size: 15px;
 	font-weight: bold;
@@ -106,11 +104,6 @@ body > .container {
 }
 .navbar .nav>li>a:hover {
 	color: #FFF;
-}
-
-
-/* collapsable menu */
-.nav-collapse .nav>li>a:hover {
 	background-color: #222;
 }
 .navbar .btn-navbar {
@@ -120,17 +113,14 @@ body > .container {
 .navbar .btn-navbar:hover {
 	background: #777;
 }
-.navbar .btn-navbar .icon-bar{
 
-}
-
-
+/* regular & collapsable ACTIVE menu link */
 .navbar .nav>.active>a, .navbar .nav>.active>a:hover, .navbar .nav>.active>a:focus {
 	background-color: #111;
 	color: #FFF;
 }
 
-
+/* menu search bar */
 #simpleSearch {
 	border-radius: 0px;
 	background: url(http://test.parentory.ca/wp-content/uploads/2014/05/menu-search-background.png);
@@ -139,7 +129,6 @@ body > .container {
 	padding: 0px 0px;
 	margin: 2px 0px;
 }
-
 .navbar-search .search-field {
 	color: #CDCDCD;
 	font-weight: normal;
@@ -151,7 +140,6 @@ body > .container {
 	margin: 2px 2px;
 	padding: 0px 0px;
 }
-
 .searchButton {
 	background-color: #555;
 	background-image: linear-gradient(transparent,transparent),url(http://test.parentory.ca/wp-content/uploads/2014/07/search.png);
