@@ -111,7 +111,8 @@ get_header(); ?>
 						<span class="vertical-align-helper"></span>
 						<?php 
 							$default_attr = array(
-								'class' => "school-thumbnail"
+								'class' => "school-thumbnail",
+								'maxheight' => "160"
 							);
 
 							the_post_thumbnail( "full", $default_attr ); 
@@ -198,7 +199,8 @@ get_header(); ?>
 						</div>
 						<div id="tab-3" class="tab-content">
 
-							COMMENTS GO HERE!
+							<?php comments_template(); ?>
+
 
 						</div>
 

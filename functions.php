@@ -249,8 +249,8 @@ function my_remove_meta_boxes() {
   remove_meta_box( 'postexcerpt', 'school', 'normal' );
 
   //Remove Comments Metabox
-  remove_meta_box('commentsdiv', 'school', 'normal');
-  remove_meta_box( 'commentstatusdiv', 'school', 'normal' );
+  //remove_meta_box('commentsdiv', 'school', 'normal');
+  //remove_meta_box( 'commentstatusdiv', 'school', 'normal' );
 
   //Remove Account Type Metabox if user is not Admin -- NOT TESTED!!!
   if ( !current_user_can( 'manage_options' ) ) {
