@@ -266,7 +266,7 @@ function my_remove_meta_boxes() {
 
 
 /**
- * Defines all custom META BOXES within each School post
+ * Defines all custom school META BOXES within each School post
  *
  * Meta Boxes so far:
  * 		- Contact Info
@@ -274,11 +274,11 @@ function my_remove_meta_boxes() {
  * 		- Acount Type
  *
  * @author	Zlatko
- * @since	25.08.2014
+ * @since	26.11.2014
  *
  * @return	void
  */
-function custom_meta_boxes() {
+function school_meta_boxes() {
 	//remove unnecessary metaboxes
 	my_remove_meta_boxes();
 
@@ -303,7 +303,7 @@ function custom_meta_boxes() {
 	add_meta_box(
     	'arts',
     	__( 'Arts'),
-        'arts_tax_box_content',
+        'arts_taxonomy_box_content',
         'school',
         'side',
         'low'
@@ -312,14 +312,14 @@ function custom_meta_boxes() {
 	add_meta_box(
     	'languages',
     	__( 'Languages and Social Sciences'),
-        'languages_tax_box_content',
+        'languages_taxonomy_box_content',
         'school',
         'side',
         'low'
 	);
 
 }
-add_action( 'add_meta_boxes', 'custom_meta_boxes' );
+add_action( 'add_meta_boxes', 'school_meta_boxes' );
 
 
 /**
@@ -420,57 +420,75 @@ function school_info_box_content( $post ) {
  * Defines Arts Taxonomy META BOX CONTENT
  *
  * @author	Zlatko
- * @since	04.10.2014
+ * @since	25.11.2014
  *
  * @return	void
  *
  */
-function arts_tax_box_content( $post ) {
+function arts_taxonomy_box_content( $post ) {
 	// insert hidden nonce form field
-	wp_nonce_field( plugin_basename( __FILE__ ), 'arts_tax_box_content_nonce' );
+	wp_nonce_field( plugin_basename( __FILE__ ), 'arts_taxonomy_box_content_nonce' );
 
-
+	//doublecheck taxonomy exists
     if ( taxonomy_exists('arts') ) {
-	    // get all taxonomy terms
-	    $arts = get_terms('arts', array( 'hide_empty' => false ));
+	    // store taxonomy terms in array
+	    $taxonomy_terms = get_terms('arts', array( 'hide_empty' => false ));
 
-	    foreach($arts as $art){
-	    	echo "<input type='checkbox' id='" . $art->slug . "' value='" . $art->slug . "'>";
-	    	echo "<label for='" . $art->slug . "'>" . $art->name . "</label><br />";
-	    }
+	    // call custom funciton to render taxonomy terms within meta box
+	    render_taxonomy_terms($post, 'arts', $taxonomy_terms);
 	}
     else
     	echo "Arts taxonomy doesn't exist!";
-
 }
-
 /**
  * Defines Languages and Social Sciences Taxonomy META BOX CONTENT
  *
  * @author	Zlatko
- * @since	04.10.2014
+ * @since	25.11.2014
  *
  * @return	void
  *
  */
-function languages_tax_box_content( $post ) {
+function languages_taxonomy_box_content( $post ) {
 	// insert hidden nonce form field
-	wp_nonce_field( plugin_basename( __FILE__ ), 'languages_tax_box_content_nonce' );
+	wp_nonce_field( plugin_basename( __FILE__ ), 'languages_taxonomy_box_content_nonce' );
 
-
+	//doublecheck taxonomy exists
     if ( taxonomy_exists('languages') ){
-	    // get all taxonomy terms
-	    $languages = get_terms('languages', array( 'hide_empty' => false ));
+	    // store taxonomy terms in array
+	    $taxonomy_terms = get_terms('languages', array( 'hide_empty' => false ));
 
-	    foreach($languages as $language){
-			echo "<input type='checkbox' id='" . $language->slug . "' value='" . $language->slug . "'>";
-			echo "<label for='" . $language->slug . "'>" . $language->name . "</label><br />";
-	    }
+	    // call custom funciton to render taxonomy terms within meta box
+	    render_taxonomy_terms($post, 'languages', $taxonomy_terms);
     }
     else
-		echo "Languages taxonomy doesn't exist!";
-
+		echo "Languages taxonomy doesn't exist!"; //error message
 }
+/**
+ * Renders Taxonomies' META BOX CONTENT
+ *
+ * @author	Zlatko
+ * @since	25.11.2014
+ *
+ * @return	void
+ *
+ */
+function render_taxonomy_terms( $post, $taxonomy, $taxonomy_terms ) {
+
+	//loop through all terms within the taxonomy
+	foreach($taxonomy_terms as $current_term){
+		echo "<input type='checkbox' id='" . $current_term->slug . "' name='" . $current_term->slug;
+
+		//check if the school has the current term
+		if (has_term($current_term->name, $taxonomy))
+			echo "' checked>";
+		else
+			echo "'>";
+
+		echo "<label for='" . $current_term->slug . "'>" . $current_term->name . "</label><br />";
+	}
+}
+
 
 /**
  * Defines custom instance for Attachments plugin, as per template
@@ -546,7 +564,7 @@ add_filter( 'attachments_default_instance', '__return_false' ); // disable the d
  * Handle SUBMITTED Meta Box content
  *
  * @author	Zlatko
- * @since	14.11.2014
+ * @since	26.11.2014
  *
  * @return	void
  */
@@ -570,7 +588,24 @@ function custom_meta_box_save( $post_id ) {
 	}
 
 	
-	//loop through all the meta keys, and update each as necessary
+	//update school taxonomies
+	foreach (get_taxonomies(array('public' => true, '_builtin' => false)) as $current_taxonomy) {
+
+		//create empty taxonomy terms array
+		$school_taxonomy_terms = array();
+
+		//check if current taxonomy term's checkbox is checked
+		foreach ( get_terms($current_taxonomy, array('hide_empty' => false)) as $current_term ) {
+			if ( isset( $_POST[$current_term->slug] ) )
+				array_push($school_taxonomy_terms, $current_term->name);
+		}
+
+		//call custom post terms function
+		wp_set_object_terms( $post_id, $school_taxonomy_terms, $current_taxonomy, false );
+	}
+
+	
+	//update school meta keys, if necessary
 	foreach (array(
 					'school-street-address',
 					'school-city',
