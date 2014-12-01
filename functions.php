@@ -634,7 +634,6 @@ function custom_meta_box_save( $post_id ) {
 add_action( 'save_post', 'custom_meta_box_save' );
 
 
-
 /**
  * Perform Validation of form entry fields
  *
@@ -643,7 +642,6 @@ add_action( 'save_post', 'custom_meta_box_save' );
  *
  * @return	void
  */
-
 function validate_form($school_id) {
 
 	//reset error message to empty
@@ -685,7 +683,6 @@ function validate_form($school_id) {
  *
  * @return	void
  */
-
 function email_school($school_id) {
 	$email_address = $_POST["email"];
 	
@@ -697,6 +694,94 @@ function email_school($school_id) {
 
 	return $email_address;
 }
+
+
+//*===================================================== < CUSTOM SEARCH QUERY > =====================================================================*//
+
+/**
+ * Join Taxonomy tables (wp_terms, wp_term_taxonomy, wp_term_relationships) to SQL Query
+ *
+ * @author	thom
+ * @since	11.21.2012
+ *
+ * @return	void
+ */
+function tax_search_join( $join )
+{
+	global $wpdb;
+
+	if( is_search() )
+	{
+	$join .= "
+			INNER JOIN
+			  {$wpdb->term_relationships} ON {$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id
+			INNER JOIN
+			  {$wpdb->term_taxonomy} ON {$wpdb->term_taxonomy}.term_taxonomy_id = {$wpdb->term_relationships}.term_taxonomy_id
+			INNER JOIN
+			  {$wpdb->terms} ON {$wpdb->terms}.term_id = {$wpdb->term_taxonomy}.term_id
+		";
+	}
+	return $join;
+}
+add_filter('posts_join', 'tax_search_join');
+
+
+/**
+ * Include each word from search (using URL ex. "?s=french+german") in SQL Query
+ *
+ * @author	Zlatko
+ * @since	12.01.2014
+ *
+ * @return	void
+ */
+function tax_search_where( $where )
+{
+	global $wpdb;
+	if( is_search() ) {
+		// add search terms to the query
+		$where .= " OR (";
+
+		// sanitize search query & devide into separate words
+		$query_word = strtok(esc_sql(get_query_var('s')), ' ');
+
+		// append each seach query word onto SQL Query
+		while ($query_word !== false){
+			$where .= "{$wpdb->terms}.name LIKE " . "'%" . $query_word . "%'";
+			$query_word = strtok(' ');
+
+			if ($query_word !== false)
+				$where .= " OR ";
+		}
+
+		$where .= ")";
+	}
+	return $where;
+}
+add_filter('posts_where', 'tax_search_where');
+
+
+/**
+ * Group results by ID, to avoid duplicate results because of Tables' Join
+ *
+ * @author	thom
+ * @since	11.21.2012
+ *
+ * @return	void
+ */
+function tax_search_groupby( $groupby )
+{
+	global $wpdb;
+
+	if( is_search() ) {
+		$groupby = "{$wpdb->posts}.ID";
+	}
+
+	return $groupby;
+}
+add_filter('posts_groupby', 'tax_search_groupby');
+
+//*==================================================== </ CUSTOM SEARCH QUERY > =====================================================================*//
+
 
 
 ?>
