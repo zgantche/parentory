@@ -714,6 +714,8 @@ function tax_search_join( $join )
 	{
 	$join .= "
 			INNER JOIN
+			  {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id
+			INNER JOIN
 			  {$wpdb->term_relationships} ON {$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id
 			INNER JOIN
 			  {$wpdb->term_taxonomy} ON {$wpdb->term_taxonomy}.term_taxonomy_id = {$wpdb->term_relationships}.term_taxonomy_id
@@ -730,7 +732,7 @@ add_filter('posts_join', 'tax_search_join');
  * Include each word from search (using URL ex. "?s=french+german") in SQL Query
  *
  * @author	Zlatko
- * @since	12.01.2014
+ * @since	12.03.2014
  *
  * @return	void
  */
@@ -741,12 +743,26 @@ function tax_search_where( $where )
 		// add search terms to the query
 		$where .= " OR (";
 
-		// sanitize search query & devide into separate words
+		// sanitize search query & divide into separate words
 		$query_word = strtok(esc_sql(get_query_var('s')), ' ');
 
-		// append each seach query word onto SQL Query
+		// append each seach query word onto SQL Query, search for matching taxonomy terms
 		while ($query_word !== false){
 			$where .= "{$wpdb->terms}.name LIKE " . "'%" . $query_word . "%'";
+			$query_word = strtok(' ');
+
+			if ($query_word !== false)
+				$where .= " OR ";
+		}
+
+		$where .= ") OR (";
+
+		// sanitize search query & divide into separate words, one more time
+		$query_word = strtok(esc_sql(get_query_var('s')), ' ');
+
+		// append each seach query word onto SQL Query again, search for matching addresses
+		while ($query_word !== false){
+			$where .= "{$wpdb->postmeta}.meta_value LIKE " . "'%" . $query_word . "%'";
 			$query_word = strtok(' ');
 
 			if ($query_word !== false)
