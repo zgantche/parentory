@@ -21,9 +21,17 @@ get_header(); ?>
 </div>
 
 <div id="feature-images" class="row-fluid">
-	<img src="http://test.parentory.ca/wp-content/uploads/2014/06/mini_image1.png" class="feature-images-item span4">
-	<img src="http://test.parentory.ca/wp-content/uploads/2014/06/mini_image2.png" class="feature-images-item span4">
-	<img src="http://test.parentory.ca/wp-content/uploads/2014/06/mini_image3.png" class="feature-images-item span4">
+	<div class="span4">
+		<img src="http://test.parentory.ca/wp-content/uploads/2014/06/mini_image1.png" class="feature-images-item">
+	</div>
+	<div class="span4">
+		<a href="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . 'advanced-search/' ?>">
+			<img src="http://test.parentory.ca/wp-content/uploads/2014/06/mini_image2.png" class="feature-images-item">
+		</a>
+	</div>
+	<div class="span4">
+		<img src="http://test.parentory.ca/wp-content/uploads/2014/06/mini_image3.png" class="feature-images-item">
+	</div>
 </div>
 
 
