@@ -64,6 +64,34 @@ body > .container {
 /* =Header
 -------------------------------------------------------------- */
 
+#before-header {
+	background: #F1F1F1;
+	border-bottom: 1px solid #E1E1E1;
+	width: 100%;
+	padding: 2px 15px 2px 15px;
+	margin: 0px 0px 20px 0px;
+	text-align: right;
+
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+#before-header-icons {
+	display: inline;
+	width: 500px;
+}
+#before-header-icons>a:link>.fa-twitter-square {
+	color: #2DABDE;
+}
+#before-header-icons>a:link>.fa-facebook-square {
+	color: #3C5B9B;
+}
+#before-header-icons>a:link>.fa-linkedin-square {
+	color: #0073B2;
+}
+#before-header-icons>a:link>.fa-google-plus-square {
+	color: #F43E28;
+}
 
 .header {
 	padding: 0 20px;
@@ -185,7 +213,7 @@ body > .container {
 #page {
 	background-color: #FFFFFF;
 	margin-right: -20px;
-	padding: 14px 0 0;
+	padding: 0 0 0 0;
 	border-color: #AAA;
     box-shadow: 0 0 10px #AAA;
 }

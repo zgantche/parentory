@@ -22,7 +22,7 @@ get_header(); ?>
 		<div id="school-listings-filter" class="container-fluid">
 			<div class="row-fluid">
 				<div class="span12">
-					<h2>Filter schools</h2>
+					<h2>Find a Location Near You</h2>
 					Enter preferred location to search through schools:
 				</div>
 			</div>
