@@ -372,7 +372,7 @@ ul.tabs li.current{
 	border-bottom: none;
 	-moz-border-radius: 0px;
 	-webkit-border-radius: 3px 3px 0px 0px;
-	border-radius: 3px 3px 0px 0px; 
+	border-radius: 3px 3px 0px 0px;
 
 	color: #333;
 	font-weight: bold;
@@ -392,6 +392,26 @@ ul.tabs li.current{
 
 /* =School Posts - Archive
 -------------------------------------------------------------- */
+
+#archive-filter-button-field {
+	text-align: center;
+	padding-top: 20px;
+}
+
+#archive-filter-bottom {
+	text-align: right;
+}
+
+#school-listings-filter .submitButton {
+	padding: 5px 25px;
+}
+
+#school-listings-filter {
+	background-color: #EEE;
+	border: 1px solid #CCC;
+
+	margin: 20px 0px;
+}
 
 #school-title-archive {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
