@@ -27,11 +27,6 @@ get_header(); ?>
 get_footer();
 
 
-
-
-
-/* End of file index.php */
-
-/* Location: ./wp-content/themes/the-bootstrap/index.php */
+/* Location: ./wp-content/themes/the-bootstrap/advanced-search.php */
 
 ?>
