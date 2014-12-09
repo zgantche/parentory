@@ -934,7 +934,7 @@ div.mc-field-group input {
 		margin: 30px 0 30px 30px;
 	}
 	.dl-horizontal dt {
-		width: 85px;`
+		width: 85px;
 	}
 	.dl-horizontal dd {
 		margin-left: 95px;
@@ -943,7 +943,7 @@ div.mc-field-group input {
 @media (min-width: 1200px) {
 	#page {
 		margin-right: -30px;
-		padding: 24px 0 0px;
+		padding: 0px 0px 0px 0px;
 	}
 	.sidebar-content #primary,
 	.sidebar-content #attachment-comment {

@@ -164,31 +164,49 @@ function my_custom_post_school() {
  * Register Custom Taxonomies
  *
  * @author	Zlatko
- * @since	23.09.2014
+ * @since	08.12.2014
  *
  * @return	void
  *
  */
 function school_taxonomies_init() {
-	// create a new taxonomy
-	register_taxonomy(
+	// define arrays containing custom taxonomies
+	$taxonomies = array(
 		'arts',
-		'school',
-		array(
-			'label' => __( 'Arts' ),
-			'rewrite' => array( 'slug' => 'arts' ),
-			'show_ui' => false
-		)
-	);
-	register_taxonomy(
-		'languages',
-		'school',
-		array(
-			'label' => __( 'Languages' ),
-			'rewrite' => array( 'slug' => 'languages_and_social_sciences' ),
-			'show_ui' => false
-		)
-	);
+		'language-and-social-sciences',
+		'science-and-technology' );
+		/*'academic-features',
+		'athletics',
+		'clubs',
+		'school-assisstance',
+		'special-support',
+		'religious-focus'
+	);*/
+	$taxonomies_names = array (
+		'Arts',
+		'Language And Social Sciences',
+		'Science And Technology' );
+		/*'Academic Features',
+		'Athletics',
+		'Clubs',
+		'School Assisstance',
+		'Special Support',
+		'Religious Focus'
+	);*/
+	
+	//define all taxonomies
+	foreach (array_combine($taxonomies, $taxonomies_names) as $taxonomy => $taxonomy_name) {
+		register_taxonomy(
+			$taxonomy,
+			'school',
+			array(
+				'label' => __( $taxonomy_name ),
+				'rewrite' => array( 'slug' => $taxonomy ),
+				'show_ui' => false
+			)
+		);	
+	}
+
 }
 
 
@@ -202,17 +220,29 @@ function school_insert_taxonomy_terms() {
 	wp_insert_term('Vocal', 'arts');
 	wp_insert_term('Test', 'arts');
 
-	// Languages
-	wp_insert_term('Italian', 'languages');
-	wp_insert_term('ESL', 'languages');
-	wp_insert_term('Politics', 'languages');
-	wp_insert_term('Cantonese', 'languages');
-	wp_insert_term('Spanish', 'languages');
-	wp_insert_term('Religion', 'languages');
-	wp_insert_term('French', 'languages');
-	wp_insert_term('Geography', 'languages');
-	wp_insert_term('German', 'languages');
-	wp_insert_term('History', 'languages');
+	// Languages and Social Sciences
+	wp_insert_term('Italian', 'language-and-social-sciences');
+	wp_insert_term('ESL', 'language-and-social-sciences');
+	wp_insert_term('Politics', 'language-and-social-sciences');
+	wp_insert_term('Cantonese', 'language-and-social-sciences');
+	wp_insert_term('Spanish', 'language-and-social-sciences');
+	wp_insert_term('Religion', 'language-and-social-sciences');
+	wp_insert_term('French', 'language-and-social-sciences');
+	wp_insert_term('Geography', 'language-and-social-sciences');
+	wp_insert_term('German', 'language-and-social-sciences');
+	wp_insert_term('History', 'language-and-social-sciences');
+
+	// Science and Technoloty
+	wp_insert_term('Anatomy', 'science-and-technology');
+	wp_insert_term('Biology', 'science-and-technology');
+	wp_insert_term('Chemistry', 'science-and-technology');
+	wp_insert_term('Ecology', 'science-and-technology');
+	wp_insert_term('Physics', 'science-and-technology');
+	wp_insert_term('Physiology', 'science-and-technology');
+	wp_insert_term('Psychology', 'science-and-technology');
+	wp_insert_term('Computer Science', 'science-and-technology');
+	wp_insert_term('Robotics', 'science-and-technology');
+	wp_insert_term('Web & App Design', 'science-and-technology');
 }
 
 /**
@@ -300,6 +330,7 @@ function school_meta_boxes() {
         'low'
     );
 
+    /*------------------ Taxonomy Meta Boxes ------------------*/
 	add_meta_box(
     	'arts',
     	__( 'Arts'),
@@ -308,16 +339,24 @@ function school_meta_boxes() {
         'side',
         'low'
 	);
-
 	add_meta_box(
-    	'languages',
+    	'language-and-social-sciences',
     	__( 'Languages and Social Sciences'),
         'languages_taxonomy_box_content',
         'school',
         'side',
         'low'
 	);
+	add_meta_box(
+    	'science-and-technology',
+    	__( 'Science and Technology'),
+        'science_and_technology_box_content',
+        'school',
+        'side',
+        'low'
+	);
 
+	/*-----------------------------------------------------------*/
 }
 add_action( 'add_meta_boxes', 'school_meta_boxes' );
 
@@ -417,10 +456,10 @@ function school_info_box_content( $post ) {
 }
 
 /**
- * Defines Arts Taxonomy META BOX CONTENT
+ * The 8 Functions below define all custom Taxonomies' META BOX CONTENT
  *
  * @author	Zlatko
- * @since	25.11.2014
+ * @since	09.12.2014
  *
  * @return	void
  *
@@ -428,65 +467,47 @@ function school_info_box_content( $post ) {
 function arts_taxonomy_box_content( $post ) {
 	// insert hidden nonce form field
 	wp_nonce_field( plugin_basename( __FILE__ ), 'arts_taxonomy_box_content_nonce' );
-
-	//doublecheck taxonomy exists
-    if ( taxonomy_exists('arts') ) {
-	    // store taxonomy terms in array
-	    $taxonomy_terms = get_terms('arts', array( 'hide_empty' => false ));
-
-	    // call custom funciton to render taxonomy terms within meta box
-	    render_taxonomy_terms($post, 'arts', $taxonomy_terms);
-	}
-    else
-    	echo "Arts taxonomy doesn't exist!";
+	render_taxonomy_terms( $post, "arts", "Arts taxonomy doesn't exist!");
 }
-/**
- * Defines Languages and Social Sciences Taxonomy META BOX CONTENT
- *
- * @author	Zlatko
- * @since	25.11.2014
- *
- * @return	void
- *
- */
 function languages_taxonomy_box_content( $post ) {
 	// insert hidden nonce form field
 	wp_nonce_field( plugin_basename( __FILE__ ), 'languages_taxonomy_box_content_nonce' );
-
-	//doublecheck taxonomy exists
-    if ( taxonomy_exists('languages') ){
-	    // store taxonomy terms in array
-	    $taxonomy_terms = get_terms('languages', array( 'hide_empty' => false ));
-
-	    // call custom funciton to render taxonomy terms within meta box
-	    render_taxonomy_terms($post, 'languages', $taxonomy_terms);
-    }
-    else
-		echo "Languages taxonomy doesn't exist!"; //error message
+	render_taxonomy_terms( $post, "language-and-social-sciences", "Languages taxonomy doesn't exist!");
+}
+function science_and_technology_box_content( $post ) {
+	// insert hidden nonce form field
+	wp_nonce_field( plugin_basename( __FILE__ ), 'science_and_technology_box_content_nonce' );
+	render_taxonomy_terms( $post, "science-and-technology", "Science and Technology taxonomy doesn't exist!");
 }
 /**
  * Renders Taxonomies' META BOX CONTENT
  *
  * @author	Zlatko
- * @since	25.11.2014
+ * @since	09.12.2014
  *
  * @return	void
  *
  */
-function render_taxonomy_terms( $post, $taxonomy, $taxonomy_terms ) {
+function render_taxonomy_terms( $post, $taxonomy, $error_msg ){
+    if ( taxonomy_exists($taxonomy) ){
+	    // store taxonomy terms in array
+	    $taxonomy_terms = get_terms($taxonomy, array( 'hide_empty' => false ));
 
-	//loop through all terms within the taxonomy
-	foreach($taxonomy_terms as $current_term){
-		echo "<input type='checkbox' id='" . $current_term->slug . "' name='" . $current_term->slug;
+		//render taxonomy terms within meta box
+		foreach($taxonomy_terms as $current_term){
+			echo "<input type='checkbox' id='" . $current_term->slug . "' name='" . $current_term->slug;
 
-		//check if the school has the current term
-		if (has_term($current_term->name, $taxonomy))
-			echo "' checked>";
-		else
-			echo "'>";
+			//check if the school has the current term
+			if (has_term($current_term->name, $taxonomy))
+				echo "' checked>";
+			else
+				echo "'>";
 
-		echo "<label for='" . $current_term->slug . "'>" . $current_term->name . "</label><br />";
-	}
+			echo "<label for='" . $current_term->slug . "'>" . $current_term->name . "</label><br />";
+		}
+    }
+    else
+		echo "Languages taxonomy doesn't exist!"; //error message
 }
 
 
@@ -588,7 +609,7 @@ function custom_meta_box_save( $post_id ) {
 	}
 
 	
-	//update school taxonomies
+	//----------- update school taxonomies -----------//
 	foreach (get_taxonomies(array('public' => true, '_builtin' => false)) as $current_taxonomy) {
 
 		//create empty taxonomy terms array
@@ -605,7 +626,7 @@ function custom_meta_box_save( $post_id ) {
 	}
 
 	
-	//update school meta keys, if necessary
+	//----------- update school meta keys, if necessary -----------//
 	foreach (array(
 					'school-street-address',
 					'school-city',
