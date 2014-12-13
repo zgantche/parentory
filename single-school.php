@@ -17,6 +17,7 @@ get_header(); ?>
 
 	<script type="text/javascript">
 	jQuery(document).ready(function($) {
+		/*----- jQuery Validation Code -----*/
 		$("#contactForm").validate({
 			rules: {
 				email: {
@@ -43,10 +44,8 @@ get_header(); ?>
 				}
 			}
 		});
-	});
 
-	// TABS CODE
-	$(document).ready(function(){
+		/*----- Interactive Tabs Code -----*/
 		$('ul.tabs li').click(function(){
 			var tab_id = $(this).attr('data-tab');
 
@@ -55,8 +54,7 @@ get_header(); ?>
 
 			$(this).addClass('current');
 			$("#"+tab_id).addClass('current');
-		})
-
+		});
 	});
 	</script>
 
