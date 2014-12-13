@@ -267,6 +267,46 @@ article.page {
 
 /* =Blog Posts
 -------------------------------------------------------------- */
+#advanced-search-general {
+	margin: 20px;
+}
+
+#search-options-field {
+	margin: 20px 0px;
+	padding-top: 10px;
+}
+
+.search-collapsable-heading {
+	background-color: #EEE;
+	padding-left: 20px;
+	margin: 10px 0;
+
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 7px 7px 7px 7px;
+	border-radius: 7px 7px 7px 7px;
+
+	cursor: pointer;
+}
+
+.input-label {
+	text-align: right;
+}
+
+label {
+	display: inline-block;
+}
+
+input[type=checkbox] {
+	margin: 0 5px 0 0;
+}
+
+#focused-search-button-field {
+	text-align: center;
+	padding-bottom: 30px;
+}
+
+/* =Blog Posts
+-------------------------------------------------------------- */
 
 h2 {
 	font-family: "Arial Narrow", Arial, sans-serif;
