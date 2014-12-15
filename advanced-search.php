@@ -34,25 +34,20 @@ get_header(); ?>
 	</script>
 
 	<section id="primary" class="span12">
-		<div id="content" role="main" class="container-fluid">
+		<div id="content" role="main" class="container-fluid advanced-search">
 			<div id="advanced-search-general" class="container-fluid search-options-field">
 				<div class="row-fluid">
-					<div class="span12" style="margin-bottom:10px;" >
-						<h4>General Information</h4>
+					<div id="search-header" class="span12">
+						<h4>Search Criteria</h4>
 					</div>
 				</div>
 				<div class="row-fluid">
-					<div class="span2 input-label">
-						Address:
-					</div>
-					<div class="span3">
-						<input type="text">
-					</div>
-					<div class="span3 input-label">
+					<div class="span2 search-input-label">
 						State/Province:
 					</div>
-					<div class="span4">
-						<select>
+					<div class="span3 search-input">
+						<select class="advanced-search-text">
+							<option value="all">All</option>
 							<option value="AB">Alberta</option>
 							<option value="BC">British Columbia</option>
 							<option value="MB">Manitoba</option>
@@ -68,13 +63,19 @@ get_header(); ?>
 							<option value="YT">Yukon</option>
 						</select>
 					</div>
+					<div class="span3 search-input-label">
+						Address:
+					</div>
+					<div class="span4 search-input">
+						<input type="text">
+					</div>
 				</div>
 				<div class="row-fluid">
-					<div class="span2 input-label">
+					<div class="span2 search-input-label">
 						Age:
 					</div>
-					<div class="span3">
-						<select>
+					<div class="span3 search-input">
+						<select class="advanced-search-text">
 							<option value="all">All</option>
 							<option value="5">0-5</option>
 							<option value="10">5-10</option>
@@ -82,10 +83,10 @@ get_header(); ?>
 							<option value="15plus">15+</option>
 						</select>
 					</div>
-					<div class="span3 input-label">
+					<div class="span3 search-input-label">
 						Annual Tuition Cost:
 					</div>
-					<div class="span4">
+					<div class="span4 search-input">
 						<select>
 							<option value="all">All</option>
 							<option value="5000">$0-$5,000</option>
@@ -128,13 +129,13 @@ get_header(); ?>
 				</div>
 			</div>
 			<div id="advanced-search-heading" class="row-fluid search-collapsable-heading">
-				<div class="span12">
+				<div class="span12 search-heading-text">
 					<h4>Advanced Search</h4>
 				</div>
 			</div>
 			<div id="advanced-search-options" class="container-fluid search-options-field">
 				<div class="row-fluid">
-					<div class="span2 input-label">
+					<div class="span2 search-input-label">
 						Class Size:
 					</div>
 					<div class="span10">
@@ -166,27 +167,47 @@ get_header(); ?>
 						<input id="religious-private" type="checkbox"><label for="religious-private">Religious Private School</label>
 					</div>
 				</div>
+				<div class="row-fluid">
+					<div class="span12">
+						<b>Additional Criteria:</b>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span3">
+						<input id="all-boys" type="checkbox"><label for="all-boys">All Boys</label>
+					</div>
+					<div class="span3">
+						<input id="all-girls" type="checkbox"><label for="all-girls">All Girls</label>
+					</div>
+					<div class="span3">
+						<input id="boarding" type="checkbox"><label for="boarding">Boarding</label>
+					</div>
+					<div class="span3">
+						<input id="co-ed" type="checkbox"><label for="co-ed">Co-ed</label>
+					</div>
+				</div>
 			</div>
 			<div id="focused-search-heading" class="row-fluid search-collapsable-heading">
-				<div class="span12">
+				<div class="span12 search-heading-text">
 					<h4>Focused Search</h4>
 				</div>
 			</div>
 			<div id="focused-search-options" class="container-fluid search-options-field">
-				<div class="row-fluid">
-					<div class="span2 input-label">
-						Class Size:
-					</div>
-					<div class="span10">
-						<select>
-							<option value="all">All</option>
-							<option value="10">1-10</option>
-							<option value="15">11-15</option>
-							<option value="20">16-20</option>
-							<option value="20plus">20+</option>
-						</select>
-					</div>
-				</div>
+				<?php
+					// target only custom taxonomies
+					$args = array('public'   => true, '_builtin' => false);
+					$operator = 'and';
+
+					// return objects
+					$output = 'objects';
+
+					$taxonomies = get_taxonomies( $args, $output, $operator ); 
+
+					foreach ( $taxonomies as $taxonomy ) {
+						echo "<div class='row-fluid'><div class='span12'><b>" . $taxonomy->label . ":</b></div></div>";
+					}
+
+				?>
 				<div class="row-fluid">
 					<div class="span12">
 						<b>Additional Services:</b>
