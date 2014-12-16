@@ -232,7 +232,7 @@ function school_insert_taxonomy_terms() {
 	wp_insert_term('German', 'language-and-social-sciences');
 	wp_insert_term('History', 'language-and-social-sciences');
 
-	// Science and Technoloty
+	// Science and Technology
 	wp_insert_term('Anatomy', 'science-and-technology');
 	wp_insert_term('Biology', 'science-and-technology');
 	wp_insert_term('Chemistry', 'science-and-technology');
@@ -243,6 +243,8 @@ function school_insert_taxonomy_terms() {
 	wp_insert_term('Computer Science', 'science-and-technology');
 	wp_insert_term('Robotics', 'science-and-technology');
 	wp_insert_term('Web & App Design', 'science-and-technology');
+
+
 }
 
 /**
@@ -727,8 +729,7 @@ function email_school($school_id) {
  *
  * @return	void
  */
-function tax_search_join( $join )
-{
+function tax_search_join( $join ) {
 	global $wpdb;
 
 	if( is_search() )
@@ -757,8 +758,7 @@ add_filter('posts_join', 'tax_search_join');
  *
  * @return	void
  */
-function tax_search_where( $where )
-{
+function tax_search_where( $where ) {
 	global $wpdb;
 	if( is_search() ) {
 		// add search terms to the query
@@ -805,8 +805,7 @@ add_filter('posts_where', 'tax_search_where');
  *
  * @return	void
  */
-function tax_search_groupby( $groupby )
-{
+function tax_search_groupby( $groupby ) {
 	global $wpdb;
 
 	if( is_search() ) {
@@ -820,5 +819,77 @@ add_filter('posts_groupby', 'tax_search_groupby');
 //*==================================================== </ CUSTOM SEARCH QUERY > =====================================================================*//
 
 
+//*==================================================== < CUSTOM FUNCTIONS > =====================================================================*//
+function render_advanced_search_taxonomies() {
+	//target only custom taxonomies
+	$args = array('public'   => true, '_builtin' => false);
+	$operator = 'and';
+
+	//return objects
+	$output = 'objects';
+
+	$taxonomies = get_taxonomies( $args, $output, $operator );
+
+	//groups for taxonomies
+	$features = new ArrayObject(array());
+	$courses = new ArrayObject(array());
+	$athleticsAndClubs = new ArrayObject(array());
+
+	//group taxonomies
+	foreach ( $taxonomies as $taxonomy ) {
+		if ( $taxonomy->name == "academic-features")
+			$features->append($taxonomy);
+		elseif ($taxonomy->name == "arts" ||
+				$taxonomy->name == "language-and-social-sciences" ||
+				$taxonomy->name == "science-and-technology")
+			$courses->append($taxonomy);
+		else
+			$athleticsAndClubs->append($taxonomy);
+	}
+
+	//render all Features
+	advanced_search_render_single_taxonomy("", $features);
+	
+	//render all Courses
+	advanced_search_render_single_taxonomy("Courses", $courses);
+
+	//render all Athletics and Clubs
+	advanced_search_render_single_taxonomy("Athletics and Clubs", $athleticsAndClubs);
+}
+function advanced_search_render_single_taxonomy($taxonomy_group_name, $taxonomy_group){
+
+	//print taxonomy group as divider, if it exists
+	if ($taxonomy_group_name != '')
+		echo "<div class='row-fluid'><div class='span12'><h4>" . $taxonomy_group_name . "</h4></div></div>";
+
+	foreach ( $taxonomy_group as $taxonomy ) {
+		//print the taxonomy name
+		echo "<div class='row-fluid'><div class='span12 advanced-search-divider'><b>" . $taxonomy->label . ":</b></div></div>";
+
+		$rowCounter = 0;
+
+		$terms = get_terms($taxonomy->name, 'hide_empty=0');
+		
+		echo "<div class='row-fluid'>"; // --- initial row
+		foreach ( $terms as $term ){
+			//print HTML for new row
+			if ($rowCounter == 4){
+				echo "</div><div class='row-fluid'>";
+				$rowCounter = 0;
+			}
+
+			//print taxonomy term
+			echo "<div class='span3'><input id='" 
+				. $term->slug . "' type='checkbox'><label for='" 
+				. $term->slug . "'>" . $term->name . "</label></div>";
+
+			$rowCounter++;
+		}
+		echo "</div>"; // --- close final row
+	}
+	
+}
+
+//*==================================================== < /CUSTOM FUNCTIONS > =====================================================================*//
 
 ?>

@@ -17,12 +17,12 @@ get_header(); ?>
 
 	<script type="text/javascript">
 	jQuery(document).ready(function($) {
-		// hide all search options initially
+		//hide all search options initially
 		// -> TODO: add logic deciding which should using input info, POST?
 		$("#advanced-search-options").hide();
 		$("#focused-search-options").hide();
 
-		// click funcionality to hide/show search options
+		//click funcionality to hide/show search options
 		$('#advanced-search-heading').click(function(){
 			$('#advanced-search-options').slideToggle('fast');
 		});
@@ -98,7 +98,7 @@ get_header(); ?>
 					</div>
 				</div>
 				<div class="row-fluid">
-					<div class="span12">
+					<div class="span12 advanced-search-divider">
 						<b>School Type</b>
 					</div>
 				</div>
@@ -149,7 +149,7 @@ get_header(); ?>
 					</div>
 				</div>
 				<div class="row-fluid">
-					<div class="span12">
+					<div class="span12 advanced-search-divider">
 						<b>Additional Services:</b>
 					</div>
 				</div>
@@ -168,7 +168,7 @@ get_header(); ?>
 					</div>
 				</div>
 				<div class="row-fluid">
-					<div class="span12">
+					<div class="span12 advanced-search-divider">
 						<b>Additional Criteria:</b>
 					</div>
 				</div>
@@ -193,40 +193,9 @@ get_header(); ?>
 				</div>
 			</div>
 			<div id="focused-search-options" class="container-fluid search-options-field">
-				<?php
-					// target only custom taxonomies
-					$args = array('public'   => true, '_builtin' => false);
-					$operator = 'and';
-
-					// return objects
-					$output = 'objects';
-
-					$taxonomies = get_taxonomies( $args, $output, $operator ); 
-
-					foreach ( $taxonomies as $taxonomy ) {
-						echo "<div class='row-fluid'><div class='span12'><b>" . $taxonomy->label . ":</b></div></div>";
-					}
-
+				<?php 
+					render_advanced_search_taxonomies();
 				?>
-				<div class="row-fluid">
-					<div class="span12">
-						<b>Additional Services:</b>
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="span3">
-						<input id="all-schools" type="checkbox"><label for="all-schools">All</label>
-					</div>
-					<div class="span3">
-						<input id="standard-private" type="checkbox"><label for="standard-private">Standard Private School</label>
-					</div>
-					<div class="span3">
-						<input id="montessori" type="checkbox"><label for="montessori">Montessori School</label>
-					</div>
-					<div class="span3">
-						<input id="religious-private" type="checkbox"><label for="religious-private">Religious Private School</label>
-					</div>
-				</div>
 			</div>
 			<div class="container-fluid search-options-field">
 				<div class="row-fluid">

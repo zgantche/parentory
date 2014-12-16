@@ -279,6 +279,9 @@ article.page {
 	margin: 20px 0px;
 	padding-top: 10px;
 }
+.advanced-search-divider {
+	margin-top: 20px;
+}
 
 .search-collapsable-heading {
 	background-color: #EEE;
