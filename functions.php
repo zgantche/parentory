@@ -172,23 +172,25 @@ function my_custom_post_school() {
 function school_taxonomies_init() {
 	// define arrays containing custom taxonomies
 	$taxonomies = array(
+		'academic-features',
 		'arts',
 		'language-and-social-sciences',
-		'science-and-technology' );
-		/*'academic-features',
+		'science-and-technology',
 		'athletics',
-		'clubs',
+		'clubs' );
+		/*
 		'school-assisstance',
 		'special-support',
 		'religious-focus'
 	);*/
 	$taxonomies_names = array (
+		'Academic Features',
 		'Arts',
 		'Language And Social Sciences',
-		'Science And Technology' );
-		/*'Academic Features',
+		'Science And Technology',
 		'Athletics',
-		'Clubs',
+		'Clubs' );
+		/*
 		'School Assisstance',
 		'Special Support',
 		'Religious Focus'
@@ -212,6 +214,20 @@ function school_taxonomies_init() {
 
 function school_insert_taxonomy_terms() {
 	/* --- register taxonomy terms --- */
+
+	// Academic Features
+	wp_insert_term('AP Courses', 'academic-features');
+	wp_insert_term('Eschange Programs', 'academic-features');
+	wp_insert_term('IB Program', 'academic-features');
+	wp_insert_term('IB Middle Years Program', 'academic-features');
+	wp_insert_term('IB Primary Years Program', 'academic-features');
+	wp_insert_term('French Immersion', 'academic-features');
+	wp_insert_term('Gifted Program', 'academic-features');
+	wp_insert_term('Montessori Toddlers', 'academic-features');
+	wp_insert_term('Montessori Casa', 'academic-features');
+	wp_insert_term('Montessori Elementary', 'academic-features');
+	wp_insert_term('Montessori Junior High', 'academic-features');
+	wp_insert_term('Summer School', 'academic-features');
 
 	// Arts
 	wp_insert_term('Band', 'arts');
@@ -244,6 +260,45 @@ function school_insert_taxonomy_terms() {
 	wp_insert_term('Robotics', 'science-and-technology');
 	wp_insert_term('Web & App Design', 'science-and-technology');
 
+	// Athletics
+	wp_insert_term('Archery', 'athletics');
+	wp_insert_term('Badminton', 'athletics');
+	wp_insert_term('Baseball', 'athletics');
+	wp_insert_term('Basketball', 'athletics');
+	wp_insert_term('Cheerleading', 'athletics');
+	wp_insert_term('Equestrian', 'athletics');
+	wp_insert_term('Fencing', 'athletics');
+	wp_insert_term('Football', 'athletics');
+	wp_insert_term('Golf', 'athletics');
+	wp_insert_term('Gymnastics', 'athletics');
+	wp_insert_term('Hockey', 'athletics');
+	wp_insert_term('Martial Arts', 'athletics');
+	wp_insert_term('Mountain Biking', 'athletics');
+	wp_insert_term('Rowing', 'athletics');
+	wp_insert_term('Rugby', 'athletics');
+	wp_insert_term('Skating', 'athletics');
+	wp_insert_term('Snowboarding', 'athletics');
+	wp_insert_term('Soccer', 'athletics');
+	wp_insert_term('Squash', 'athletics');
+	wp_insert_term('Swimming', 'athletics');
+	wp_insert_term('Tennis', 'athletics');
+	wp_insert_term('Track & Field', 'athletics');
+	wp_insert_term('Volleyball', 'athletics');
+	wp_insert_term('Weightlifting', 'athletics');
+	wp_insert_term('Wrestling', 'athletics');
+	wp_insert_term('Yoga', 'athletics');
+
+	// Clubs
+	wp_insert_term('Business Club', 'clubs');
+	wp_insert_term('Chess Club', 'clubs');
+	wp_insert_term('Debate Club', 'clubs');
+	wp_insert_term('Environment Club', 'clubs');
+	wp_insert_term('IT Club', 'clubs');
+	wp_insert_term('Math Club', 'clubs');
+	wp_insert_term('Robotics Club', 'clubs');
+	wp_insert_term('School Newspaper', 'clubs');
+	wp_insert_term('Student Council', 'clubs');
+	wp_insert_term('Yearbook Club', 'clubs');
 
 }
 
@@ -820,6 +875,14 @@ add_filter('posts_groupby', 'tax_search_groupby');
 
 
 //*==================================================== < CUSTOM FUNCTIONS > =====================================================================*//
+/**
+ * Render the taxonomies within the Advanced Search page
+ *
+ * @author	Zlatko
+ * @since	12.15.2012
+ *
+ * @return	void
+ */
 function render_advanced_search_taxonomies() {
 	//target only custom taxonomies
 	$args = array('public'   => true, '_builtin' => false);
@@ -860,11 +923,11 @@ function advanced_search_render_single_taxonomy($taxonomy_group_name, $taxonomy_
 
 	//print taxonomy group as divider, if it exists
 	if ($taxonomy_group_name != '')
-		echo "<div class='row-fluid'><div class='span12'><h4>" . $taxonomy_group_name . "</h4></div></div>";
+		echo "<div class='row-fluid'><div class='span12'><h4 class='advanced-search-divider'>" . $taxonomy_group_name . "</h4></div></div>";
 
 	foreach ( $taxonomy_group as $taxonomy ) {
 		//print the taxonomy name
-		echo "<div class='row-fluid'><div class='span12 advanced-search-divider'><b>" . $taxonomy->label . ":</b></div></div>";
+		echo "<div class='row-fluid'><div class='span12 advanced-search-taxonomy'><b>" . $taxonomy->label . ":</b></div></div>";
 
 		$rowCounter = 0;
 

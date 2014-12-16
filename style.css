@@ -280,6 +280,9 @@ article.page {
 	padding-top: 10px;
 }
 .advanced-search-divider {
+	margin: 20px 0 0 0;
+}
+.advanced-search-taxonomy {
 	margin-top: 20px;
 }
 

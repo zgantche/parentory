@@ -98,7 +98,7 @@ get_header(); ?>
 					</div>
 				</div>
 				<div class="row-fluid">
-					<div class="span12 advanced-search-divider">
+					<div class="span12 advanced-search-taxonomy">
 						<b>School Type</b>
 					</div>
 				</div>
@@ -149,7 +149,7 @@ get_header(); ?>
 					</div>
 				</div>
 				<div class="row-fluid">
-					<div class="span12 advanced-search-divider">
+					<div class="span12 advanced-search-taxonomy">
 						<b>Additional Services:</b>
 					</div>
 				</div>
@@ -168,7 +168,7 @@ get_header(); ?>
 					</div>
 				</div>
 				<div class="row-fluid">
-					<div class="span12 advanced-search-divider">
+					<div class="span12 advanced-search-taxonomy">
 						<b>Additional Criteria:</b>
 					</div>
 				</div>
