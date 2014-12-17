@@ -875,6 +875,7 @@ add_filter('posts_groupby', 'tax_search_groupby');
 
 
 //*==================================================== < CUSTOM FUNCTIONS > =====================================================================*//
+
 /**
  * Render the taxonomies within the Advanced Search page
  *
@@ -912,10 +913,8 @@ function render_advanced_search_taxonomies() {
 
 	//render all Features
 	advanced_search_render_single_taxonomy("", $features);
-	
 	//render all Courses
 	advanced_search_render_single_taxonomy("Courses", $courses);
-
 	//render all Athletics and Clubs
 	advanced_search_render_single_taxonomy("Athletics and Clubs", $athleticsAndClubs);
 }
@@ -951,6 +950,19 @@ function advanced_search_render_single_taxonomy($taxonomy_group_name, $taxonomy_
 		echo "</div>"; // --- close final row
 	}
 	
+}
+
+/**
+ * Append Local Website URL to create address leading to desired page
+ *
+ * @author	Zlatko
+ * @since	12.16.2012
+ *
+ * @return	void
+ */
+function append_website_URL($page_address){
+	$home_url = substr($_SERVER['SCRIPT_NAME'], 0, -9);
+	echo 'http://' . $_SERVER['HTTP_HOST'] . $home_url . $page_address;
 }
 
 //*==================================================== < /CUSTOM FUNCTIONS > =====================================================================*//
