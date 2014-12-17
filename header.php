@@ -27,8 +27,15 @@
 	<body>
 		<div class="container">
 			<div id="page" class="row">
-
 				<div id="before-header" class="span12">
+					<div id="before-header-menu">
+						<a href="<?php append_website_URL(''); ?>" class="before-header-menu-item" target="_new">
+							advertise</a>
+						<a href="<?php append_website_URL(''); ?>" class="before-header-menu-item" target="_new">
+							get listed</a>
+						<a href="<?php append_website_URL('admin'); ?>" class="before-header-menu-item" target="_new">
+							client portal</a>
+					</div>
 					<div id="before-header-icons">
 						<a href="http://facebook.com" target="_new">
 							<i class="fa fa-facebook-square fa-lg"></i></a>
