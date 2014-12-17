@@ -10,20 +10,82 @@
 					<?php tha_footer_top(); ?>
 					<div id="page-footer" class="clearfix">
 						<div class="span3">
-							<div class="footer-title">LOREM IPSIUM</div>
-							<?php wp_nav_menu( array(
-								'theme_location'	=>	'footer-menu',
-								'menu_class'		=>	'footer-nav',
-								) );
-							?>
+							<div class="footer-title">SCHOOLS BY CITY</div>
+							<ul class="footer-nav">
+								<li>
+									<a href="<?php append_website_URL('?s=toronto'); ?>">Toronto</a>
+								</li>
+								<li>
+									<a href="<?php append_website_URL('?s=montreal'); ?>">Montreal</a>
+								</li>
+								<li>
+									<a href="<?php append_website_URL('?s=vancouver'); ?>">Vancouver</a>
+								</li>
+								<li>
+									<a href="<?php append_website_URL('?s=calgary'); ?>">Calgary</a>
+								</li>
+								<li>
+									<a href="<?php append_website_URL('?s=ottawa'); ?>">Ottawa</a>
+								</li>
+								<li>
+									<a href="<?php append_website_URL('?s=mississauga'); ?>">Mississauga</a>
+								</li>
+								<li>
+									<a href="<?php append_website_URL('?s=oakville'); ?>">Oakville</a>
+								</li>
+							</ul>
 						</div>
 						<div class="span3">
-							<div class="footer-title">LOREM IPSIUM</div>
-							<?php wp_nav_menu( array( 'theme_location' => 'footer-2', 'menu_class' => 'footer-nav footer-menu-items',) ); ?>
+							<div class="footer-title">SCHOOLS BY TYPE</div>
+							<ul class="footer-nav">
+								<li>
+									<a href="<?php append_website_URL('?s=boarding'); ?>">Boarding</a>
+								</li>
+								<li>
+									<a href="<?php append_website_URL('?s=montessori'); ?>">Montessori</a>
+								</li>
+								<li>
+									<a href="<?php append_website_URL('?s=special+needs'); ?>">Special Needs</a>
+								</li>
+								<li>
+									<a href="<?php append_website_URL('?s=faith-based'); ?>">Faith-based</a>
+								</li>
+								<li>
+									<a href="<?php append_website_URL('?s=all-girls'); ?>">All-girls</a>
+								</li>
+								<li>
+									<a href="<?php append_website_URL('?s=all-boys'); ?>">All-boys</a>
+								</li>
+								<li>
+									<a href="<?php append_website_URL('?s=coed'); ?>">Coed</a>
+								</li>
+							</ul>
 						</div>
 						<div class="span3">
-							<div class="footer-title">LOREM IPSIUM</div>
-							<?php wp_nav_menu( array( 'theme_location' => 'footer-3', 'menu_class' => 'footer-nav footer-menu-items',) ); ?>
+							<div class="footer-title">MENU OPTIONS</div>
+							<ul class="footer-nav">
+								<li>
+									<a href="<?php append_website_URL(''); ?>">Home</a>
+								</li>
+								<li>
+									<a href="<?php append_website_URL('blog/'); ?>">Blog</a>
+								</li>
+								<li>
+									<a href="<?php append_website_URL('directory/'); ?>">Schools Listings</a>
+								</li>
+								<li>
+									<a href="<?php append_website_URL('directory/'); ?>">Basic Search</a>
+								</li>
+								<li>
+									<a href="<?php append_website_URL('advanced-search/'); ?>">Advanced Search</a>
+								</li>
+								<li>
+									<a href="<?php append_website_URL('about/'); ?>">About Us</a>
+								</li>
+								<li>
+									<a href="<?php append_website_URL('about/'); ?>">Contact Us</a>
+								</li>
+							</ul>
 						</div>
 						<div class="span3">
 
@@ -35,11 +97,6 @@
 									<div class="mc-field-group">
 										<input type="text" value="" name="FNAME" class="" id="mce-FNAME" placeholder="First Name">
 									</div>
-
-									<!--div class="mc-field-group">
-										<input type="text" value="" name="LNAME" class="" id="mce-LNAME" placeholder="Last Name">
-									</div-->
-									
 									<div class="mc-field-group">
 										<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
 									</div>
