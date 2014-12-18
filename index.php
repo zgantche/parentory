@@ -25,12 +25,14 @@ get_header(); ?>
 		<img src="http://test.parentory.ca/wp-content/uploads/2014/06/mini_image1.png" class="feature-images-item">
 	</div>
 	<div class="span4">
-		<a href="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . 'advanced-search/' ?>">
+		<a href="<?php append_website_URL('advanced-search/?show=advanced'); ?>">
 			<img src="http://test.parentory.ca/wp-content/uploads/2014/06/mini_image2.png" class="feature-images-item">
 		</a>
 	</div>
 	<div class="span4">
-		<img src="http://test.parentory.ca/wp-content/uploads/2014/06/mini_image3.png" class="feature-images-item">
+		<a href="<?php append_website_URL('advanced-search/?show=focused'); ?>">
+			<img src="http://test.parentory.ca/wp-content/uploads/2014/06/mini_image3.png" class="feature-images-item">
+		</a>
 	</div>
 </div>
 

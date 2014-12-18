@@ -17,10 +17,19 @@ get_header(); ?>
 
 	<script type="text/javascript">
 	jQuery(document).ready(function($) {
-		//hide all search options initially
-		// -> TODO: add logic deciding which should using input info, POST?
-		$("#advanced-search-options").hide();
-		$("#focused-search-options").hide();
+		//hide or reveal all search options accordingly
+		var GET = <?php echo json_encode($_GET); ?>;
+
+		if (GET["show"] == "advanced"){
+			$("#focused-search-options").hide();
+		}
+		else if (GET["show"] == "focused"){
+			$("#advanced-search-options").hide();
+		}
+		else {
+			$("#advanced-search-options").hide();
+			$("#focused-search-options").hide();
+		}
 
 		//click funcionality to hide/show search options
 		$('#advanced-search-heading').click(function(){
