@@ -139,7 +139,7 @@ body > .container {
 }
 
 
-/* regular & collapsable NON-ACTIVE menu link */
+/* regular & collapsible NON-ACTIVE menu link */
 .navbar .nav>li>a:link {
 	font-family: "Arial Narrow", Arial, sans-serif;
 	font-size: 15px;
@@ -161,7 +161,7 @@ body > .container {
 	background: #777;
 }
 
-/* regular & collapsable ACTIVE menu link */
+/* regular & collapsible ACTIVE menu link */
 .navbar .nav>.active>a, .navbar .nav>.active>a:hover, .navbar .nav>.active>a:focus {
 	background-color: #111;
 	color: #FFF;
@@ -301,7 +301,7 @@ article.page {
 	margin-top: 20px;
 }
 
-.search-collapsable-heading {
+.search-collapsible-heading {
 	background-color: #EEE;
 	margin: 10px 0;
 
@@ -311,9 +311,18 @@ article.page {
 
 	cursor: pointer;
 }
-
 .search-heading-text {
 	padding-left: 40px;
+}
+.search-heading-text>h4 {
+	display: inline;
+	float: left;
+}
+.search-heading-text>span {
+	float:right;
+	padding:10px 20px 0 0;
+	font-size:25px;
+	color:#777;
 }
 
 .advanced-search-text {

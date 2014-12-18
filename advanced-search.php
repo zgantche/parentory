@@ -128,9 +128,9 @@ get_header(); ?>
 					</div>
 				</div>
 			</div>
-			<div id="advanced-search-heading" class="row-fluid search-collapsable-heading">
+			<div id="advanced-search-heading" class="row-fluid search-collapsible-heading">
 				<div class="span12 search-heading-text">
-					<h4>Advanced Search</h4>
+					<h4>Advanced Search</h4><span>+</span>
 				</div>
 			</div>
 			<div id="advanced-search-options" class="container-fluid search-options-field">
@@ -187,9 +187,9 @@ get_header(); ?>
 					</div>
 				</div>
 			</div>
-			<div id="focused-search-heading" class="row-fluid search-collapsable-heading">
+			<div id="focused-search-heading" class="row-fluid search-collapsible-heading">
 				<div class="span12 search-heading-text">
-					<h4>Focused Search</h4>
+					<h4>Focused Search</h4><span>+</span>
 				</div>
 			</div>
 			<div id="focused-search-options" class="container-fluid search-options-field">
