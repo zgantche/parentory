@@ -535,6 +535,21 @@ ul.tabs li.current{
 	padding: 20px 0px 20px 0px;
 }
 
+.archive-school-logo {
+	border: 1px solid #DDD;
+	width: 100%;
+	height: 100%;
+}
+
+span.archive-school-data-box {
+	width: 49%;
+	float: left;
+	padding: 12px 0;
+	text-align: center;
+	border: 1px solid #a9f7c5;
+	background-color: #c1f9d5;
+}
+
 
 /* =Contact School Form
 -------------------------------------------------------------- */

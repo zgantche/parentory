@@ -119,8 +119,8 @@ get_header(); ?>
 
 					<!-- school content -->
 					<div id="school-info" class="span8">
-						<div class="school-info-criteria"><b>Age Group:</b></div>
-						<div class="school-info-data"><?php echo get_post_meta( $school_id, 'school-age-group', true ); ?></div>
+						<div class="school-info-criteria"><b>Grades:</b></div>
+						<div class="school-info-data"><?php echo get_post_meta( $school_id, 'school-grades', true ); ?></div>
 
 						<div class="school-info-criteria"><b>Class Size:</b></div>
 						<div class="school-info-data"><?php echo sanitize_text_field( get_post_meta( $school_id, 'school-class-size', true ) ); ?></div>

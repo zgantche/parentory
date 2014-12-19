@@ -80,15 +80,15 @@ add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
 
 
 /**
- * Change excerpt "Read More" message
+ * Nullify "Read More" message; will be defined in schools.php
  *
  * @author	Zlatko
- * @since	02.05.2014
+ * @since	12.19.2014
  *
  * @return	void
  */
 function new_excerpt_more( $more ) {
-	return ' <a class="read-more" href="'. get_permalink( get_the_ID() ) . '">' . '<i>(learn more)</i>' . '</a>';
+	return '';
 }
 add_filter( 'excerpt_more', 'new_excerpt_more', 999 );
 
@@ -473,11 +473,11 @@ function contact_info_box_content( $post ) {
  * Defines "School Information" META BOX CONTENT
  *
  * @author	Zlatko
- * @since	29.04.2014
+ * @since	19.12.2014
  *
  * @return	void
  *
- * school type, age group, , annual tuition cost, class size
+ * school type, school grades, annual tuition cost, class size
  */
 function school_info_box_content( $post ) {
 	// insert hidden nonce form field
@@ -493,8 +493,8 @@ function school_info_box_content( $post ) {
 		</tr>
 		<tr>
 			<td>
-				<label for="school-age-group">Age Group:</label><br />
-				<input type="text" id="school-age-group" name="school-age-group" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-age-group', true ) ); ?>" />
+				<label for="school-grades">School Grades:</label><br />
+				<input type="text" id="school-grades" name="school-grades" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-grades', true ) ); ?>" />
 			</td>
 			<td>
 				<label for="school-class-size">Class Size:</label><br />
@@ -692,7 +692,7 @@ function custom_meta_box_save( $post_id ) {
 					'school-website', 
 					'school-phone-number', 
 					'school-type', 
-					'school-age-group', 
+					'school-grades', 
 					'school-class-size', 
 					'school-annual-tuition') as $meta_key)
 	{

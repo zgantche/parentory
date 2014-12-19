@@ -63,7 +63,7 @@ get_header(); ?>
 			</div>
 			<div class="row-fluid">
 				<div id="archive-filter-bottom" class="span12">
-					<a href="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . 'advanced-search/' ?>">Advanced Search</a>
+					<a href="<?php append_website_URL('advanced-search/'); ?>">Advanced Search</a>
 				</div>
 			</div>
 		</div>
@@ -72,6 +72,7 @@ get_header(); ?>
 			// set up the query
 			$args = array( 'post_type' => 'school', 'posts_per_page' => 10, 'orderby' => 'title', 'order' => 'ASC' );
 			$the_query = new WP_Query( $args );
+			$first_post = true;
 
 			// check if there's posts to be shown
 			if ( $the_query->have_posts() ) {
@@ -82,12 +83,20 @@ get_header(); ?>
 
 					// get the current school id - used for finding mega data
 					$school_id = get_the_id();
+
+					// omit row divider for the first post
+					if ( $first_post )
+						$first_post = false;
+					else
+						echo "<hr>";
 					?>
 
-					<div id="school-archive-entry" class="row">
+					<div id="school-archive-entry" class="row-fluid">
 						<!-- display school image -->
-						<div class="span2" width="100px" height="100px">
-							<?php the_post_thumbnail(); ?>
+						<div class="span2 archive-school-logo">
+							<a class="read-more" href="<?php the_permalink( $school_id ); ?>">
+								<?php the_post_thumbnail( 'thumbnail', array( 'class' => 'archive-school-logo' ) ); ?>
+							</a>
 						</div>
 						<!-- display school title & info -->
 						<div class="span5">
@@ -97,14 +106,26 @@ get_header(); ?>
 								</a>
 							</div>
 							<?php the_excerpt(); ?>
+							<a class="read-more" href="<?php the_permalink( $school_id ); ?>"><i>(learn more)</i></a>
 						</div>
 						<!-- display school age & price info -->
-						<div class="span4">
-							<u>Age Group:</u><br />
-							<?php echo get_post_meta( $school_id, 'school-age-group', true ); ?>
-							<br />
-							<u>Price:</u><br />
-							<?php echo get_post_meta( $school_id, 'school-annual-tuition', true ); ?>
+						<div class="span5">
+							<span class="archive-school-data-box">
+								<div><b>Grades</b></div>
+								<?php echo get_post_meta( $school_id, 'school-grades', true ); ?>
+							</span>
+							<span class="archive-school-data-box">
+								<div><b>Tuition</b></div>
+								<?php echo get_post_meta( $school_id, 'school-annual-tuition', true ); ?>
+							</span>
+							<span class="archive-school-data-box">
+								<div><b>School Type</b></div>
+								<?php echo get_post_meta( $school_id, 'school-type', true ); ?>
+							</span>
+							<span class="archive-school-data-box">
+								<div><b>Class Size</b></div>
+								<?php echo get_post_meta( $school_id, 'school-class-size', true ); ?>
+							</span>
 						</div>
 					</div>
 
