@@ -89,11 +89,7 @@ get_header(); ?>
 		</div>
 		<div class="row-fluid">
 			<div id="school-address">
-				<?php echo sanitize_text_field( get_post_meta( $school_id, 'school-street-address', true ) ) . ", " .
-							sanitize_text_field( get_post_meta( $school_id, 'school-city', true ) ) . ", " .
-							sanitize_text_field( get_post_meta( $school_id, 'school-province', true ) ) . ", " .
-							sanitize_text_field( get_post_meta( $school_id, 'school-postal-code', true ) );
-				?>
+				<?php get_school_address( $school_id, array('street-address', 'city', 'province', 'postal-code') ); ?>
 			</div>
 		</div>
 

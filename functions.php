@@ -965,6 +965,48 @@ function append_website_URL($page_address){
 	echo 'http://' . $_SERVER['HTTP_HOST'] . $home_url . $page_address;
 }
 
+/**
+ * Print out a school's address information, according to requests
+ *	> $args = 'street-address', 'city', 'province', 'postal-code'
+ *
+ * @author	Zlatko
+ * @since	12.19.2012
+ *
+ * @return	void
+ */
+function get_school_address ($school_id, $args){
+	$comma = false;
+	$address = "";
+
+	//loop through
+	for ($i=0; $i < count($args); $i++) {
+		//add comma if not first entry
+		if ($comma)
+			$address .= ", ";
+		else
+			$comma = true;
+		
+		switch ($args[$i]) {
+			case "street-address":
+				$address .= sanitize_text_field( get_post_meta( $school_id, 'school-street-address', true ) );
+				$comma = true; break;
+			case "city":
+				$address .= sanitize_text_field( get_post_meta( $school_id, 'school-city', true ) );
+				$comma = true; break;
+			case "province":
+				$address .= sanitize_text_field( get_post_meta( $school_id, 'school-province', true ) );
+				$comma = true; break;
+			case "postal-code":
+				$address .= sanitize_text_field( get_post_meta( $school_id, 'school-postal-code', true ) );
+				$comma = true; break;
+			default:
+				$comma = false;
+		}
+	}
+
+	echo $address;
+}
+
 //*==================================================== < /CUSTOM FUNCTIONS > =====================================================================*//
 
 ?>

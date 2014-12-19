@@ -535,6 +535,10 @@ ul.tabs li.current{
 	padding: 20px 0px 20px 0px;
 }
 
+.school-excerpt {
+	padding-top: 10px;
+}
+
 .archive-school-logo {
 	border: 1px solid #DDD;
 	width: 100%;
@@ -544,10 +548,10 @@ ul.tabs li.current{
 span.archive-school-data-box {
 	width: 49%;
 	float: left;
-	padding: 12px 0;
+	padding: 13px 0;
 	text-align: center;
-	border: 1px solid #a9f7c5;
-	background-color: #c1f9d5;
+	border: 1px solid #c1f9d5;
+	background-color: #d8fbe5;
 }
 
 

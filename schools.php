@@ -97,6 +97,7 @@ get_header(); ?>
 							<a class="read-more" href="<?php the_permalink( $school_id ); ?>">
 								<?php the_post_thumbnail( 'thumbnail', array( 'class' => 'archive-school-logo' ) ); ?>
 							</a>
+
 						</div>
 						<!-- display school title & info -->
 						<div class="span5">
@@ -105,8 +106,15 @@ get_header(); ?>
 									<?php the_title(); ?>
 								</a>
 							</div>
-							<?php the_excerpt(); ?>
-							<a class="read-more" href="<?php the_permalink( $school_id ); ?>"><i>(learn more)</i></a>
+							<div>
+								<i>
+								<?php get_school_address( $school_id, array('street-address', 'city', 'province', 'postal-code') ); ?>
+								</i>
+							</div>
+							<div class="school-excerpt">
+								<?php the_excerpt(); ?>
+								<a class="read-more" href="<?php the_permalink( $school_id ); ?>"><i>(learn more)</i></a>
+							</div>
 						</div>
 						<!-- display school age & price info -->
 						<div class="span5">
