@@ -323,6 +323,31 @@ add_action( 'init', 'initialization_order' );
 //*-------------------------------------------------------- < SCHOOL UI CODE > -----------------------------------------------------------------------*//
 //*===================================================================================================================================================*//
 
+/* -- work in progress, disable "Add New" button if current Author has 1 ACTIVE School Post --
+// hide "add new" on wp-admin menu
+function hd_add_box() {
+	if ( !current_user_can('edit_others_posts') && count_user_posts( get_current_user_id() >= 1 ) )
+		echo "cannot post any new schools";
+	else
+		echo "can post 1 new school";	
+	global $submenu;
+	unset($submenu['edit.php?post_type=yourcustomposttype'][10]);
+}
+
+// hide "add new" button on edit page
+function hd_add_buttons() {
+	global $pagenow;
+	if(is_admin()){
+		if($pagenow == 'edit.php' && $_GET['post_type'] == 'yourcustomposttype'){
+			echo '.add-new-h2{display: none;}';
+		}
+	}
+}
+add_action('admin_menu', 'hd_add_box');
+add_action('admin_head','hd_add_buttons');
+*/
+
+
 /**
  * Removes unnecessary default metaboxes from Schools Post Type
  *
@@ -431,6 +456,7 @@ add_action( 'add_meta_boxes', 'school_meta_boxes' );
 function contact_info_box_content( $post ) {
 	// insert hidden nonce form field
 	wp_nonce_field( plugin_basename( __FILE__ ), 'contact_info_box_content_nonce' );
+	// determine of current user is Author
 	?>
 	<table cellspacing="20px">
 		<tr>
@@ -457,6 +483,10 @@ function contact_info_box_content( $post ) {
 			<td>
 				<label for="school-phone-number">Phone Number:</label><br />
 				<input type="text" id="school-phone-number" name="school-phone-number" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-phone-number', true ) ); ?>" />
+			</td>
+			<td>
+				<label for="school-email-address">Email Address:</label><br />
+				<input type="text" id="school-email-address" name="school-email-address" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-email-address', true ) ); ?>" />
 			</td>
 			<td>
 				<label for="school-website">Website:</label><br />
@@ -691,6 +721,7 @@ function custom_meta_box_save( $post_id ) {
 					'school-postal-code',
 					'school-website', 
 					'school-phone-number', 
+					'school-email-address',
 					'school-type', 
 					'school-grades', 
 					'school-class-size', 
