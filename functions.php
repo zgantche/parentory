@@ -177,24 +177,21 @@ function school_taxonomies_init() {
 		'language-and-social-sciences',
 		'science-and-technology',
 		'athletics',
-		'clubs' );
-		/*
-		'school-assisstance',
+		'clubs',
+		'school-assistance',
 		'special-support',
-		'religious-focus'
-	);*/
+		'religious-focus' );
+	
 	$taxonomies_names = array (
 		'Academic Features',
 		'Arts',
 		'Language And Social Sciences',
 		'Science And Technology',
 		'Athletics',
-		'Clubs' );
-		/*
-		'School Assisstance',
+		'Clubs',
+		'School Assistance',
 		'Special Support',
-		'Religious Focus'
-	);*/
+		'Religious Focus' );
 	
 	//define all taxonomies
 	foreach (array_combine($taxonomies, $taxonomies_names) as $taxonomy => $taxonomy_name) {
@@ -300,6 +297,33 @@ function school_insert_taxonomy_terms() {
 	wp_insert_term('Student Council', 'clubs');
 	wp_insert_term('Yearbook Club', 'clubs');
 
+	// School Assistance
+	wp_insert_term('Before School Program', 'school-assistance');
+	wp_insert_term('Lunch Program', 'school-assistance');
+	wp_insert_term('After School Program', 'school-assistance');
+	wp_insert_term('Half Day Kindergarden', 'school-assistance');
+	wp_insert_term('Full Day Kindergarden', 'school-assistance');
+	wp_insert_term('One on One Lessons', 'school-assistance');
+	wp_insert_term('Transportation', 'school-assistance');
+
+	// Special Support
+	wp_insert_term('ADD/ADHD', 'special-support');
+	wp_insert_term('Asperger Disorder', 'special-support');
+	wp_insert_term('Autism', 'special-support');
+	wp_insert_term('Behavioral', 'special-support');
+	wp_insert_term('Down Syndrome', 'special-support');
+	wp_insert_term('Dyslexia', 'special-support');
+	wp_insert_term('Special Needs Assistance', 'special-support');
+	wp_insert_term('Physical Disability Assistance', 'special-support');
+
+	// Religious Focus
+	wp_insert_term('Buddhist', 'religious-focus');
+	wp_insert_term('Catholic', 'religious-focus');
+	wp_insert_term('Christian', 'religious-focus');
+	wp_insert_term('Hindu', 'religious-focus');
+	wp_insert_term('Jewish', 'religious-focus');
+	wp_insert_term('Muslim', 'religious-focus');
+
 }
 
 /**
@@ -394,49 +418,99 @@ function school_meta_boxes() {
 	//remove unnecessary metaboxes
 	my_remove_meta_boxes();
 
-    add_meta_box(
-    	'contact_info_box',
-    	__( 'Contact Information'),
-        'contact_info_box_content',
-        'school',
-        'normal',
-        'high'
+	add_meta_box(
+		'contact_info_box',
+		__( 'Contact Information'),
+		'contact_info_box_content',
+		'school',
+		'normal',
+		'high'
 	);
 
-    add_meta_box(
-        'school_info_box',
-        __( 'School Information'),
-        'school_info_box_content',
-        'school',
-        'normal',
-        'low'
-    );
+	add_meta_box(
+		'school_info_box',
+		__( 'School Information'),
+		'school_info_box_content',
+		'school',
+		'normal',
+		'low'
+	);
 
     /*------------------ Taxonomy Meta Boxes ------------------*/
+    
 	add_meta_box(
-    	'arts',
-    	__( 'Arts'),
-        'arts_taxonomy_box_content',
-        'school',
-        'side',
-        'low'
+		'academic-features',
+		__( 'Academic Features'),
+		'academic_features_taxonomy_box_content',
+		'school',
+		'side',
+		'low'
 	);
 	add_meta_box(
-    	'language-and-social-sciences',
-    	__( 'Languages and Social Sciences'),
-        'languages_taxonomy_box_content',
-        'school',
-        'side',
-        'low'
+		'arts',
+		__( 'Arts'),
+		'arts_taxonomy_box_content',
+		'school',
+		'side',
+		'low'
 	);
 	add_meta_box(
-    	'science-and-technology',
-    	__( 'Science and Technology'),
-        'science_and_technology_box_content',
-        'school',
-        'side',
-        'low'
+		'language-and-social-sciences',
+		__( 'Languages and Social Sciences'),
+		'languages_taxonomy_box_content',
+		'school',
+		'side',
+		'low'
 	);
+	add_meta_box(
+		'science-and-technology',
+		__( 'Science and Technology'),
+		'science_and_technology_box_content',
+		'school',
+		'side',
+		'low'
+	);
+	add_meta_box(
+		'athletics',
+		__( 'Athletics'),
+		'athletics_box_content',
+		'school',
+		'side',
+		'low'
+	);
+	add_meta_box(
+		'clubs',
+		__( 'Clubs'),
+		'clubs_box_content',
+		'school',
+		'side',
+		'low'
+	);
+	add_meta_box(
+		'school-assistance',
+		__( 'School Assistance'),
+		'school_assistance_box_content',
+		'school',
+		'side',
+		'low'
+	);
+	add_meta_box(
+		'special-support',
+		__( 'Special Support'),
+		'special_support_box_content',
+		'school',
+		'side',
+		'low'
+	);
+	add_meta_box(
+		'religious-focus',
+		__( 'Religious Focus'),
+		'religious_focus_box_content',
+		'school',
+		'side',
+		'low'
+	);
+
 
 	/*-----------------------------------------------------------*/
 }
@@ -543,14 +617,19 @@ function school_info_box_content( $post ) {
 }
 
 /**
- * The 8 Functions below define all custom Taxonomies' META BOX CONTENT
+ * The 9 Functions below define all custom Taxonomies' META BOX CONTENT
  *
  * @author	Zlatko
- * @since	09.12.2014
+ * @since	21.12.2014
  *
  * @return	void
  *
  */
+function academic_features_taxonomy_box_content( $post ) {
+	// insert hidden nonce form field
+	wp_nonce_field( plugin_basename( __FILE__ ), 'academic_features_taxonomy_box_content_nonce' );
+	render_taxonomy_terms( $post, "academic-features", "Academic Features taxonomy doesn't exist!");
+}
 function arts_taxonomy_box_content( $post ) {
 	// insert hidden nonce form field
 	wp_nonce_field( plugin_basename( __FILE__ ), 'arts_taxonomy_box_content_nonce' );
@@ -565,6 +644,31 @@ function science_and_technology_box_content( $post ) {
 	// insert hidden nonce form field
 	wp_nonce_field( plugin_basename( __FILE__ ), 'science_and_technology_box_content_nonce' );
 	render_taxonomy_terms( $post, "science-and-technology", "Science and Technology taxonomy doesn't exist!");
+}
+function athletics_box_content( $post ) {
+	// insert hidden nonce form field
+	wp_nonce_field( plugin_basename( __FILE__ ), 'athletics_box_content_nonce' );
+	render_taxonomy_terms( $post, "athletics", "Athletics taxonomy doesn't exist!");
+}
+function clubs_box_content( $post ) {
+	// insert hidden nonce form field
+	wp_nonce_field( plugin_basename( __FILE__ ), 'clubs_box_content_nonce' );
+	render_taxonomy_terms( $post, "clubs", "Clubs taxonomy doesn't exist!");
+}
+function school_assistance_box_content( $post ) {
+	// insert hidden nonce form field
+	wp_nonce_field( plugin_basename( __FILE__ ), 'school_assistance_box_content_nonce' );
+	render_taxonomy_terms( $post, "school-assistance", "School Assistance taxonomy doesn't exist!");
+}
+function special_support_box_content( $post ) {
+	// insert hidden nonce form field
+	wp_nonce_field( plugin_basename( __FILE__ ), 'special_support_box_content_nonce' );
+	render_taxonomy_terms( $post, "special-support", "Special Support taxonomy doesn't exist!");
+}
+function religious_focus_box_content( $post ) {
+	// insert hidden nonce form field
+	wp_nonce_field( plugin_basename( __FILE__ ), 'religious_focus_box_content_nonce' );
+	render_taxonomy_terms( $post, "religious-focus", "Religious Focus taxonomy doesn't exist!");
 }
 /**
  * Renders Taxonomies' META BOX CONTENT
