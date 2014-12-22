@@ -567,6 +567,12 @@ function contact_info_box_content( $post ) {
 				<input type="text" id="school-website" name="school-website" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-website', true ) ); ?>" />
 			</td>
 		</tr>
+		<tr>
+			<td>
+				<label for="school-facebook-page">Facebook Page:</label><br />
+				<input type="text" id="school-facebook-page" name="school-facebook-page" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-facebook-page', true ) ); ?>" />
+			</td>
+		</tr>
 	</table>
 	
 	<br />
@@ -826,6 +832,7 @@ function custom_meta_box_save( $post_id ) {
 					'school-website', 
 					'school-phone-number', 
 					'school-email-address',
+					'school-facebook-page',
 					'school-type', 
 					'school-grades', 
 					'school-class-size', 

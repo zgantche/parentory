@@ -235,20 +235,14 @@ get_header(); ?>
 					<input type="submit" name="submit" class="submitButton" value="Submit"> 
 				</form>
 				
-				<div class="fb-like-box" data-href="https://www.facebook.com/ElmwoodSchool" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="true"></div>
+				<div class="fb-like-box" data-href="<?php echo get_post_meta( $school_id, 'school-facebook-page', true ); ?>" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="true"></div>
+
 			</div>
 		</div>
 	</div>
 
-		
-	<?php tha_content_bottom(); ?>
+<?php get_footer();
 
-	<!-- #content -->
-	<?php tha_content_after(); ?>
-
-<?php get_footer(); ?>
-
-
-<?php
 /* End of file single-school.php */
 /* Location: ./wp-content/themes/the-bootstrap-child/single-school.php */
+?>
