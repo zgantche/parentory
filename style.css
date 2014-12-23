@@ -391,6 +391,72 @@ h2 {
 	margin-bottom: 30px;
 }
 
+.sidebar-featured-posts li {
+	margin-left: 10px;
+	font-weight: normal;
+	text-align: left;
+}
+
+#sidebar-mailing-list {
+	border: 2px solid #4B9B77;
+	border-top: none;
+
+	padding: 30px 10px;
+	margin-bottom: 50px;
+	text-align: center;
+
+	/* Safari 4-5, Chrome 1-9 */
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3a795d), to(#4B9B77));
+	/* Safari 5.1, Chrome 10+ */
+	background: -webkit-linear-gradient(top, #3a795d, #4B9B77);
+	/* Firefox 3.6+ */
+	background: -moz-linear-gradient(top, #3a795d, #4B9B77);
+	/* IE 10 */
+	background: -ms-linear-gradient(top, #3a795d, #4B9B77);
+	/* Opera 11.10+ */
+	background: -o-linear-gradient(top, #3a795d, #4B9B77);
+
+	-webkit-box-shadow: 0px 15px 14px -8px rgba(0,0,0,0.59);
+	-moz-box-shadow: 0px 15px 14px -8px rgba(0,0,0,0.59);
+	box-shadow: 0px 15px 14px -8px rgba(0,0,0,0.59);
+}
+
+.sidebar-mail-list-title {
+	color: #FAFAFA;
+	font-size: 18px;
+	font-family: "Arial", Arial, sans-serif;
+	font-weight: bold;
+}
+
+.sidebar-mail-list-text {
+	color: #FAFAFA;
+	padding: 10px 20px;
+}
+
+div.sidebar-mc-field-group input {
+	
+}
+
+#sidebar-mc-embedded-subscribe {
+    color:#f7f7f7;
+	background-color:#363738;
+	width: 200px;
+
+    font-family: "Arial Narrow", Arial, sans-serif
+    font-size:14px;
+    font-weight: bold;
+
+	border:1px solid #479B77;
+	border-radius:7px;
+
+	padding: 8px 47px;
+	margin-top: 7px;
+}
+
+#sidebar-mc-embed-signup {
+	width: 250px;
+}
+
 
 /* =School Posts - Single
 -------------------------------------------------------------- */
@@ -584,7 +650,7 @@ span.archive-school-data-box {
 	background-image: linear-gradient(to left, #242424 0%, #5C5C5C 50%, #1C1C1C 100%);
 }
 
-#contactForm {
+#sidebar-form {
 	border: 2px solid #CCC;
 	border-top: none;
 	text-align: center;

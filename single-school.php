@@ -18,7 +18,7 @@ get_header(); ?>
 	<script type="text/javascript">
 	jQuery(document).ready(function($) {
 		/*----- jQuery Validation Code -----*/
-		$("#contactForm").validate({
+		$("#sidebar-form").validate({
 			rules: {
 				email: {
 					required: true,
@@ -217,7 +217,7 @@ get_header(); ?>
 					}
 				?>
 				
-				<form id="contactForm" method="POST" action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" novalidate>
+				<form id="sidebar-form" method="POST" action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" novalidate>
 					<input type="text" class="formElement" name="email" 
 						value="<?php echo (isset ($email_address) ? $email_address : ""); ?>" 
 						placeholder="Enter Email Address">
