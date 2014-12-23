@@ -620,6 +620,13 @@ span.archive-school-data-box {
 	background-color: #d8fbe5;
 }
 
+#school-archive-bottom{
+	padding-bottom: 20px;
+}
+
+#school-archive-bottom .page-numbers {
+	font-size: 17px;
+}
 
 /* =Contact School Form
 -------------------------------------------------------------- */

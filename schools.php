@@ -69,15 +69,18 @@ get_header(); ?>
 		</div>
 		
 		<?php
+			// protect against arbitrary paged values
+			$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
+
 			// set up the query
-			$args = array( 'post_type' => 'school', 'posts_per_page' => 10, 'orderby' => 'title', 'order' => 'ASC' );
+			$args = array( 'post_type' => 'school', 'posts_per_page' => 7, 'orderby' => 'title', 'order' => 'ASC', 'paged' => $paged);
 			$the_query = new WP_Query( $args );
 			$first_post = true;
 
 			// check if there's posts to be shown
 			if ( $the_query->have_posts() ) {
 			    // begin The Loop
-				while ( $the_query->have_posts() ) { 
+				while ( $the_query->have_posts() ) {
 					// iterate the post index within The Loop
 					$the_query->the_post();
 
@@ -142,10 +145,26 @@ get_header(); ?>
 			} else {
 				//no posts found, TODO: put placeholder stuff here
 			}
+		?>
+
+		<center id="school-archive-bottom">
+		<?php
+			$big = 999999999; // need an unlikely integer
+
+			// separate results into distinct pages
+			echo paginate_links( array(
+				'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+				'format' => '?paged=%#%',
+				'current' => max( 1, get_query_var('paged') ),
+				'total' => $the_query->max_num_pages
+			) );
+
+
 
 			//Restore original Post Data
 			wp_reset_postdata();
 		?>
+		</center>
 
 	</div><!-- #content -->
 	
