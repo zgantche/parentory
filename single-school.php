@@ -161,11 +161,12 @@ get_header(); ?>
 									q=
 									<?php 
 										$school_info_title = str_replace(" ", "+", sanitize_text_field( $school_object->post_title ));
-										$school_info_address = str_replace(" ", "+", sanitize_text_field( get_post_meta( $school_id, 'school-address', true ) ));
+										$school_info_address = str_replace(" ", "+", sanitize_text_field( get_post_meta( $school_id, 'school-street-address', true ) ));
 										$school_info_city = str_replace(" ", "+", sanitize_text_field( get_post_meta( $school_id, 'school-city', true ) ));
-										$school_info_post = str_replace(" ", "+", sanitize_text_field( get_post_meta( $school_id, 'school-postal-code', true ) ));
+										$school_info_province = str_replace(" ", "+", sanitize_text_field( get_post_meta( $school_id, 'school-province', true ) ));
+										$school_info_postal = str_replace(" ", "+", sanitize_text_field( get_post_meta( $school_id, 'school-postal-code', true ) ));
 
-										$school_info = $school_info_title . "," . $school_info_address . "," . $school_info_city . "," . $school_info_post;
+										$school_info = $school_info_title . "," . $school_info_address . "," . $school_info_city . "," . $school_info_province. "," . $school_info_postal;
 
 										echo $school_info;
 									?>" 
