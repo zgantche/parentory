@@ -1057,20 +1057,14 @@ function get_search_results($search_terms, $search_type){
 	$terms_array = explode(' ', $search_terms);
 	$terms_array_length = count($terms_array) - 1;
 
-	// begin SELECT statement; INNER JOIN with taxonomy terms; WHERE posts are 'school' AND 'published'
-	$sql = "SELECT SQL_CALC_FOUND_ROWS wp_posts.ID FROM wp_posts 
-				INNER JOIN 
-					wp_postmeta ON wp_posts.ID = wp_postmeta.post_id 
-				INNER JOIN 
-					wp_term_relationships ON wp_posts.ID = wp_term_relationships.object_id 
-				INNER JOIN 
-					wp_term_taxonomy ON wp_term_taxonomy.term_taxonomy_id = wp_term_relationships.term_taxonomy_id 
-				INNER JOIN 
-					wp_terms ON wp_terms.term_id = wp_term_taxonomy.term_id 
-			WHERE wp_posts.post_type IN ('school') AND wp_posts.post_status = 'publish'";
+	// begin SELECT statement; INNER JOIN with post meta; WHERE posts are 'school' AND 'published'
+	$sql = "SELECT wp_posts.ID FROM wp_posts 
+			INNER JOIN wp_postmeta ON wp_posts.ID = wp_postmeta.post_id 
+			WHERE wp_posts.post_type IN ('school') 
+			AND wp_posts.post_status =  'publish'";
 	
 	// AND ( (post.title LIKE '%word1%' OR post.title LIKE '%word2%')
-	$sql .= " AND ( ( ";
+	$sql .= " AND ( ";
 
 		for ($i = 0; $i <= $terms_array_length; $i++){
 			// sanitize input!!
@@ -1081,19 +1075,7 @@ function get_search_results($search_terms, $search_type){
 			}
 		}
 
-	//  OR ( post.term LIKE '%word1%' OR post.term LIKE '%word2%' )
-	$sql .= " ) OR ( ";
-
-		for ($i = 0; $i <= $terms_array_length; $i++){
-			// sanitize input!!
-			$sql .= $wpdb->prepare("wp_terms.name LIKE '%%%s%%'", $terms_array[$i]);
-
-			if ($i !== $terms_array_length){
-				$sql .= " OR ";
-			}
-		}
-
-	//  OR ( post.term LIKE '%word1%' OR post.term LIKE '%word2%' )
+	//  OR ( post meta LIKE '%word1%' OR post meta LIKE '%word2%' )
 	$sql .= " ) OR ( ";
 
 		for ($i = 0; $i <= $terms_array_length; $i++){
@@ -1104,9 +1086,28 @@ function get_search_results($search_terms, $search_type){
 				$sql .= " OR ";
 			}
 		}
+	
+	// UNION 
+	// SELECT taxonomy terms
+	$sql .= ")
+			UNION 
+			SELECT wp_term_relationships.object_id FROM wp_term_relationships 
+			INNER JOIN wp_term_taxonomy ON wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id 
+			INNER JOIN wp_terms ON wp_term_taxonomy.term_id = wp_terms.term_id 
+			WHERE ";
 
-	// ) GROUP BY post.id ORDER BY post.date
-	$sql .= " ) ) GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, 10";
+	//  WHERE ( taxonomy.term LIKE '%word1%' OR taxonomy.term LIKE '%word2%' )
+		for ($i = 0; $i <= $terms_array_length; $i++){
+			// sanitize input!!
+			$sql .= $wpdb->prepare("wp_terms.name LIKE '%%%s%%'", $terms_array[$i]);
+
+			if ($i !== $terms_array_length){
+				$sql .= " OR ";
+			}
+		}
+
+	// GROUP BY post.id ORDER BY post.date
+	//$sql .= " ) ) GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, 10";
 	
 	// for debugging
 	if ($search_type == "show-query")
