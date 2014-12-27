@@ -1107,8 +1107,11 @@ function get_search_results($search_terms, $search_type){
 
 	// ) GROUP BY post.id ORDER BY post.date
 	$sql .= " ) ) GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, 10";
+	
+	// for debugging
+	if ($search_type == "show-query")
+		echo $sql;
 
-	//echo $sql;
 	$search_results = $wpdb->get_col( $sql );
 	//var_dump($search_results);
 
