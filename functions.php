@@ -569,7 +569,7 @@ function contact_info_box_content( $post ) {
 		</tr>
 		<tr>
 			<td>
-				<label for="school-facebook-page">Facebook Page:</label><br />
+				<label for="school-facebook-page">Facebook Page URL:</label><br />
 				<input type="text" id="school-facebook-page" name="school-facebook-page" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-facebook-page', true ) ); ?>" />
 			</td>
 		</tr>
@@ -916,106 +916,6 @@ function email_school($school_id) {
 }
 
 
-//*===================================================== < CUSTOM SEARCH QUERY > =====================================================================*//
-
-/**
- * Join Taxonomy tables (wp_terms, wp_term_taxonomy, wp_term_relationships) to SQL Query
- *
- * @author	thom
- * @since	11.21.2012
- *
- * @return	void
- */
-function tax_search_join( $join ) {
-	global $wpdb;
-
-	if( is_search() )
-	{
-	$join .= "
-			INNER JOIN
-			  {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id
-			INNER JOIN
-			  {$wpdb->term_relationships} ON {$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id
-			INNER JOIN
-			  {$wpdb->term_taxonomy} ON {$wpdb->term_taxonomy}.term_taxonomy_id = {$wpdb->term_relationships}.term_taxonomy_id
-			INNER JOIN
-			  {$wpdb->terms} ON {$wpdb->terms}.term_id = {$wpdb->term_taxonomy}.term_id
-		";
-	}
-	return $join;
-}
-add_filter('posts_join', 'tax_search_join');
-
-
-/**
- * Include each word from search (using URL ex. "?s=french+german") in SQL Query
- *
- * @author	Zlatko
- * @since	12.03.2014
- *
- * @return	void
- */
-function tax_search_where( $where ) {
-	global $wpdb;
-	if( is_search() ) {
-		// add search terms to the query
-		$where .= " OR (";
-
-		// sanitize search query & divide into separate words
-		$query_word = strtok(esc_sql(get_query_var('s')), ' ');
-
-		// append each seach query word onto SQL Query, search for matching taxonomy terms
-		while ($query_word !== false){
-			$where .= "{$wpdb->terms}.name LIKE " . "'%" . $query_word . "%'";
-			$query_word = strtok(' ');
-
-			if ($query_word !== false)
-				$where .= " OR ";
-		}
-
-		$where .= ") OR (";
-
-		// sanitize search query & divide into separate words, one more time
-		$query_word = strtok(esc_sql(get_query_var('s')), ' ');
-
-		// append each seach query word onto SQL Query again, search for matching addresses
-		while ($query_word !== false){
-			$where .= "{$wpdb->postmeta}.meta_value LIKE " . "'%" . $query_word . "%'";
-			$query_word = strtok(' ');
-
-			if ($query_word !== false)
-				$where .= " OR ";
-		}
-
-		$where .= ")";
-	}
-	return $where;
-}
-add_filter('posts_where', 'tax_search_where');
-
-
-/**
- * Group results by ID, to avoid duplicate results because of Tables' Join
- *
- * @author	thom
- * @since	11.21.2012
- *
- * @return	void
- */
-function tax_search_groupby( $groupby ) {
-	global $wpdb;
-
-	if( is_search() ) {
-		$groupby = "{$wpdb->posts}.ID";
-	}
-
-	return $groupby;
-}
-add_filter('posts_groupby', 'tax_search_groupby');
-
-//*==================================================== </ CUSTOM SEARCH QUERY > =====================================================================*//
-
-
 //*==================================================== < CUSTOM FUNCTIONS > =====================================================================*//
 
 /**
@@ -1149,6 +1049,77 @@ function get_school_address ($school_id, $args){
 	echo $address;
 }
 
+
+function get_search_results($search_terms, $search_type){
+	global $wpdb;
+
+	// break search query into an array
+	$terms_array = explode(' ', $search_terms);
+	$terms_array_length = count($terms_array) - 1;
+
+	// begin SELECT statement; INNER JOIN with taxonomy terms; WHERE posts are 'school' AND 'published'
+	$sql = "SELECT SQL_CALC_FOUND_ROWS wp_posts.ID FROM wp_posts 
+				INNER JOIN 
+					wp_postmeta ON wp_posts.ID = wp_postmeta.post_id 
+				INNER JOIN 
+					wp_term_relationships ON wp_posts.ID = wp_term_relationships.object_id 
+				INNER JOIN 
+					wp_term_taxonomy ON wp_term_taxonomy.term_taxonomy_id = wp_term_relationships.term_taxonomy_id 
+				INNER JOIN 
+					wp_terms ON wp_terms.term_id = wp_term_taxonomy.term_id 
+			WHERE wp_posts.post_type IN ('school') AND wp_posts.post_status = 'publish'";
+	
+	// AND ( (post.title LIKE '%word1%' OR post.title LIKE '%word2%')
+	$sql .= " AND ( ( ";
+
+		for ($i = 0; $i <= $terms_array_length; $i++){
+			// sanitize input!!
+			$sql .= $wpdb->prepare("wp_posts.post_title LIKE '%%%s%%'", $terms_array[$i]);
+
+			if ($i !== $terms_array_length){
+				$sql .= " OR ";
+			}
+		}
+
+	//  OR ( post.term LIKE '%word1%' OR post.term LIKE '%word2%' )
+	$sql .= " ) OR ( ";
+
+		for ($i = 0; $i <= $terms_array_length; $i++){
+			// sanitize input!!
+			$sql .= $wpdb->prepare("wp_terms.name LIKE '%%%s%%'", $terms_array[$i]);
+
+			if ($i !== $terms_array_length){
+				$sql .= " OR ";
+			}
+		}
+
+	//  OR ( post.term LIKE '%word1%' OR post.term LIKE '%word2%' )
+	$sql .= " ) OR ( ";
+
+		for ($i = 0; $i <= $terms_array_length; $i++){
+			// sanitize input!!
+			$sql .= $wpdb->prepare("wp_postmeta.meta_value LIKE '%%%s%%'", $terms_array[$i]);
+
+			if ($i !== $terms_array_length){
+				$sql .= " OR ";
+			}
+		}
+
+	// ) GROUP BY post.id ORDER BY post.date
+	$sql .= " ) ) GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, 10";
+
+	//echo $sql;
+	$search_results = $wpdb->get_col( $sql );
+	//var_dump($search_results);
+
+	// if header-search
+
+	// if advanced-search
+
+	// if filtered-search
+
+	return $search_results;
+}
 //*==================================================== < /CUSTOM FUNCTIONS > =====================================================================*//
 
 ?>

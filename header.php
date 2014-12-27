@@ -100,9 +100,19 @@
 											'fallback_cb'		=>	false,
 											'walker'			=>	new The_Bootstrap_Nav_Walker,
 										) ); 
-										if ( the_bootstrap_options()->navbar_searchform ) {
-											my_navbar_search();
-										} ?>
+											//my_navbar_search();
+										if ( the_bootstrap_options()->navbar_searchform ) : ?>
+											<form id="search-form" 
+													class="navbar-search pull-right" 
+													method="post" 
+													action="<?php append_website_URL('school-search-results/'); ?>">
+												<div id="simpleSearch">
+													<input name="search-type" type="hidden" value="header-search">
+													<input name="search-query" class="search-field" placeholder="Search">
+													<input type="submit" value="" class="searchButton">
+												</div>
+											</form>
+										<?php endif; ?>
 								    </div>
 								</div>
 							</div>
