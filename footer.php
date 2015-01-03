@@ -13,25 +13,25 @@
 							<div class="footer-title">SCHOOLS BY CITY</div>
 							<ul class="footer-nav">
 								<li>
-									<a href="<?php append_website_URL('?s=toronto'); ?>">Toronto</a>
+									<a href="<?php append_website_URL('school-search-results/?city=toronto'); ?>">Toronto</a>
 								</li>
 								<li>
-									<a href="<?php append_website_URL('?s=montreal'); ?>">Montreal</a>
+									<a href="<?php append_website_URL('school-search-results/?city=montreal'); ?>">Montreal</a>
 								</li>
 								<li>
-									<a href="<?php append_website_URL('?s=vancouver'); ?>">Vancouver</a>
+									<a href="<?php append_website_URL('school-search-results/?city=vancouver'); ?>">Vancouver</a>
 								</li>
 								<li>
-									<a href="<?php append_website_URL('?s=calgary'); ?>">Calgary</a>
+									<a href="<?php append_website_URL('school-search-results/?city=calgary'); ?>">Calgary</a>
 								</li>
 								<li>
-									<a href="<?php append_website_URL('?s=ottawa'); ?>">Ottawa</a>
+									<a href="<?php append_website_URL('school-search-results/?city=ottawa'); ?>">Ottawa</a>
 								</li>
 								<li>
-									<a href="<?php append_website_URL('?s=mississauga'); ?>">Mississauga</a>
+									<a href="<?php append_website_URL('school-search-results/?city=mississauga'); ?>">Mississauga</a>
 								</li>
 								<li>
-									<a href="<?php append_website_URL('?s=oakville'); ?>">Oakville</a>
+									<a href="<?php append_website_URL('school-search-results/?city=oakville'); ?>">Oakville</a>
 								</li>
 							</ul>
 						</div>
@@ -39,25 +39,25 @@
 							<div class="footer-title">SCHOOLS BY TYPE</div>
 							<ul class="footer-nav">
 								<li>
-									<a href="<?php append_website_URL('?s=boarding'); ?>">Boarding</a>
+									<a href="<?php append_website_URL('school-search-results/?type=boarding'); ?>">Boarding</a>
 								</li>
 								<li>
-									<a href="<?php append_website_URL('?s=montessori'); ?>">Montessori</a>
+									<a href="<?php append_website_URL('school-search-results/?type=montessori'); ?>">Montessori</a>
 								</li>
 								<li>
-									<a href="<?php append_website_URL('?s=special+needs'); ?>">Special Needs</a>
+									<a href="<?php append_website_URL('school-search-results/?type=special+needs'); ?>">Special Needs</a>
 								</li>
 								<li>
-									<a href="<?php append_website_URL('?s=faith-based'); ?>">Faith-based</a>
+									<a href="<?php append_website_URL('school-search-results/?type=faith-based'); ?>">Faith-based</a>
 								</li>
 								<li>
-									<a href="<?php append_website_URL('?s=all-girls'); ?>">All-girls</a>
+									<a href="<?php append_website_URL('school-search-results/?type=all-girls'); ?>">All-girls</a>
 								</li>
 								<li>
-									<a href="<?php append_website_URL('?s=all-boys'); ?>">All-boys</a>
+									<a href="<?php append_website_URL('school-search-results/?type=all-boys'); ?>">All-boys</a>
 								</li>
 								<li>
-									<a href="<?php append_website_URL('?s=coed'); ?>">Coed</a>
+									<a href="<?php append_website_URL('school-search-results/?type=coed'); ?>">Coed</a>
 								</li>
 							</ul>
 						</div>

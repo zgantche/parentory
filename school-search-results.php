@@ -19,8 +19,32 @@ get_header(); ?>
 		<?php //echo $GLOBALS['wp_query']->request; ?>
 
 		<?php
+			$perform_new_search = true;
+
+			// define search query and search type
+			if ( isset($_GET["page"]) ){
+				$perform_new_search = false;
+				echo "display different page of the same search results!";
+			}
+			else if ( isset($_GET["city"]) ){
+				$search_query = $_GET["city"];
+				$search_type = "footer-search";
+			}
+			else if ( isset($_GET["type"]) ){
+				$search_query = $_GET["type"];
+				$search_type = "footer-search";
+			}
+			else if ( isset($_POST["search-query"]) ){
+				$search_query = $_POST["search-query"];
+				$search_type = $_POST["search-type"];
+			}
+			else
+				$perform_new_search = false;
+
+			
 			// perform SQL Query
-			$result_post_ids = get_search_results($_POST["search-query"], $_POST["search-type"]);
+			if ($perform_new_search)
+				$result_post_ids = get_search_results($search_query, $search_type);
 
 			// protect against arbitrary paged values
 			$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
@@ -96,7 +120,10 @@ get_header(); ?>
 				}
 			} else {
 				//no posts found, TODO: put placeholder stuff here
-				echo "<h2>Sorry, no schools found for the search: '" . $_POST["search-query"] . "'</h2>";
+				if ( isset($search_query) )
+					echo '<h2>Sorry, no schools found for the search: "' . $search_query . '"</h2>';
+				else
+					echo '<h2>Sorry, there seems to be an error. Please go back to our home page, and try again.</h2>';
 			}
 		?>
 
