@@ -22,7 +22,9 @@ get_header(); ?>
 
 <div id="feature-images" class="row-fluid">
 	<div class="span4">
-		<img src="http://test.parentory.ca/wp-content/uploads/2014/06/mini_image1.png" class="feature-images-item">
+		<a href="<?php append_website_URL('advanced-search/'); ?>">
+			<img src="http://test.parentory.ca/wp-content/uploads/2014/06/mini_image1.png" class="feature-images-item">
+		</a>
 	</div>
 	<div class="span4">
 		<a href="<?php append_website_URL('advanced-search/?show=advanced'); ?>">
