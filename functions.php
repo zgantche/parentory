@@ -922,7 +922,7 @@ function email_school($school_id) {
  * Render the taxonomies within the Advanced Search page
  *
  * @author	Zlatko
- * @since	12.15.2012
+ * @since	12.15.2014
  *
  * @return	void
  */
@@ -998,7 +998,7 @@ function advanced_search_render_single_taxonomy($taxonomy_group_name, $taxonomy_
  * Append Local Website URL to create address leading to desired page
  *
  * @author	Zlatko
- * @since	12.16.2012
+ * @since	12.16.2014
  *
  * @return	void
  */
@@ -1008,11 +1008,24 @@ function append_website_URL($page_address){
 }
 
 /**
+ * Return Local Website URL to create address leading to desired page as String
+ *
+ * @author	Zlatko
+ * @since	01.06.2015
+ *
+ * @return	A string containing $page_address appenede to the website's URL
+ */
+function get_website_URL($page_address){
+	$home_url = substr($_SERVER['SCRIPT_NAME'], 0, -9);
+	return 'http://' . $_SERVER['HTTP_HOST'] . $home_url . $page_address;
+}
+
+/**
  * Print out a school's address information, according to requests
  *	> $args = 'street-address', 'city', 'province', 'postal-code'
  *
  * @author	Zlatko
- * @since	12.19.2012
+ * @since	01.06.2015
  *
  * @return	void
  */
@@ -1124,6 +1137,75 @@ function get_search_results($search_terms, $search_type){
 
 	return $search_results;
 }
+
+/**
+ * Break down all search results into a results array of appropriate page size 
+ *
+ * @author	Zlatko
+ * @since	01.06.2015
+ *
+ * @return	Array of school ID's proportional to desired page size
+ */
+function paginate_school_results($all_school_ids, $current_page){
+	$schools_per_page = 7;
+	$school_ids = null;
+
+	$offset = ($current_page - 1)*$schools_per_page;
+	$limit = $offset + $schools_per_page;
+
+	//populate $shool_ids to be returned
+	for ($offset; $offset<$limit; $offset++)
+		if (isset($all_school_ids[$offset]))
+			$school_ids[] = $all_school_ids[$offset];
+
+	return $school_ids;
+}
+
+/**
+ * Print page numbers, under search results, linking to different search result pages
+ *
+ * @author	Zlatko
+ * @since	01.06.2015
+ *
+ * @return	void
+ */
+function print_page_numbers($current_page, $results_num){
+	$schools_per_page = 7;
+
+ 	if ($results_num <= $schools_per_page){
+ 		//don't print anything
+	}
+	else{
+		echo "<center id='school-archive-bottom'>";
+
+		$total_pages = ceil($results_num / $schools_per_page);
+
+		//print "previous" link
+		if ($current_page !== 1){
+			$result_page_url = "school-search-results/?pageid=" . ($current_page-1);
+			echo "<a class='next page-numbers' href='" . get_website_URL($result_page_url) . "'>« Previous</a> ";
+		}
+		
+		//print page numbers
+		for ($i=1; $i<=$total_pages; $i++){
+			$result_page_url = "school-search-results/?pageid=" . $i;
+
+			if ($i == $current_page)
+				echo "<span class='page-numbers current'>" . $i . "</span> ";
+			else
+				echo "<a class='page-numbers' href='" . get_website_URL($result_page_url) . "'>" . $i . "</a> ";
+		}
+
+		//print "next" link
+		if ($current_page != $total_pages){
+			$result_page_url = "school-search-results/?pageid=" . ($current_page+1);
+			echo "<a class='next page-numbers' href='" . get_website_URL($result_page_url) . "'>Next »</a>";
+		}
+
+		echo "</center>";
+	}
+}
+
 //*==================================================== < /CUSTOM FUNCTIONS > =====================================================================*//
 
 ?>

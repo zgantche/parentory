@@ -6,7 +6,7 @@
  *
  */
 
-
+session_start(); //begin a php session
 get_header(); ?>
 <div id="main-image" class="row-fluid">
 	<img src="http://test.parentory.ca/wp-content/uploads/2014/12/advanced-search-splash.jpg">
@@ -16,58 +16,58 @@ get_header(); ?>
 <section id="primary" class="span12">
 	
 	<div id="content" role="main" class="container-fluid">
-		<?php //echo $GLOBALS['wp_query']->request; ?>
 
 		<?php
+			$first_post = true;
 			$perform_new_search = true;
+			$pageid = 1;
 
 			// define search query and search type
-			if ( isset($_GET["page"]) ){
+			if ( isset($_GET['pageid'] ) ){
 				$perform_new_search = false;
-				echo "display different page of the same search results!";
+				$pageid = (int)$_GET['pageid'];
 			}
-			else if ( isset($_GET["city"]) ){
-				$search_query = $_GET["city"];
+			else if ( isset($_GET['city']) ){
+				$search_query = $_GET['city'];
 				$search_type = "footer-search";
 			}
-			else if ( isset($_GET["type"]) ){
+			else if ( isset($_GET['type']) ){
 				$search_query = $_GET["type"];
 				$search_type = "footer-search";
 			}
-			else if ( isset($_POST["search-query"]) ){
-				$search_query = $_POST["search-query"];
-				$search_type = $_POST["search-type"];
+			else if ( isset($_POST['search-query']) ){
+				$search_query = $_POST['search-query'];
+				$search_type = $_POST['search-type'];
 			}
 			else
 				$perform_new_search = false;
 
 			
-			// perform SQL Query
+			// perform SQL Query, store result in php session
 			if ($perform_new_search)
-				$result_post_ids = get_search_results($search_query, $search_type);
+				$_SESSION['search_result_school_ids'] = get_search_results($search_query, $search_type);
 
-			// protect against arbitrary paged values
-			$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
-
-			global $post;
-			$first_post = true;
 
 			// check if there's posts to be shown
-			if ( !empty($result_post_ids) ) {
+			if ( !empty($_SESSION['search_result_school_ids']) ) {
+				// determine the number of schools to show
+				$school_ids = paginate_school_results($_SESSION['search_result_school_ids'], $pageid);
+
 			    // begin The Loop
-				foreach ( $result_post_ids as $post_id )
+				
+				foreach ( $school_ids as $post_id )
 				{	
 					$post = get_post($post_id);
 					setup_postdata( $post );
 
-					// get the current school id - used for finding mega data
+					// get the current school id - used for finding meta data
 					$school_id = get_the_id();
 
 					// omit row divider for the first post
 					if ( $first_post )
 						$first_post = false;
 					else
-						echo "<hr>";
+						echo "<hr />";
 					?>
 
 					<div id="school-archive-entry" class="row-fluid">
@@ -121,10 +121,12 @@ get_header(); ?>
 			} else {
 				//no posts found, TODO: put placeholder stuff here
 				if ( isset($search_query) )
-					echo '<h2>Sorry, no schools found for the search: "' . $search_query . '"</h2>';
+					echo '<h2>Sorry, no schools found matching the search: "' . $search_query . '"</h2>';
 				else
 					echo '<h2>Sorry, there seems to be an error. Please go back to our home page, and try again.</h2>';
 			}
+
+			print_page_numbers($pageid, count($_SESSION['search_result_school_ids']));
 		?>
 
 	</div><!-- #content -->
