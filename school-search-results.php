@@ -73,7 +73,7 @@ get_header(); ?>
 					<div id="school-archive-entry" class="row-fluid">
 						<!-- display school image -->
 						<div class="span2 archive-school-logo">
-							<a class="read-more" href="<?php the_permalink( $school_id ); ?>">
+							<a class="read-more" target="_new" href="<?php the_permalink( $school_id ); ?>">
 								<?php the_post_thumbnail( 'thumbnail', array( 'class' => 'archive-school-logo' ) ); ?>
 							</a>
 
@@ -81,7 +81,7 @@ get_header(); ?>
 						<!-- display school title & info -->
 						<div class="span5">
 							<div id="school-title-archive" class="entry-title">
-								<a href="<?php the_permalink( $school_id ); ?>">
+								<a target="_new" href="<?php the_permalink( $school_id ); ?>">
 									<?php the_title(); ?>
 								</a>
 							</div>
@@ -92,7 +92,7 @@ get_header(); ?>
 							</div>
 							<div class="school-excerpt">
 								<?php the_excerpt(); ?>
-								<a class="read-more" href="<?php the_permalink( $school_id ); ?>"><i>(learn more)</i></a>
+								<a class="read-more" target="_new" href="<?php the_permalink( $school_id ); ?>"><i>(learn more)</i></a>
 							</div>
 						</div>
 						<!-- display school age & price info -->
