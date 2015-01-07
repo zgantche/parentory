@@ -1062,8 +1062,8 @@ function get_school_address ($school_id, $args){
 	echo $address;
 }
 
-
-function get_search_results($search_terms, $search_type){
+// if header-search
+function header_search_query($search_terms){
 	global $wpdb;
 
 	// break search query into an array
@@ -1122,18 +1122,59 @@ function get_search_results($search_terms, $search_type){
 	// GROUP BY post.id ORDER BY post.date
 	//$sql .= " ) ) GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, 10";
 	
-	// for debugging
-	if ($search_type == "show-query")
-		echo $sql;
 
-	$search_results = $wpdb->get_col( $sql );
-	//var_dump($search_results);
+	return $sql;
+}
 
-	// if header-search
+// for $search_type = directory-page-search
+function directory_page_search_query($search_terms){}
 
-	// if advanced-search
+// for $search_type = advanced-search
+function advanced_search_query($search_terms){}
 
-	// if filtered-search
+// for $search_type = filtered-search
+function filtered_search_query($search_terms){}
+
+/**
+ * Call correct function to create SQL query, then run query.
+ *
+ * @author	Zlatko
+ * @since	01.06.2015
+ *
+ * @return	Array of school ID's proportional to desired page size
+ */
+function get_search_results($search_terms, $search_type){
+	global $wpdb;
+
+	// call appropriate function to create SQL query for database
+	switch ($search_type) {
+		case "header-search":
+			$sql_query = header_search_query($search_terms); break;
+		case "directory-page-search":
+			$sql_query = directory_page_search_query($search_terms); break;
+		case "advanced-search":
+			$sql_query = advanced_search_query($search_terms); break;
+		case "filtered-search":
+			$sql_query = filtered_search_query($search_terms); break;
+	}
+	
+	/**** For Debugging - add "echo" to end of $search_type to show SQL query on screen ****/
+	if ( substr($search_type, -4) == "echo" ){
+		switch ($search_type) {
+			case "header-search-echo":
+				$sql_query = header_search_query($search_terms); break;
+			case "directory-page-search-echo":
+				$sql_query = directory_page_search_query($search_terms); break;
+			case "advanced-search-echo":
+				$sql_query = advanced_search_query($search_terms); break;
+			case "filtered-search-echo":
+				$sql_query = filtered_search_query($search_terms); break;
+		}
+		echo $sql_query;
+	}
+
+	// query database
+	$search_results = $wpdb->get_col( $sql_query );
 
 	return $search_results;
 }
