@@ -31,29 +31,34 @@ get_header(); ?>
 				<div class="span12"></div>
 			</div>
 
+			<form id="search-form" method="post" action="<?php append_website_URL('school-search-results/'); ?>">
+			<input name="search-type" type="hidden" value="directory-page-search">
+
 			<div class="row-fluid">
-				<div class="span1"></div>
-				<div class="span4">
-					City: <input type="text">
-				</div>
-				<div class="span6">
-					State/Province:
-					<select>
-						<option value="AB">Alberta</option>
-						<option value="BC">British Columbia</option>
-						<option value="MB">Manitoba</option>
-						<option value="NB">New Brunswick</option>
-						<option value="NL">Newfoundland and Labrador</option>
-						<option value="NS">Nova Scotia</option>
-						<option value="ON">Ontario</option>
-						<option value="PE">Prince Edward Island</option>
-						<option value="QC">Quebec</option>
-						<option value="SK">Saskatchewan</option>
-						<option value="NT">Northwest Territories</option>
-						<option value="NU">Nunavut</option>
-						<option value="YT">Yukon</option>
-					</select>
-				</div>
+
+					<div class="span1"></div>
+					<div class="span4">
+						City: <input type="text" name="address" placeholder="Enter City or Address Here">
+					</div>
+					<div class="span6">
+						State/Province:
+						<select name="province">
+							<option value="all">All</option>
+							<option value="Alberta">Alberta</option>
+							<option value="British Columbia">British Columbia</option>
+							<option value="Manitoba">Manitoba</option>
+							<option value="New Brunswick">New Brunswick</option>
+							<option value="Newfoundland Labrador">Newfoundland and Labrador</option>
+							<option value="Nova Scotia">Nova Scotia</option>
+							<option value="Ontario">Ontario</option>
+							<option value="Prince Edward Island">Prince Edward Island</option>
+							<option value="Quebec">Quebec</option>
+							<option value="Saskatchewan">Saskatchewan</option>
+							<option value="Northwest Territories">Northwest Territories</option>
+							<option value="Nunavut">Nunavut</option>
+							<option value="Yukon">Yukon</option>
+						</select>
+					</div>
 			</div>
 
 			<div class="row-fluid">
@@ -61,6 +66,9 @@ get_header(); ?>
 					<input type="submit" name="submit" class="submitButton" value="Search">
 				</div>
 			</div>
+
+			</form>
+
 			<div class="row-fluid">
 				<div id="archive-filter-bottom" class="span12">
 					<a href="<?php append_website_URL('advanced-search/'); ?>">Advanced Search</a>
