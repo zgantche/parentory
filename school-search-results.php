@@ -27,25 +27,17 @@ get_header(); ?>
 				$perform_new_search = false;
 				$pageid = (int)$_GET['pageid'];
 			}
-			else if ( isset($_GET['city']) ){
-				$search_query = $_GET['city'];
-				$search_type = "footer-search";
-			}
-			else if ( isset($_GET['type']) ){
-				$search_query = $_GET["type"];
-				$search_type = "footer-search";
-			}
-			else if ( isset($_POST['search-query']) ){
-				$search_query = $_POST['search-query'];
-				$search_type = $_POST['search-type'];
-			}
-			else
+			elseif (!$_POST['search-type']) {
+				echo "search-type not set!";
 				$perform_new_search = false;
+			}
 
 			
 			// perform SQL Query, store result in php session
+			echo "search type: " . $_POST['search-type'];
+
 			if ($perform_new_search)
-				$_SESSION['search_result_school_ids'] = get_search_results($search_query, $search_type);
+				$_SESSION['search_result_school_ids'] = get_search_results($_POST['search-type']);
 
 
 			// check if there's posts to be shown

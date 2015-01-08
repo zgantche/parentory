@@ -1120,14 +1120,13 @@ function header_search_query($search_terms){
 		}
 
 	// GROUP BY post.id ORDER BY post.date
-	//$sql .= " ) ) GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, 10";
-	
+	//$sql .= " GROUP BY wp_term_relationships.object_id ORDER BY wp_posts.post_title";
 
 	return $sql;
 }
 
 // for $search_type = directory-page-search
-function directory_page_search_query($search_terms){}
+function directory_page_search_query($address, $province){}
 
 // for $search_type = advanced-search
 function advanced_search_query($search_terms){}
@@ -1143,15 +1142,15 @@ function filtered_search_query($search_terms){}
  *
  * @return	Array of school ID's proportional to desired page size
  */
-function get_search_results($search_terms, $search_type){
+function get_search_results($search_type){
 	global $wpdb;
 
 	// call appropriate function to create SQL query for database
 	switch ($search_type) {
 		case "header-search":
-			$sql_query = header_search_query($search_terms); break;
+			$sql_query = header_search_query($_POST['search-query']); break;
 		case "directory-page-search":
-			$sql_query = directory_page_search_query($search_terms); break;
+			$sql_query = directory_page_search_query($_POST['address'], $_POST['province']); break;
 		case "advanced-search":
 			$sql_query = advanced_search_query($search_terms); break;
 		case "filtered-search":
