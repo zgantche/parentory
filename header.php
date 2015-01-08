@@ -3,7 +3,7 @@
  *
  * Displays all of the <head> section and everything up till </header>
  *
- * @author		Konstantin Obenland
+ * @author		Zlatko Gantchev
  * @package		The Bootstrap
  * @since		1.0 - 05.02.2012
  */
