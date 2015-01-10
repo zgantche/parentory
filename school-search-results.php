@@ -9,7 +9,7 @@
 session_start(); //begin a php session
 get_header(); ?>
 <div id="main-image" class="row-fluid">
-	<img src="http://test.parentory.ca/wp-content/uploads/2014/12/advanced-search-splash.jpg">
+	<img src="http://test.parentory.ca/wp-content/uploads/2015/01/search-results-splash.jpg">
 </div>
 
 
