@@ -40,13 +40,12 @@ get_header(); ?>
 				$_SESSION['search_result_school_ids'] = get_search_results($_POST['search-type']);
 
 
-			// check if there's posts to be shown
-			if ( !empty($_SESSION['search_result_school_ids']) ) {
+			// check if there are posts to be shown
+			if ( isset($_SESSION['search_result_school_ids']) && !empty($_SESSION['search_result_school_ids']) ) {
 				// determine the number of schools to show
 				$school_ids = paginate_school_results($_SESSION['search_result_school_ids'], $pageid);
 
 			    // begin The Loop
-				
 				foreach ( $school_ids as $post_id )
 				{	
 					$post = get_post($post_id);
@@ -112,8 +111,20 @@ get_header(); ?>
 				}
 			} else {
 				//no posts found, TODO: put placeholder stuff here
-				if ( isset($search_query) )
-					echo '<h2>Sorry, no schools found matching the search: "' . $search_query . '"</h2>';
+				if ( isset($_SESSION['search_result_school_ids']) )
+					switch ($_POST['search-type']) {
+						case "header-search":
+							echo '<h2>Sorry, no schools were found matching the search: "' . $_POST['search-query'] . '"</h2>'; 
+							break;
+						case "directory-page-search":
+							echo '<h2>Sorry, no schools were found matching the search: "' 
+									. $_POST['address'] . ', ' 
+									. $_POST['province'] . '"</h2>'; 
+							break;
+						case "advanced-search":
+							echo '<h2>Sorry, no schools were found matching your search.</h2>';
+							break;
+						}
 				else
 					echo '<h2>Sorry, there seems to be an error. Please go back to our home page, and try again.</h2>';
 			}

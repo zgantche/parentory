@@ -1071,10 +1071,12 @@ function header_search_query($search_terms){
 	$terms_array_length = count($terms_array) - 1;
 
 	// begin SELECT statement; INNER JOIN with post meta; WHERE posts are 'school' AND 'published'
-	$sql = "SELECT wp_posts.ID FROM wp_posts 
-			INNER JOIN wp_postmeta ON wp_posts.ID = wp_postmeta.post_id 
-			WHERE wp_posts.post_type IN ('school') 
-			AND wp_posts.post_status =  'publish'";
+	$sql = "SELECT 		wp_posts.ID 
+			FROM 		wp_posts 
+			INNER JOIN 	wp_postmeta 
+						ON wp_posts.ID = wp_postmeta.post_id 
+			WHERE 		wp_posts.post_type IN ('school') 
+			AND 		wp_posts.post_status =  'publish'";
 	
 	// AND ( (post.title LIKE '%word1%' OR post.title LIKE '%word2%')
 	$sql .= " AND (";
@@ -1126,7 +1128,46 @@ function header_search_query($search_terms){
 }
 
 // for $search_type = directory-page-search
-function directory_page_search_query($address, $province){}
+function directory_page_search_query($address, $province){
+	global $wpdb;
+
+	// begin SELECT statement; INNER JOIN with post meta; WHERE posts are 'school' AND 'published'
+	$sql = "SELECT 		wp_posts.ID 
+			FROM 		wp_posts 
+			INNER JOIN 	wp_postmeta 
+						ON wp_posts.ID = wp_postmeta.post_id 
+			WHERE 		wp_posts.post_type IN ('school') 
+			AND 		wp_posts.post_status = 'publish' ";
+	
+	// only include if Province was input
+	if ( $province !== "All Provinces" ){
+		$sql .= $wpdb->prepare("AND (
+									wp_postmeta.meta_key = 'school-province' AND
+									wp_postmeta.meta_value = '%s'
+									)", $province);
+	}
+	// only include if Address was input
+	if ( isset($address) ){
+		// break passed address into an array
+		$address_array = explode(' ', $address);
+		$address_array_length = count($address_array) - 1;
+
+		$sql .= " AND (";
+
+		for ($i = 0; $i <= $address_array_length; $i++){
+			// sanitize input!!
+			$sql .= $wpdb->prepare("wp_postmeta.meta_value LIKE '%%%s%%'", $address_array[$i]);
+
+			if ($i !== $address_array_length){
+				$sql .= " OR ";
+			}
+		}
+
+		$sql .= ")";
+	}
+
+	return $sql;
+}
 
 // for $search_type = advanced-search
 function advanced_search_query($search_terms){}
@@ -1161,9 +1202,9 @@ function get_search_results($search_type){
 	if ( substr($search_type, -4) == "echo" ){
 		switch ($search_type) {
 			case "header-search-echo":
-				$sql_query = header_search_query($search_terms); break;
+				$sql_query = header_search_query($_POST['search-query']); break;
 			case "directory-page-search-echo":
-				$sql_query = directory_page_search_query($search_terms); break;
+				$sql_query = directory_page_search_query($_POST['address'], $_POST['province']); break;
 			case "advanced-search-echo":
 				$sql_query = advanced_search_query($search_terms); break;
 			case "filtered-search-echo":
@@ -1175,7 +1216,10 @@ function get_search_results($search_type){
 	// query database
 	$search_results = $wpdb->get_col( $sql_query );
 
-	return $search_results;
+	if ( isset($search_results) )
+		return $search_results;
+	else
+		return "Error";
 }
 
 /**
