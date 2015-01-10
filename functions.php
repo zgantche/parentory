@@ -1077,7 +1077,7 @@ function header_search_query($search_terms){
 			AND wp_posts.post_status =  'publish'";
 	
 	// AND ( (post.title LIKE '%word1%' OR post.title LIKE '%word2%')
-	$sql .= " AND (( ";
+	$sql .= " AND (";
 
 		for ($i = 0; $i <= $terms_array_length; $i++){
 			// sanitize input!!
@@ -1089,7 +1089,7 @@ function header_search_query($search_terms){
 		}
 
 	//  OR ( post meta LIKE '%word1%' OR post meta LIKE '%word2%' )
-	$sql .= " ) OR ( ";
+	$sql .= " OR  ";
 
 		for ($i = 0; $i <= $terms_array_length; $i++){
 			// sanitize input!!
@@ -1102,7 +1102,7 @@ function header_search_query($search_terms){
 	
 	// UNION 
 	// SELECT taxonomy terms
-	$sql .= "))
+	$sql .= ")
 			UNION 
 			SELECT wp_term_relationships.object_id FROM wp_term_relationships 
 			INNER JOIN wp_term_taxonomy ON wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id 

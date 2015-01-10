@@ -22,20 +22,20 @@ get_header(); ?>
 			$perform_new_search = true;
 			$pageid = 1;
 
-			// define search query and search type
-			if ( isset($_GET['pageid'] ) ){
+			// determine if either searching or pagination needs to happen
+			if ( isset($_GET['pageid']) ){
 				$perform_new_search = false;
 				$pageid = (int)$_GET['pageid'];
 			}
-			elseif (!$_POST['search-type']) {
+			elseif ( !isset($_POST['search-type']) ) {
 				echo "search-type not set!";
 				$perform_new_search = false;
 			}
+			else
+				echo "Searching, search type: " . $_POST['search-type'];
 
 			
 			// perform SQL Query, store result in php session
-			echo "search type: " . $_POST['search-type'];
-
 			if ($perform_new_search)
 				$_SESSION['search_result_school_ids'] = get_search_results($_POST['search-type']);
 

@@ -29,9 +29,12 @@ INNER JOIN 	wp_postmeta
 			ON wp_posts.ID = wp_postmeta.post_id 
 WHERE 		wp_posts.post_type IN ('school') 
 		AND wp_posts.post_status = 'publish' 
-		AND
-			(wp_posts.post_title LIKE '%word1%' OR wp_posts.post_title LIKE '%word2%') OR 
-			(wp_postmeta.meta_value LIKE '%word1%' OR wp_postmeta.meta_value LIKE '%word2%')
+		AND (
+				wp_posts.post_title LIKE '%word1%' OR 
+				wp_posts.post_title LIKE '%word2%' OR 
+				wp_postmeta.meta_value LIKE '%word1%' OR 
+				wp_postmeta.meta_value LIKE '%word2%'
+			)
 UNION 
 SELECT 		wp_term_relationships.object_id 
 FROM 		wp_term_relationships 
@@ -42,6 +45,10 @@ INNER JOIN 	wp_terms
 WHERE 		wp_terms.name LIKE '%word1%' OR 
 			wp_terms.name LIKE '%word2%'
 
+
+
+
+/****** directory-page-search query (using Address & Province) ******/
 
 SELECT 		wp_posts.ID 
 FROM 		wp_posts 
@@ -49,24 +56,55 @@ INNER JOIN 	wp_postmeta
 			ON wp_posts.ID = wp_postmeta.post_id 
 WHERE 		wp_posts.post_type IN ('school') 
 		AND wp_posts.post_status = 'publish' 
-		AND
-			(wp_posts.post_title LIKE '%word1%' OR wp_posts.post_title LIKE '%word2%') OR 
-			(wp_postmeta.meta_value LIKE '%word1%' OR wp_postmeta.meta_value LIKE '%word2%')
+		/* only include if Province was selected */
+		AND (
+				wp_postmeta.meta_key = "school-province" AND
+				wp_postmeta.meta_value = "dropdown_value"
+			)
+		/* only include if Address was input */
+		AND (
+				wp_postmeta.meta_value LIKE '%address_word1%' OR 
+				wp_postmeta.meta_value LIKE '%address_word2%'
+			)
+
+
+/****** focused-search & advanced-search query ******/
+
+SELECT 		wp_posts.ID 
+FROM 		wp_posts 
+INNER JOIN 	wp_postmeta 
+			ON wp_posts.ID = wp_postmeta.post_id 
+WHERE 		wp_posts.post_type IN ('school') AND 
+			wp_posts.post_status = 'publish' AND 
+			(
+				wp_posts.post_title LIKE '%word1%' OR 
+				wp_posts.post_title LIKE '%word2%' OR 
+				wp_postmeta.meta_value LIKE '%word1%' OR 
+				wp_postmeta.meta_value LIKE '%word2%'
+			)
 UNION 
-SELECT 		wp_term_relationships.object_id 
-FROM 		wp_term_relationships 
-INNER JOIN 	wp_term_taxonomy 
-			ON wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id 
-INNER JOIN 	wp_terms 
-			ON wp_term_taxonomy.term_id = wp_terms.term_id 
-WHERE 		wp_terms.name LIKE '%word1%' OR 
-			wp_terms.name LIKE '%word2%'
 
+/* -- tested and works -- */
+SELECT 		G.object_id
+FROM		(
+			SELECT 		wp_term_relationships.object_id
+			FROM 		wp_term_relationships 
+			INNER JOIN 	wp_term_taxonomy 
+						ON wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id 
+			INNER JOIN 	wp_terms 
+						ON wp_term_taxonomy.term_id = wp_terms.term_id 
+			WHERE 		wp_terms.name IN ('Archery', 'Badminton', 'Baseball', ...)
+			) as G
+GROUP BY	G.object_id
+HAVING 		Count(*) = [termsCount]
+/* ----------------------- */
 
-/****** directory-page-search query (using Address & Province) ******/
-
-
-/****** advanced-search query ******/
-
-
-/****** filtered-search query ******/
+SELECT		G.ContentID
+FROM	 	(
+			SELECT PT.ContentID, PT.TagID
+			FROM PaperTags AS PT
+			WHERE PT.TagID IN (15, 18)
+			GROUP BY PT.ContentID, PT.TagID
+			) AS G
+GROUP BY	G.ContentId
+HAVING 		Count(*) = 2
