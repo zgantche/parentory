@@ -50,22 +50,31 @@ WHERE 		wp_terms.name LIKE '%word1%' OR
 
 /****** directory-page-search query (using Address & Province) ******/
 
-SELECT 		wp_posts.ID 
-FROM 		wp_posts 
-INNER JOIN 	wp_postmeta 
-			ON wp_posts.ID = wp_postmeta.post_id 
-WHERE 		wp_posts.post_type IN ('school') 
-		AND wp_posts.post_status = 'publish' 
-		/* only include if Province was selected */
-		AND (
-				wp_postmeta.meta_key = "school-province" AND
-				wp_postmeta.meta_value = "dropdown_value"
-			)
-		/* only include if Address was input */
-		AND (
-				wp_postmeta.meta_value LIKE '%address_word1%' OR 
-				wp_postmeta.meta_value LIKE '%address_word2%'
-			)
+/* only if both Address and Province are defined */
+SELECT 		G.ID
+FROM		(
+			SELECT 		wp_posts.ID 
+			FROM 		wp_posts 
+			INNER JOIN 	wp_postmeta 
+						ON wp_posts.ID = wp_postmeta.post_id 
+			WHERE 		wp_posts.post_type IN ('school') 
+					AND wp_posts.post_status = 'publish' 
+					/* only include if Province was selected */
+					AND (
+							wp_postmeta.meta_key = "school-province" AND
+							wp_postmeta.meta_value = "dropdown_value"
+						)
+					/* only include if Address was input */
+					OR (
+							wp_postmeta.meta_value LIKE '%address_word1%' OR 
+							wp_postmeta.meta_value LIKE '%address_word2%'
+						)
+/* only if both Address and Province are defined */
+			) as G
+GROUP BY	G.ID
+HAVING 		Count(*) >= 2
+
+
 
 
 /****** focused-search & advanced-search query ******/
@@ -98,13 +107,3 @@ FROM		(
 GROUP BY	G.object_id
 HAVING 		Count(*) = [termsCount]
 /* ----------------------- */
-
-SELECT		G.ContentID
-FROM	 	(
-			SELECT PT.ContentID, PT.TagID
-			FROM PaperTags AS PT
-			WHERE PT.TagID IN (15, 18)
-			GROUP BY PT.ContentID, PT.TagID
-			) AS G
-GROUP BY	G.ContentId
-HAVING 		Count(*) = 2
