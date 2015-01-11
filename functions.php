@@ -1130,9 +1130,19 @@ function header_search_query($search_terms){
 // for $search_type = directory-page-search
 function directory_page_search_query($address, $province){
 	global $wpdb;
+	$sql = "";
 
-	// begin SELECT statement; INNER JOIN with post meta; WHERE posts are 'school' AND 'published'
-	$sql = "SELECT 		wp_posts.ID 
+	// determine if query needs to group results
+	if ( !empty($address) && $province !== "All Provinces" )
+		$groupResults = true;
+	else
+		$groupResults = false;
+	
+	if ($groupResults)
+		$sql .= "SELECT 	G.ID
+				 FROM		(";
+	
+	$sql .= "SELECT 	wp_posts.ID 
 			FROM 		wp_posts 
 			INNER JOIN 	wp_postmeta 
 						ON wp_posts.ID = wp_postmeta.post_id 
@@ -1146,13 +1156,17 @@ function directory_page_search_query($address, $province){
 									wp_postmeta.meta_value = '%s'
 									)", $province);
 	}
+
 	// only include if Address was input
-	if ( isset($address) ){
+	if ( !empty($address) ){
 		// break passed address into an array
 		$address_array = explode(' ', $address);
 		$address_array_length = count($address_array) - 1;
 
-		$sql .= " AND (";
+		if ($groupResults)
+			$sql .= " OR (";
+		else
+			$sql .= " AND (";
 
 		for ($i = 0; $i <= $address_array_length; $i++){
 			// sanitize input!!
@@ -1165,6 +1179,11 @@ function directory_page_search_query($address, $province){
 
 		$sql .= ")";
 	}
+
+	if ($groupResults)
+		$sql .= "			) as G
+				GROUP BY	G.ID
+				HAVING 		Count(*) >= 2";
 
 	return $sql;
 }
