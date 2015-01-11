@@ -214,7 +214,7 @@ function school_insert_taxonomy_terms() {
 
 	// Academic Features
 	wp_insert_term('AP Courses', 'academic-features');
-	wp_insert_term('Eschange Programs', 'academic-features');
+	wp_insert_term('Exchange Programs', 'academic-features');
 	wp_insert_term('IB Program', 'academic-features');
 	wp_insert_term('IB Middle Years Program', 'academic-features');
 	wp_insert_term('IB Primary Years Program', 'academic-features');
