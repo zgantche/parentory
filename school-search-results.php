@@ -19,26 +19,22 @@ get_header(); ?>
 
 		<?php
 			$first_post = true;
-			$perform_new_search = true;
 			$pageid = 1;
 
-			// determine if either searching or pagination needs to happen
-			if ( isset($_GET['pageid']) ){
-				$perform_new_search = false;
+			// determine what to do; different types of searching, or pagination
+			if ( isset($_GET['pageid']) )
 				$pageid = (int)$_GET['pageid'];
-			}
-			elseif ( !isset($_POST['search-type']) ) {
-				echo "search-type not set!";
-				$perform_new_search = false;
+			// perform SQL Query, store result in php session
+			elseif ( isset($_GET['city']) )
+				$_SESSION['search_result_school_ids'] = get_search_results('city-search');
+			elseif ( isset($_GET['type']) )
+				$_SESSION['search_result_school_ids'] = get_search_results('type-search');
+			elseif ( isset($_POST['search-type']) ) {
+				echo "Searching, search type: " . $_POST['search-type'];
+				$_SESSION['search_result_school_ids'] = get_search_results($_POST['search-type']);
 			}
 			else
-				echo "Searching, search type: " . $_POST['search-type'];
-
-			
-			// perform SQL Query, store result in php session
-			if ($perform_new_search)
-				$_SESSION['search_result_school_ids'] = get_search_results($_POST['search-type']);
-
+				echo "Search Type is not set!"; // error
 
 			// check if there are posts to be shown
 			if ( isset($_SESSION['search_result_school_ids']) && !empty($_SESSION['search_result_school_ids']) ) {
@@ -111,22 +107,26 @@ get_header(); ?>
 				}
 			} else {
 				//no posts found, TODO: put placeholder stuff here
-				if ( isset($_SESSION['search_result_school_ids']) )
+				if ( isset($_SESSION['search_result_school_ids']) && isset($_POST['search-type']) )
 					switch ($_POST['search-type']) {
 						case "header-search":
-							echo '<h2>Sorry, no schools were found matching the search: "' . $_POST['search-query'] . '"</h2>'; 
+							echo '<h2 class="error">Sorry, no schools were found matching the search: "' . $_POST['search-query'] . '"</h2>'; 
 							break;
 						case "directory-page-search":
-							echo '<h2>Sorry, no schools were found matching the search: "' 
+							echo '<h2 class="error">Sorry, no schools were found matching the search: "' 
 									. $_POST['address'] . ', ' 
 									. $_POST['province'] . '"</h2>'; 
 							break;
 						case "advanced-search":
-							echo '<h2>Sorry, no schools were found matching your search.</h2>';
+							echo '<h2 class="error">Sorry, no schools were found matching your search.</h2>';
 							break;
 						}
+				else if ( isset($_GET['city']) )
+					echo '<h2 class="error">Sorry, no schools were found matching the search: "' . $_GET['city'] . '"</h2>';
+				else if ( isset($_GET['type']) )
+					echo '<h2 class="error">Sorry, no schools were found matching the search: "' . $_GET['type'] . '"</h2>';
 				else
-					echo '<h2>Sorry, there seems to be an error. Please go back to our home page, and try again.</h2>';
+					echo '<h2 class="error">Sorry, there seems to be an error. Please go back to our home page, and try again.</h2>';
 			}
 
 			print_page_numbers($pageid, count($_SESSION['search_result_school_ids']));

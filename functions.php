@@ -1189,10 +1189,20 @@ function directory_page_search_query($address, $province){
 }
 
 // for $search_type = advanced-search
-function advanced_search_query($search_terms){}
+function advanced_search_query(){}
 
-// for $search_type = filtered-search
-function filtered_search_query($search_terms){}
+function city_search_query($city){
+	$sql = "SELECT 		wp_postmeta.post_id
+			FROM 		wp_postmeta
+			INNER JOIN 	wp_posts 
+						ON wp_postmeta.post_id = wp_posts.ID
+			WHERE 		wp_posts.post_type IN ('school') 
+					AND wp_posts.post_status = 'publish' 
+					AND wp_postmeta.meta_key = 'school-city'
+					AND wp_postmeta.meta_value = '{$city}'";
+
+	return $sql;
+}
 
 /**
  * Call correct function to create SQL query, then run query.
@@ -1212,9 +1222,11 @@ function get_search_results($search_type){
 		case "directory-page-search":
 			$sql_query = directory_page_search_query($_POST['address'], $_POST['province']); break;
 		case "advanced-search":
-			$sql_query = advanced_search_query($search_terms); break;
-		case "filtered-search":
-			$sql_query = filtered_search_query($search_terms); break;
+			$sql_query = advanced_search_query(); break;
+		case "city-search":
+			$sql_query = city_search_query($_GET['city']); break;
+		case "type-search":
+			$sql_query = type_search_query($_GET['type']); break;
 	}
 	
 	/**** For Debugging - add "echo" to end of $search_type to show SQL query on screen ****/
@@ -1225,9 +1237,7 @@ function get_search_results($search_type){
 			case "directory-page-search-echo":
 				$sql_query = directory_page_search_query($_POST['address'], $_POST['province']); break;
 			case "advanced-search-echo":
-				$sql_query = advanced_search_query($search_terms); break;
-			case "filtered-search-echo":
-				$sql_query = filtered_search_query($search_terms); break;
+				$sql_query = advanced_search_query(); break;
 		}
 		echo $sql_query;
 	}
