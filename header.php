@@ -29,21 +29,21 @@
 			<div id="page" class="row">
 				<div id="before-header" class="span12">
 					<div id="before-header-menu">
-						<a href="<?php append_website_URL(''); ?>" class="before-header-menu-item" target="_new">
+						<a href="<?php append_website_URL(''); ?>" class="before-header-menu-item" target="_blank">
 							advertise</a>
-						<a href="<?php append_website_URL(''); ?>" class="before-header-menu-item" target="_new">
+						<a href="<?php append_website_URL(''); ?>" class="before-header-menu-item" target="_blank">
 							get listed</a>
-						<a href="<?php append_website_URL('admin'); ?>" class="before-header-menu-item" target="_new">
+						<a href="<?php append_website_URL('admin'); ?>" class="before-header-menu-item" target="_blank">
 							client portal</a>
 					</div>
 					<div id="before-header-icons">
-						<a href="http://facebook.com" target="_new">
+						<a href="http://facebook.com" target="_blank">
 							<i class="fa fa-facebook-square fa-lg"></i></a>
-						<a href="http://twitter.com" target="_new">
+						<a href="http://twitter.com" target="_blank">
 							<i class="fa fa-twitter-square fa-lg"></i>
-						<a href="https://plus.google.com" target="_new">
+						<a href="https://plus.google.com" target="_blank">
 							<i class="fa fa-google-plus-square fa-lg"></i>
-						<a href="http://linkedin.com" target="_new">
+						<a href="http://linkedin.com" target="_blank">
 							<i class="fa fa-linkedin-square fa-lg"></i>
 					</div>
 				</div>
@@ -67,7 +67,9 @@
 							<img src="<?php header_image(); ?>" width="227px" height="88px" alt="" />
 						</a>
 						<?php endif; ?>
-						<img src="http://test.parentory.ca/wp-content/uploads/2015/01/generic-school-LB.jpg" class="span9">
+						<a href="http://www.appleby.on.ca/" target="_blank">
+							<img src="http://test.parentory.ca/wp-content/uploads/2015/01/generic-school-LB.jpg" class="span9">
+						</a>
 					</div>
 					<br />
 

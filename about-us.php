@@ -39,11 +39,11 @@ get_header(); ?>
 					Contact Info
 				</h4>
 				<br />
-				<i class="icon-map-marker"></i> Address:<br /><a href="http://maps.google.com/?q=100 City Centre Drive Mississauga, ON L5B 2C9" target="_new">100 City Centre Dr. Mississauga, ON L5B 2C9</a>
+				<i class="icon-map-marker"></i> Address:<br /><a href="http://maps.google.com/?q=100 City Centre Drive Mississauga, ON L5B 2C9" target="_blank">100 City Centre Dr. Mississauga, ON L5B 2C9</a>
 				<br /><br />
 				<i class="fa fa-envelope-o"></i> Email:<br /><a href="mailto:info@parentory.ca">info@parentory.com</a>
 				<br /><br />
-				<i class="icon-globe"></i> Facebook:<br /><a href="http://facebook.com/parentory" target="_new">facebook.com/parentory</a>
+				<i class="icon-globe"></i> Facebook:<br /><a href="http://facebook.com/parentory" target="_blank">facebook.com/parentory</a>
 				<br /><br />
 				<i class="fa fa-phone"></i> Phone:<br />(123) 456-7890
 

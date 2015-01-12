@@ -131,7 +131,7 @@ get_header(); ?>
 						<div class="school-info-data"><?php echo sanitize_text_field( get_post_meta( $school_id, 'school-phone-number', true ) ); ?></div>
 
 						<div class="school-info-criteria"><b>Website:</b></div>
-						<div class="school-info-data"><a href="<?php echo sanitize_text_field( get_post_meta( $school_id, 'school-website', true ) ); ?>" target="_new">
+						<div class="school-info-data"><a href="<?php echo sanitize_text_field( get_post_meta( $school_id, 'school-website', true ) ); ?>" target="_blank">
 								<?php echo sanitize_text_field( get_post_meta( $school_id, 'school-website', true ) ); ?>
 							</a>
 						</div>
@@ -240,7 +240,9 @@ get_header(); ?>
 				</div>
 
 				<div id="ad-bigBox1" class="row-fluid" style="padding-bottom:30px;">
-					<img src="http://test.parentory.ca/wp-content/uploads/2015/01/generic-school-BB.jpg">
+					<a href="http://www.gilesschool.ca" target="_blank">
+						<img src="http://test.parentory.ca/wp-content/uploads/2015/01/generic-school-BB.jpg">
+					</a>
 				</div>
 				
 				<div class="row-fluid">
