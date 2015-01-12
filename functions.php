@@ -231,7 +231,6 @@ function school_insert_taxonomy_terms() {
 	wp_insert_term('Choir', 'arts');
 	wp_insert_term('Music Theatre', 'arts');
 	wp_insert_term('Vocal', 'arts');
-	wp_insert_term('Test', 'arts');
 
 	// Languages and Social Sciences
 	wp_insert_term('Italian', 'language-and-social-sciences');
