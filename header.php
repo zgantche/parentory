@@ -67,7 +67,7 @@
 							<img src="<?php header_image(); ?>" width="227px" height="88px" alt="" />
 						</a>
 						<?php endif; ?>
-						<img src="http://test.parentory.ca/wp-content/uploads/2014/05/ad.png" class="span9">
+						<img src="http://test.parentory.ca/wp-content/uploads/2015/01/generic-school-LB.jpg" class="span9">
 					</div>
 					<br />
 

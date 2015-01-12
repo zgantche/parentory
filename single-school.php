@@ -82,21 +82,21 @@ get_header(); ?>
 
 
 	<div class="container-fluid">
-		<div class="row-fluid">
-			<div id="school-title">
-				<?php echo $school_object->post_title; ?>
-			</div>
-		</div>
-		<div class="row-fluid">
-			<div id="school-address">
-				<?php get_school_address( $school_id, array('street-address', 'city', 'province', 'postal-code') ); ?>
-			</div>
-		</div>
 
 		<div class="row-fluid">
 			<!-- school content -->
 			<div class="span8">
 			
+				<div class="row-fluid">
+					<div id="school-title">
+						<?php echo $school_object->post_title; ?>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div id="school-address">
+						<?php get_school_address( $school_id, array('street-address', 'city', 'province', 'postal-code') ); ?>
+					</div>
+				</div>
 		
 				<!-- image & info -->
 				<div class="row-fluid">
@@ -207,36 +207,45 @@ get_header(); ?>
 
 			<!-- school sidebar -->
 			<div id="school-sidebar" class="span4">
-				<div id="form-title" class="arial-narrow">
-					CONTACT THIS SCHOOL
+
+				<div class="row-fluid">
+					<div id="form-title" class="arial-narrow">
+						CONTACT THIS SCHOOL
+					</div>
+
+					<?php
+						//handle single-page form submission
+						if ($_SERVER["REQUEST_METHOD"] == "POST") {
+							$email_address = email_school($school_id);
+						}
+					?>
+					
+					<form id="sidebar-form" method="POST" action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" novalidate>
+						<input type="text" class="formElement" name="email" 
+							value="<?php echo (isset ($email_address) ? $email_address : ""); ?>" 
+							placeholder="Enter Email Address">
+						<br />
+
+						<input type="text" class="formElement" name="subject" 
+							value="<?php echo (isset($subject) ? $subject : ""); ?>" 
+							placeholder="Enter Subject">
+						<br />
+
+						<textarea name="message" class="formElement" rows="5" cols="40" 
+							placeholder="Your Message"><?php echo (isset($message) ? $message : "");?></textarea>
+						<br />
+
+						<input type="submit" name="submit" class="submitButton" value="Submit"> 
+					</form>
 				</div>
 
-				<?php
-					//handle single-page form submission
-					if ($_SERVER["REQUEST_METHOD"] == "POST") {
-						$email_address = email_school($school_id);
-					}
-				?>
+				<div id="ad-bigBox1" class="row-fluid" style="padding-bottom:30px;">
+					<img src="http://test.parentory.ca/wp-content/uploads/2015/01/generic-school-BB.jpg">
+				</div>
 				
-				<form id="sidebar-form" method="POST" action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" novalidate>
-					<input type="text" class="formElement" name="email" 
-						value="<?php echo (isset ($email_address) ? $email_address : ""); ?>" 
-						placeholder="Enter Email Address">
-					<br />
-
-					<input type="text" class="formElement" name="subject" 
-						value="<?php echo (isset($subject) ? $subject : ""); ?>" 
-						placeholder="Enter Subject">
-					<br />
-
-					<textarea name="message" class="formElement" rows="5" cols="40" 
-						placeholder="Your Message"><?php echo (isset($message) ? $message : "");?></textarea>
-					<br />
-
-					<input type="submit" name="submit" class="submitButton" value="Submit"> 
-				</form>
-				
-				<div class="fb-like-box" data-href="<?php echo get_post_meta( $school_id, 'school-facebook-page', true ); ?>" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="true"></div>
+				<div class="row-fluid">
+					<div class="fb-like-box" data-href="<?php echo get_post_meta( $school_id, 'school-facebook-page', true ); ?>" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="true"></div>
+				</div>
 
 			</div>
 		</div>
