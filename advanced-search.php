@@ -42,6 +42,9 @@ get_header(); ?>
 	});
 	</script>
 
+	<form id="search-form" method="post" action="<?php append_website_URL('school-search-results/'); ?>">
+	<input name="search-type" type="hidden" value="advanced-search">
+
 	<section id="primary" class="span12">
 		<div id="content" role="main" class="container-fluid advanced-search">
 			<div id="advanced-search-general" class="container-fluid search-options-field">
@@ -55,25 +58,25 @@ get_header(); ?>
 						State/Province:
 					</div>
 					<div class="span3 search-input">
-						<select class="advanced-search-text">
-							<option value="all">All</option>
-							<option value="AB">Alberta</option>
-							<option value="BC">British Columbia</option>
-							<option value="MB">Manitoba</option>
-							<option value="NB">New Brunswick</option>
-							<option value="NL">Newfoundland and Labrador</option>
-							<option value="NS">Nova Scotia</option>
-							<option value="ON">Ontario</option>
-							<option value="PE">Prince Edward Island</option>
-							<option value="QC">Quebec</option>
-							<option value="SK">Saskatchewan</option>
-							<option value="NT">Northwest Territories</option>
-							<option value="NU">Nunavut</option>
-							<option value="YT">Yukon</option>
+						<select name="province">
+							<option value="All Provinces">All</option>
+							<option value="Alberta">Alberta</option>
+							<option value="British Columbia">British Columbia</option>
+							<option value="Manitoba">Manitoba</option>
+							<option value="New Brunswick">New Brunswick</option>
+							<option value="Newfoundland Labrador">Newfoundland and Labrador</option>
+							<option value="Nova Scotia">Nova Scotia</option>
+							<option value="Ontario">Ontario</option>
+							<option value="Prince Edward Island">Prince Edward Island</option>
+							<option value="Quebec">Quebec</option>
+							<option value="Saskatchewan">Saskatchewan</option>
+							<option value="Northwest Territories">Northwest Territories</option>
+							<option value="Nunavut">Nunavut</option>
+							<option value="Yukon">Yukon</option>
 						</select>
 					</div>
 					<div class="span3 search-input-label">
-						Address:
+						City/Address:
 					</div>
 					<div class="span4 search-input">
 						<input type="text">
@@ -81,15 +84,18 @@ get_header(); ?>
 				</div>
 				<div class="row-fluid">
 					<div class="span2 search-input-label">
-						Age:
+						Grades:
 					</div>
 					<div class="span3 search-input">
 						<select class="advanced-search-text">
-							<option value="all">All</option>
-							<option value="5">0-5</option>
-							<option value="10">5-10</option>
-							<option value="15">10-15</option>
-							<option value="15plus">15+</option>
+							<option value="All Grades">All</option>
+							<option value="Nursery">Nursery/Toddler</option>
+							<option value="Preschool">Preschool (2.5 to 4 yrs)</option>
+							<option value="Kindergarten">Kindergarten (5 to 6 yrs)</option>
+							<option value="Elementary">Elementary Schools (Gr. 1~6)</option>
+							<option value="Middle">Middle Schools (Gr. 7~9)</option>
+							<option value="High">High Schools (Gr. 10~12)</option>
+							<option value="UniPrep">Univ. Prep. (Gr. 12+)</option>
 						</select>
 					</div>
 					<div class="span3 search-input-label">
@@ -106,36 +112,9 @@ get_header(); ?>
 						</select>
 					</div>
 				</div>
-				<div class="row-fluid">
-					<div class="span12 advanced-search-taxonomy">
-						<b>School Type</b>
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="span3">
-						<input id="all-schools" type="checkbox"><label for="all-schools">All</label>
-					</div>
-					<div class="span3">
-						<input id="standard-private" type="checkbox"><label for="standard-private">Standard Private School</label>
-					</div>
-					<div class="span3">
-						<input id="montessori" type="checkbox"><label for="montessori">Montessori School</label>
-					</div>
-					<div class="span3">
-						<input id="religious-private" type="checkbox"><label for="religious-private">Religious Private School</label>
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="span3">
-						<input id="ap-schools" type="checkbox"><label for="ap-schools">AP School</label>
-					</div>
-					<div class="span3">
-						<input id="ib-private" type="checkbox"><label for="ib-private">IB School</label>
-					</div>
-					<div class="span3">
-						<input id="day-care" type="checkbox"><label for="day-care">Day Care</label>
-					</div>
-				</div>
+				<?php 
+					render_advanced_search_taxonomies( array(""), array(array("school-type")) );
+				?>
 			</div>
 			<div id="advanced-search-heading" class="row-fluid search-collapsible-heading">
 				<div class="span12 search-heading-text">
@@ -157,44 +136,13 @@ get_header(); ?>
 						</select>
 					</div>
 				</div>
-				<div class="row-fluid">
-					<div class="span12 advanced-search-taxonomy">
-						<b>Additional Services:</b>
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="span3">
-						<input id="all-schools" type="checkbox"><label for="all-schools">All</label>
-					</div>
-					<div class="span3">
-						<input id="standard-private" type="checkbox"><label for="standard-private">Standard Private School</label>
-					</div>
-					<div class="span3">
-						<input id="montessori" type="checkbox"><label for="montessori">Montessori School</label>
-					</div>
-					<div class="span3">
-						<input id="religious-private" type="checkbox"><label for="religious-private">Religious Private School</label>
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="span12 advanced-search-taxonomy">
-						<b>Additional Criteria:</b>
-					</div>
-				</div>
-				<div class="row-fluid">
-					<div class="span3">
-						<input id="all-boys" type="checkbox"><label for="all-boys">All Boys</label>
-					</div>
-					<div class="span3">
-						<input id="all-girls" type="checkbox"><label for="all-girls">All Girls</label>
-					</div>
-					<div class="span3">
-						<input id="boarding" type="checkbox"><label for="boarding">Boarding</label>
-					</div>
-					<div class="span3">
-						<input id="co-ed" type="checkbox"><label for="co-ed">Co-ed</label>
-					</div>
-				</div>
+				<?php 
+					$groupMembers = array(
+						array('additional-services', 'additional-criteria')
+					);
+
+					render_advanced_search_taxonomies(array(""), $groupMembers);
+				?>
 			</div>
 			<div id="focused-search-heading" class="row-fluid search-collapsible-heading">
 				<div class="span12 search-heading-text">
@@ -203,7 +151,18 @@ get_header(); ?>
 			</div>
 			<div id="focused-search-options" class="container-fluid search-options-field">
 				<?php 
-					render_advanced_search_taxonomies();
+					$groupNames = array(
+						"", 
+						"Courses", 
+						"Athletics and Clubs"
+					);
+					$groupMembers = array(
+						array('academic-features'),
+						array('arts', 'language-and-social-sciences', 'science-and-technology'),
+						array('athletics', 'clubs', 'school-assistance', 'special-support', 'religious-focus')
+					);
+
+					render_advanced_search_taxonomies($groupNames, $groupMembers);
 				?>
 			</div>
 			<div class="container-fluid search-options-field">
@@ -214,6 +173,7 @@ get_header(); ?>
 				</div>
 			</div>
 		</div>
+	</form>
 
 	</section>
 

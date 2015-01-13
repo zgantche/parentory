@@ -172,6 +172,9 @@ function my_custom_post_school() {
 function school_taxonomies_init() {
 	// define arrays containing custom taxonomies
 	$taxonomies = array(
+		'school-type',
+		'additional-services',
+		'additional-criteria',
 		'academic-features',
 		'arts',
 		'language-and-social-sciences',
@@ -183,6 +186,9 @@ function school_taxonomies_init() {
 		'religious-focus' );
 	
 	$taxonomies_names = array (
+		'School Type',
+		'Additional Services',
+		'Additional Criteria',
 		'Academic Features',
 		'Arts',
 		'Language And Social Sciences',
@@ -211,6 +217,27 @@ function school_taxonomies_init() {
 
 function school_insert_taxonomy_terms() {
 	/* --- register taxonomy terms --- */
+
+	//School Type
+	wp_insert_term('Standard Private School', 'school-type');
+	wp_insert_term('Montessori School', 'school-type');
+	wp_insert_term('Religious Private School', 'school-type');
+	wp_insert_term('AP School', 'school-type');
+	wp_insert_term('IB School', 'school-type');
+	wp_insert_term('Day Care', 'school-type');
+
+	//Additional Services
+	wp_insert_term('Before-school care', 'additional-services');
+	wp_insert_term('After-school care', 'additional-services');
+	wp_insert_term('After-school care', 'additional-services');
+	wp_insert_term('Lunch program', 'additional-services');
+	wp_insert_term('Transportation', 'additional-services');
+
+	//Additional Criteria
+	wp_insert_term('All boys', 'additional-criteria');
+	wp_insert_term('All girls', 'additional-criteria');
+	wp_insert_term('Boarding', 'additional-criteria');
+	wp_insert_term('Co-Ed', 'additional-criteria');
 
 	// Academic Features
 	wp_insert_term('AP Courses', 'academic-features');
@@ -436,10 +463,37 @@ function school_meta_boxes() {
 	);
 
     /*------------------ Taxonomy Meta Boxes ------------------*/
-    
+
+	add_meta_box(
+		'school-type',
+		__('School Type'),
+		'school_type_taxonomy_box_content',
+		'school',
+		'side',
+		'low'
+	);
+
+	add_meta_box(
+		'additional-services',
+		__('Additional Services'),
+		'additional_services_taxonomy_box_content',
+		'school',
+		'side',
+		'low'
+	);
+
+	add_meta_box(
+		'additional-criteria',
+		__('Additional Criteria'),
+		'additional_criteria_taxonomy_box_content',
+		'school',
+		'side',
+		'low'
+	);
+
 	add_meta_box(
 		'academic-features',
-		__( 'Academic Features'),
+		__('Academic Features'),
 		'academic_features_taxonomy_box_content',
 		'school',
 		'side',
@@ -447,7 +501,7 @@ function school_meta_boxes() {
 	);
 	add_meta_box(
 		'arts',
-		__( 'Arts'),
+		__('Arts'),
 		'arts_taxonomy_box_content',
 		'school',
 		'side',
@@ -455,7 +509,7 @@ function school_meta_boxes() {
 	);
 	add_meta_box(
 		'language-and-social-sciences',
-		__( 'Languages and Social Sciences'),
+		__('Languages and Social Sciences'),
 		'languages_taxonomy_box_content',
 		'school',
 		'side',
@@ -463,7 +517,7 @@ function school_meta_boxes() {
 	);
 	add_meta_box(
 		'science-and-technology',
-		__( 'Science and Technology'),
+		__('Science and Technology'),
 		'science_and_technology_box_content',
 		'school',
 		'side',
@@ -471,7 +525,7 @@ function school_meta_boxes() {
 	);
 	add_meta_box(
 		'athletics',
-		__( 'Athletics'),
+		__('Athletics'),
 		'athletics_box_content',
 		'school',
 		'side',
@@ -479,7 +533,7 @@ function school_meta_boxes() {
 	);
 	add_meta_box(
 		'clubs',
-		__( 'Clubs'),
+		__('Clubs'),
 		'clubs_box_content',
 		'school',
 		'side',
@@ -487,7 +541,7 @@ function school_meta_boxes() {
 	);
 	add_meta_box(
 		'school-assistance',
-		__( 'School Assistance'),
+		__('School Assistance'),
 		'school_assistance_box_content',
 		'school',
 		'side',
@@ -495,7 +549,7 @@ function school_meta_boxes() {
 	);
 	add_meta_box(
 		'special-support',
-		__( 'Special Support'),
+		__('Special Support'),
 		'special_support_box_content',
 		'school',
 		'side',
@@ -503,7 +557,7 @@ function school_meta_boxes() {
 	);
 	add_meta_box(
 		'religious-focus',
-		__( 'Religious Focus'),
+		__('Religious Focus'),
 		'religious_focus_box_content',
 		'school',
 		'side',
@@ -630,6 +684,21 @@ function school_info_box_content( $post ) {
  * @return	void
  *
  */
+function school_type_taxonomy_box_content( $post ) {
+	// insert hidden nonce form field
+	wp_nonce_field( plugin_basename( __FILE__ ), 'school_type_taxonomy_box_content_nonce' );
+	render_taxonomy_terms( $post, "school-type", "School Type taxonomy doesn't exist!");
+}
+function additional_services_taxonomy_box_content( $post ) {
+	// insert hidden nonce form field
+	wp_nonce_field( plugin_basename( __FILE__ ), 'additional_services_taxonomy_box_content_nonce' );
+	render_taxonomy_terms( $post, "additional-services", "Additional Services taxonomy doesn't exist!");
+}
+function additional_criteria_taxonomy_box_content( $post ) {
+	// insert hidden nonce form field
+	wp_nonce_field( plugin_basename( __FILE__ ), 'additional_criteria_taxonomy_box_content_nonce' );
+	render_taxonomy_terms( $post, "additional-criteria", "Additional Criteria taxonomy doesn't exist!");
+}
 function academic_features_taxonomy_box_content( $post ) {
 	// insert hidden nonce form field
 	wp_nonce_field( plugin_basename( __FILE__ ), 'academic_features_taxonomy_box_content_nonce' );
@@ -925,39 +994,29 @@ function email_school($school_id) {
  *
  * @return	void
  */
-function render_advanced_search_taxonomies() {
-	//target only custom taxonomies
-	$args = array('public'   => true, '_builtin' => false);
-	$operator = 'and';
 
-	//return objects
-	$output = 'objects';
+//array of header titles
+//array of taxonomy names
+/*array of pairs:
+	(tax group name) & (array of taxonomy names)
+*/
+function render_advanced_search_taxonomies($groupNames, $groupMembers) {
+	// check the two arrays are of equal length
+	if ( count($groupNames) == count($groupMembers) )
+		// loop through taxonomy groups
+		for ($i=0; $i<count($groupNames); $i++){
+			$taxGroup = new ArrayObject(array());
 
-	$taxonomies = get_taxonomies( $args, $output, $operator );
+			// append member tax's to current tax group
+			foreach ($groupMembers[$i] as $current_taxonomy)
+				$taxGroup->append(get_taxonomy($current_taxonomy));
 
-	//groups for taxonomies
-	$features = new ArrayObject(array());
-	$courses = new ArrayObject(array());
-	$athleticsAndClubs = new ArrayObject(array());
+			advanced_search_render_single_taxonomy($groupNames[$i], $taxGroup);
 
-	//group taxonomies
-	foreach ( $taxonomies as $taxonomy ) {
-		if ( $taxonomy->name == "academic-features")
-			$features->append($taxonomy);
-		elseif ($taxonomy->name == "arts" ||
-				$taxonomy->name == "language-and-social-sciences" ||
-				$taxonomy->name == "science-and-technology")
-			$courses->append($taxonomy);
-		else
-			$athleticsAndClubs->append($taxonomy);
-	}
-
-	//render all Features
-	advanced_search_render_single_taxonomy("", $features);
-	//render all Courses
-	advanced_search_render_single_taxonomy("Courses", $courses);
-	//render all Athletics and Clubs
-	advanced_search_render_single_taxonomy("Athletics and Clubs", $athleticsAndClubs);
+			unset($taxGroup);
+		}
+	else
+		echo "Error: arrays groupNames and groupMembers are different lengths!";
 }
 function advanced_search_render_single_taxonomy($taxonomy_group_name, $taxonomy_group){
 
@@ -1199,7 +1258,7 @@ function city_search_query($city){
 					AND wp_posts.post_status = 'publish' 
 					AND wp_postmeta.meta_key = 'school-city'
 					AND wp_postmeta.meta_value = '{$city}'";
-
+	
 	return $sql;
 }
 
