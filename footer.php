@@ -42,13 +42,13 @@
 									<a href="<?php append_website_URL('school-search-results/?type=boarding'); ?>">Boarding</a>
 								</li>
 								<li>
-									<a href="<?php append_website_URL('school-search-results/?type=montessori'); ?>">Montessori</a>
+									<a href="<?php append_website_URL('school-search-results/?type=montessori-school'); ?>">Montessori</a>
 								</li>
 								<li>
-									<a href="<?php append_website_URL('school-search-results/?type=special+needs'); ?>">Special Needs</a>
+									<a href="<?php append_website_URL('school-search-results/?type=SpecialNeeds'); ?>">Special Needs</a>
 								</li>
 								<li>
-									<a href="<?php append_website_URL('school-search-results/?type=faith-based'); ?>">Faith-based</a>
+									<a href="<?php append_website_URL('school-search-results/?type=religious-private-school'); ?>">Faith-based</a>
 								</li>
 								<li>
 									<a href="<?php append_website_URL('school-search-results/?type=all-girls'); ?>">All-girls</a>
@@ -57,7 +57,7 @@
 									<a href="<?php append_website_URL('school-search-results/?type=all-boys'); ?>">All-boys</a>
 								</li>
 								<li>
-									<a href="<?php append_website_URL('school-search-results/?type=coed'); ?>">Coed</a>
+									<a href="<?php append_website_URL('school-search-results/?type=co-ed'); ?>">Coed</a>
 								</li>
 							</ul>
 						</div>

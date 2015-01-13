@@ -1041,15 +1041,16 @@ function advanced_search_render_single_taxonomy($taxonomy_group_name, $taxonomy_
 			}
 
 			//print taxonomy term
-			echo "<div class='span3'><input id='" 
-				. $term->slug . "' type='checkbox'><label for='" 
+			echo "<div class='span3'><input id='"
+				. $term->slug . "' name='"
+				. $taxonomy->name . "[]' value='"
+				. $term->slug . "' type='checkbox'><label for='"
 				. $term->slug . "'>" . $term->name . "</label></div>";
 
 			$rowCounter++;
 		}
 		echo "</div>"; // --- close final row
 	}
-	
 }
 
 /**
@@ -1249,6 +1250,7 @@ function directory_page_search_query($address, $province){
 // for $search_type = advanced-search
 function advanced_search_query(){}
 
+// FOR footer City Search
 function city_search_query($city){
 	$sql = "SELECT 		wp_postmeta.post_id
 			FROM 		wp_postmeta
@@ -1258,6 +1260,34 @@ function city_search_query($city){
 					AND wp_posts.post_status = 'publish' 
 					AND wp_postmeta.meta_key = 'school-city'
 					AND wp_postmeta.meta_value = '{$city}'";
+	
+	return $sql;
+}
+// FOR footer Type Search
+function type_search_query($type){
+	if ($type == "SpecialNeeds")
+		$sql = "SELECT DISTINCT	wp_term_relationships.object_id
+				FROM 			wp_term_relationships 
+				INNER JOIN 		wp_term_taxonomy 
+								ON wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id 
+				INNER JOIN 		wp_terms 
+								ON wp_term_taxonomy.term_id = wp_terms.term_id 
+				WHERE 			wp_terms.slug IN ('addadhd', 
+											  'asperger-disorder', 
+											  'autism', 
+											  'behavioral', 
+											  'down-syndrome', 
+											  'dyslexia', 
+											  'physical-disability-assistance', 
+											  'special-needs-assistance')";
+	else
+		$sql = "SELECT 		wp_term_relationships.object_id
+				FROM 		wp_term_relationships 
+				INNER JOIN 	wp_term_taxonomy 
+							ON wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id 
+				INNER JOIN 	wp_terms 
+							ON wp_term_taxonomy.term_id = wp_terms.term_id 
+				WHERE 		wp_terms.slug = '{$type}'";
 	
 	return $sql;
 }
