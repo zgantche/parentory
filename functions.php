@@ -598,12 +598,37 @@ function contact_info_box_content( $post ) {
 		</tr>
 		<tr>
 			<td>
-				<label for="school-province">Province:</label><br />
-				<input type="text" id="school-province" name="school-province" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-province', true ) ); ?>" />
-			</td>
-			<td>
 				<label for="school-postal-code">Postal Code:</label><br />
 				<input type="text" id="school-postal-code" name="school-postal-code" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-postal-code', true ) ); ?>" />
+			</td>
+			<td>
+				<label for="school-province">Province:</label><br />
+				<select name="school-province">
+				<?php
+					$provinces = array(
+							"---------------------",
+							"Alberta",
+							"British Columbia",
+							"Manitoba",
+							"New Brunswick",
+							"Newfoundland Labrador",
+							"Nova Scotia",
+							"Ontario",
+							"Prince Edward Island",
+							"Quebec",
+							"Saskatchewan",
+							"Northwest Territories",
+							"Nunavut",
+							"Yukon"
+						);
+					foreach ($provinces as $province){
+						echo "<option value='" . $province . "'";
+						if ( esc_attr( get_post_meta( $post->ID, 'school-province', true )) == $province)
+							echo " selected='selected'";
+						echo ">" . $province . "</option>";
+					}
+				?>
+				</select>
 			</td>
 		</tr>
 		<tr>
@@ -615,15 +640,17 @@ function contact_info_box_content( $post ) {
 				<label for="school-email-address">Email Address:</label><br />
 				<input type="text" id="school-email-address" name="school-email-address" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-email-address', true ) ); ?>" />
 			</td>
-			<td>
+		</tr>
+		<tr>
+			<td colspan="2">
 				<label for="school-website">Website:</label><br />
-				<input type="text" id="school-website" name="school-website" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-website', true ) ); ?>" />
+				http://<input type="text" id="school-website" name="school-website" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-website', true ) ); ?>" />
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td colspan="2">
 				<label for="school-facebook-page">Facebook Page URL:</label><br />
-				<input type="text" id="school-facebook-page" name="school-facebook-page" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-facebook-page', true ) ); ?>" />
+				http://www.facebook.com/<input type="text" id="school-facebook-page" name="school-facebook-page" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-facebook-page', true ) ); ?>" />
 			</td>
 		</tr>
 	</table>
@@ -649,25 +676,85 @@ function school_info_box_content( $post ) {
 
 	<table cellspacing="20px">
 		<tr>
-			<td colspan="2">
-				<label for="school-type">School Type:</label><br />
-				<input type="text" id="school-type" name="school-type" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-type', true ) ); ?>" />
+			<td>
+				<label>School Grades:</label><br />
+				<select id="school-grades-min" name="school-grades-min">
+				<?php 
+					for ($i=0; $i<13; $i++){
+						if ($i == 0)
+							$number = "N/A";
+						else
+							$number = $i;
+
+						echo "<option value='" . $number . "'";
+						if ( get_post_meta( $post->ID, 'school-grades-min', true ) == $i )
+							echo "selected='selected'";
+						echo ">" . $number . "</option>";
+					}
+				?>
+				</select> - to - 
+				<select id="school-grades-max" name="school-grades-max">
+				<?php
+					for ($i=0; $i<=13; $i++){
+						if ($i == 0)
+							$number = "N/A";
+						else if ($i == 13)
+							$number = "12+";
+						else
+							$number = $i;
+
+						echo "<option value='" . $number . "'";
+						if ( get_post_meta( $post->ID, 'school-grades-max', true ) == $i )
+							echo "selected='selected'";
+						echo ">" . $number . "</option>";
+					}
+				?>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<label for="school-grades">School Grades:</label><br />
-				<input type="text" id="school-grades" name="school-grades" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-grades', true ) ); ?>" />
-			</td>
-			<td>
-				<label for="school-class-size">Class Size:</label><br />
-				<input type="text" id="school-class-size" name="school-class-size" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-class-size', true ) ); ?>" />
+				<label>Class Size:</label><br />
+				<select id="school-class-size-min" name="school-class-size-min">
+				<?php 
+					for ($i=0; $i<=21; $i++){
+						if ($i == 0)
+							$number = "N/A";
+						else if ($i == 21)
+							$number = "21+";
+						else
+							$number = $i;
+
+						echo "<option value='" . $number . "'";
+						if ( get_post_meta( $post->ID, 'school-class-size-min', true ) == $i )
+							echo "selected='selected'";
+						echo ">" . $number . "</option>";
+					}
+				?>
+				</select> - to - 
+				<select id="school-class-size-max" name="school-class-size-max">
+				<?php 
+					for ($i=0; $i<=21; $i++){
+						if ($i == 0)
+							$number = "N/A";
+						else if ($i == 21)
+							$number = "21+";
+						else
+							$number = $i;
+
+						echo "<option value='" . $number . "'";
+						if ( get_post_meta( $post->ID, 'school-class-size-max', true ) == $i )
+							echo "selected='selected'";
+						echo ">" . $number . "</option>";
+					}
+				?>
+				</select>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<label for="school-annual-tuition">Annual Tuition:</label><br />
-				<input type="text" id="school-annual-tuition" name="school-annual-tuition" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-annual-tuition', true ) ); ?>" />
+				<label for="school-annual-tuition">Annual Tuition (number only):</label><br />
+				$<input type="text" size="10" id="school-annual-tuition-min" name="school-annual-tuition-min" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-annual-tuition-min', true ) ); ?>" /> - to - 
+				$<input type="text" size="10" id="school-annual-tuition-max" name="school-annual-tuition-max" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-annual-tuition-max', true ) ); ?>" />
 			</td>
 		</tr>
 	</table>
@@ -904,7 +991,13 @@ function custom_meta_box_save( $post_id ) {
 					'school-type', 
 					'school-grades', 
 					'school-class-size', 
-					'school-annual-tuition') as $meta_key)
+					'school-annual-tuition',
+					'school-class-size-min',
+					'school-class-size-max',
+					'school-grades-min',
+					'school-grades-max',
+					'school-annual-tuition-min',
+					'school-annual-tuition-max') as $meta_key)
 	{
 		//current meta value
 		$meta_value = get_post_meta( $post_id, $meta_key, true );
