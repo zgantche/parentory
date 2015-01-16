@@ -606,7 +606,7 @@ function contact_info_box_content( $post ) {
 				<select name="school-province">
 				<?php
 					$provinces = array(
-							"---------------------",
+							"",
 							"Alberta",
 							"British Columbia",
 							"Manitoba",
@@ -752,7 +752,7 @@ function school_info_box_content( $post ) {
 		</tr>
 		<tr>
 			<td>
-				<label for="school-annual-tuition">Annual Tuition (number only):</label><br />
+				<label for="school-annual-tuition">Annual Tuition (numbers only):</label><br />
 				$<input type="text" size="10" id="school-annual-tuition-min" name="school-annual-tuition-min" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-annual-tuition-min', true ) ); ?>" /> - to - 
 				$<input type="text" size="10" id="school-annual-tuition-max" name="school-annual-tuition-max" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-annual-tuition-max', true ) ); ?>" />
 			</td>
@@ -1290,9 +1290,10 @@ function directory_page_search_query($address, $province){
 	else
 		$groupResults = false;
 	
-	if ($groupResults)
+	if ($groupResults){
 		$sql .= "SELECT 	G.ID
 				 FROM		(";
+	}
 	
 	$sql .= "SELECT 	wp_posts.ID 
 			FROM 		wp_posts 
@@ -1301,13 +1302,16 @@ function directory_page_search_query($address, $province){
 			WHERE 		wp_posts.post_type IN ('school') 
 			AND 		wp_posts.post_status = 'publish' ";
 	
-	// only include if Province was input
+	// if Province was input, search for Province
 	if ( $province !== "All Provinces" ){
 		$sql .= $wpdb->prepare("AND (
 									wp_postmeta.meta_key = 'school-province' AND
 									wp_postmeta.meta_value = '%s'
 									)", $province);
 	}
+	// else both address and Province are empty, return all Schools
+	else if (empty($address))
+		$sql .= "GROUP BY wp_posts.ID";
 
 	// only include if Address was input
 	if ( !empty($address) ){
