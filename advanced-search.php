@@ -79,7 +79,7 @@ get_header(); ?>
 						City/Address:
 					</div>
 					<div class="span4 search-input">
-						<input type="text">
+						<input type="text" name="address" placeholder="Enter City or Address Here">
 					</div>
 				</div>
 				<div class="row-fluid">
@@ -87,14 +87,14 @@ get_header(); ?>
 						Grades:
 					</div>
 					<div class="span3 search-input">
-						<select class="advanced-search-text">
-							<option value="All Grades">All</option>
+						<select name="grades" class="advanced-search-text">
+							<option value="all">All</option>
 							<option value="Nursery">Nursery/Toddler</option>
 							<option value="Preschool">Preschool (2.5 to 4 yrs)</option>
 							<option value="Kindergarten">Kindergarten (5 to 6 yrs)</option>
-							<option value="Elementary">Elementary Schools (Gr. 1~6)</option>
-							<option value="Middle">Middle Schools (Gr. 7~9)</option>
-							<option value="High">High Schools (Gr. 10~12)</option>
+							<option value="Elementary">Elementary Schools (Gr. 1~5)</option>
+							<option value="Middle">Middle Schools (Gr. 6~8)</option>
+							<option value="High">High Schools (Gr. 9~12)</option>
 							<option value="UniPrep">Univ. Prep. (Gr. 12+)</option>
 						</select>
 					</div>
@@ -102,7 +102,7 @@ get_header(); ?>
 						Annual Tuition Cost:
 					</div>
 					<div class="span4 search-input">
-						<select>
+						<select name="tuition">
 							<option value="all">All</option>
 							<option value="5000">$0-$5,000</option>
 							<option value="10000">$5,000-$10,000</option>
@@ -127,7 +127,7 @@ get_header(); ?>
 						Class Size:
 					</div>
 					<div class="span10">
-						<select>
+						<select name="classSize">
 							<option value="all">All</option>
 							<option value="10">1-10</option>
 							<option value="15">11-15</option>
