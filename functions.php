@@ -1336,6 +1336,7 @@ function directory_page_search_query($address, $province){
 		$sql .= ")";
 	}
 
+	// group resulting set, if need be
 	if ($groupResults)
 		$sql .= "			) as G
 				GROUP BY	G.ID
@@ -1344,8 +1345,197 @@ function directory_page_search_query($address, $province){
 	return $sql;
 }
 
+function get_adv_search_dropdown_query($grades, $tuition, $class_size){
+	$count = 1;
+	$sql = "";
+
+	if ($grades != "all" || $tuition != "all" || $class_size != "all")
+	{
+
+		if ( $grades != "all" && $grades != "Nursery" && $grades != "Preschool" && $grades != "Kindergarten" ){
+			switch ($grades) {
+				case "Elementary":
+					$grades_min = 1; $grades_max = 5; break;
+				case "Middle":
+					$grades_min = 6; $grades_max = 8; break;
+				case "High":
+					$grades_min = 9; $grades_max = 12; break;
+				case "UniPrep":
+					$grades_min = 12; $grades_max = 99; break;
+			}
+
+			$sql = "SELECT		GRADES.post_id
+					FROM		(
+								SELECT wp_postmeta.post_id, wp_postmeta.meta_value
+								FROM wp_postmeta
+								WHERE wp_postmeta.meta_key
+								IN ('school-grades-min',  'school-grades-max')
+								) AS GRADES
+					GROUP BY	GRADES.post_id";
+
+			$sql .= " HAVING (" . $grades_min . " BETWEEN MIN(GRADES.meta_value) AND MAX(GRADES.meta_value))";
+			if ($grades_max != 99)
+				$sql .= " OR (" . $grades_max . " BETWEEN MIN(GRADES.meta_value) AND MAX(GRADES.meta_value))";
+		}
+
+		if ($tuition != "all"){
+			switch ($tuition) {
+				case "5000":
+					$tuition_min = 0; $tuition_max = 5000; break;
+				case "10000":
+					$tuition_min = 5000; $tuition_max = 10000; break;
+				case "15000":
+					$tuition_min = 10000; $tuition_max = 15000; break;
+				case "20000":
+					$tuition_min = 15000; $tuition_max = 20000; break;
+				case "20000plus":
+					$tuition_min = 20000; $tuition_max = 99; break;
+			}
+
+			$sql = "SELECT		TUITION.post_id
+					FROM		(
+								SELECT wp_postmeta.post_id, wp_postmeta.meta_value
+								FROM wp_postmeta
+								WHERE wp_postmeta.meta_key
+								IN ('school-annual-tuition-min',  'school-annual-tuition-max')
+								) AS TUITION
+					GROUP BY	TUITION.post_id";
+
+			$sql .= " HAVING (" . $tuition_min . " BETWEEN MIN(TUITION.meta_value) AND MAX(TUITION.meta_value))";
+			if ($tuition_max != 99)
+				$sql .= " OR (" . $tuition_max . " BETWEEN MIN(TUITION.meta_value) AND MAX(TUITION.meta_value))";
+		}
+
+		if ($class_size != "all"){
+			switch ($class_size) {
+				case "10":
+					$class_min = 1; $class_max = 10; break;
+				case "15":
+					$class_min = 11; $class_max = 15; break;
+				case "20":
+					$class_min = 16; $class_max = 20; break;
+				case "20plus":
+					$class_min = 20; $class_max = 99; break;
+			}
+
+			$sql = "SELECT		CLASS.post_id
+					FROM		(
+								SELECT wp_postmeta.post_id, wp_postmeta.meta_value
+								FROM wp_postmeta
+								WHERE wp_postmeta.meta_key
+								IN ('school-class-size-min',  'school-class-size-max')
+								) AS CLASS
+					GROUP BY	CLASS.post_id";
+
+			$sql .= " HAVING (" . $class_min . " BETWEEN MIN(CLASS.meta_value) AND MAX(CLASS.meta_value))";
+			if ($class_max != 99)
+				$sql .= " OR (" . $class_max . " BETWEEN MIN(CLASS.meta_value) AND MAX(CLASS.meta_value))";
+		}
+		/*
+		$sql .= "			) as G3
+					GROUP BY	G3.post_id
+					HAVING 		Count(*) >= " . $count;
+
+		*/
+
+
+		return $sql;
+	}
+	else
+		return false;
+	
+}
+
+function get_adv_search_checkbox_query(){
+	//get all custom taxonomies
+	$taxonomies = get_taxonomies( array('public'   => true, '_builtin' => false), 'objects', 'and' );
+
+	//check if any checkboxes are selected
+	$selected = false;
+	foreach ( $taxonomies as $taxonomy )
+		if(!empty($_POST[$taxonomy->name]))
+			$selected = true;
+
+	//if selected checkboxes exist, return taxonomy query
+	if ( $selected ){
+		//instantiate the beginning of the query
+		$tax_query = "SELECT 	G2.object_id
+					  FROM		(
+						SELECT 		wp_term_relationships.object_id
+						FROM 		wp_term_relationships 
+						INNER JOIN 	wp_term_taxonomy 
+									ON wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id 
+						INNER JOIN 	wp_terms 
+									ON wp_term_taxonomy.term_id = wp_terms.term_id
+						WHERE		wp_terms.slug IN (";
+
+		$total_checked_terms = 0;
+		//check all taxonomies, by name, for values
+		foreach ( $taxonomies as $taxonomy )
+			if(!empty($_POST[$taxonomy->name])){
+				foreach($_POST[$taxonomy->name] as $checked_term){
+					echo $checked_term . " - ";
+					$tax_query .= "'" . $checked_term . "'";
+
+					// check for last element
+					if ( $checked_term !== end($_POST[$taxonomy->name]) )
+						$tax_query .= ", ";
+				}
+				$total_checked_terms += count($_POST[$taxonomy->name]);
+			}
+		echo "Total checked boxes: " . $total_checked_terms;
+		
+		$tax_query .= ")) as G2
+				GROUP BY	G2.object_id
+				HAVING 		Count(*) = " . $total_checked_terms;
+
+		return $tax_query;
+	}
+	else
+	//else, return false
+		return false;
+}
+
 // for $search_type = advanced-search
-function advanced_search_query(){}
+function advanced_search_query(){
+	$add_prov_query = "";
+	$dropdown_query = "";
+	$checkbox_query = "";
+
+	//get query for Address & Province fields
+	$add_prov_query = directory_page_search_query($_POST['address'], $_POST['province']);
+	
+	//get query for dropdown ranges, if any
+	$dropdown_query = get_adv_search_dropdown_query($_POST['grades'], $_POST['tuition'], $_POST['classSize']);
+
+	//get query for Taxonomy checkboxes, if any
+	$checkbox_query = get_adv_search_checkbox_query();
+	
+	//join all partial queries
+	$sql = "";
+
+	/*if ($add_prov_query !== "" && $range_query !== "" && $checkbox_query !== "")
+		$sql = "SELECT result1.ID FROM (" . $add_prov_query . ") AS result1 
+				INNER JOIN (" . $dropdown_query . ") AS result2 ON result1.ID = result2.post_id
+				INNER JOIN (" . $checkbox_query . ") AS result3 ON result1.ID = result3.object_id";
+	else if ($add_prov_query !== "" && $dropdown_query !== "")
+		$sql = "SELECT result1.ID FROM (" . $add_prov_query . ") AS result1 
+				INNER JOIN (" . $dropdown_query . ") AS result2 ON result1.ID = result2.post_id";
+	else if ($add_prov_query !== "" && $checkbox_query !== "")
+		$sql = "SELECT result1.ID FROM (" . $add_prov_query . ") AS result1 
+				INNER JOIN (" . $checkbox_query . ") AS result3 ON result1.ID = result3.object_id";
+	*/
+	
+	if ($dropdown_query !== false )
+		$sql = $dropdown_query;
+	else if ($checkbox_query !== false)
+		$sql = $checkbox_query;
+	else
+		$sql = $add_prov_query;
+
+
+	return $sql;
+}
 
 // FOR footer City Search
 function city_search_query($city){
