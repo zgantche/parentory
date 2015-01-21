@@ -103,9 +103,9 @@ get_header(); ?>
 
 					<div id="school-archive-entry" class="row-fluid">
 						<!-- display school image -->
-						<div class="span2 archive-school-logo">
+						<div class="span2 archive-school-logo-holder">
 							<a class="read-more" target="_blank" href="<?php the_permalink( $school_id ); ?>">
-								<?php the_post_thumbnail( 'thumbnail', array( 'class' => 'archive-school-logo' ) ); ?>
+								<?php the_post_thumbnail( 'full', array( 'class' => 'archive-school-logo' ) ); ?>
 							</a>
 
 						</div>
