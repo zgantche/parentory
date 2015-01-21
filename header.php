@@ -68,7 +68,7 @@
 						</a>
 						<?php endif; ?>
 						<a href="http://www.appleby.on.ca/" target="_blank">
-							<img src="http://test.parentory.ca/wp-content/uploads/2015/01/generic-school-LB.jpg" class="span9">
+							<img src="http://test.parentory.ca/wp-content/uploads/2015/01/generic-school-LB.jpg" class="span9 LB-image">
 						</a>
 					</div>
 					<br />

@@ -15,21 +15,27 @@ get_header(); ?>
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span12">
-			<h1>
-				We are a parent's best friend!
-			</h1>
+			<h2>
+				THE SITE
+			</h2>
 		</div>
 	</div>
 	<div class="row-fluid">
 		<div class="span9">
 			<img src="http://test.parentory.ca/wp-content/uploads/2014/07/about-us-books.jpg" class="float-img-contact">
+
 			<p style="line-height: 30px;">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat diam turpis, eu condimentum mi luctus vel. Nulla viverra purus pharetra nunc sodales adipiscing. Quisque accumsan malesuada nisi in porta. Suspendisse vestibulum bibendum laoreet. Vivamus vitae elementum quam. Integer eleifend tincidunt purus, at vulputate odio accumsan sit amet. Quisque vel pharetra magna.
+				Parentory was made with only one goal in mind – to find you the right school – quickly and efficiently.  Finding a private or Montessori school isn’t easy – the information is sprawled all over the internet and comes in all shapes and sizes. Parentory is changing that to make the significant and life altering task of finding the right education for your child a quick, easy, and efficient process. We pride ourselves on providing accurate and up-to-date information on the private school industry for parents so that you can make an informed and well thought out decision on where to send your children.  The right school makes the world a difference, and we hope to make this process easy and simple for you.
 				<br /><br />
-				Aenean scelerisque egestas lorem ac lacinia. Etiam molestie eget dui eget aliquet. Nullam consectetur et mi luctus pulvinar. In tristique, tellus in fermentum consequat, elit dolor facilisis augue, ac hendrerit velit nisl ac urna. Ut feugiat nisl in mi interdum porta. Morbi volutpat non augue vel ultrices. Sed ac magna ac purus malesuada vestibulum. Nam eu eleifend purus. Cras ac varius erat. Fusce posuere felis tellus, ac accumsan arcu consequat nec. Sed quis mattis nibh, sit amet pharetra nisi. Ut scelerisque blandit nunc vulputate dignissim. Cras condimentum sodales quam. Donec dolor dolor, vulputate at elit ut, tincidunt varius nibh. Nunc at sem nec risus facilisis luctus.
-				<br /><br />
-				Praesent vehicula gravida enim id ultrices. Etiam vulputate nec elit id iaculis. Donec in scelerisque metus. Nulla facilisi. Phasellus ac velit purus. Ut hendrerit metus eu libero posuere mattis. Nullam aliquam vel nisi et tincidunt. Nam sagittis at tellus sit amet lacinia. Praesent sollicitudin libero ac urna ornare, et facilisis nisi mattis. Quisque porttitor dolor felis, sed faucibus purus accumsan adipiscing. Nulla euismod consectetur neque eu aliquam.
-				<br /><br />
+			</p>
+			<h2>THE MISSION</h2>
+			<p style="line-height: 30px;">
+				<i class="fa fa-arrow-circle-right"></i> be the comprehensive resource for parents across North America<br />
+				<i class="fa fa-arrow-circle-right"></i> provide transparent, accurate and detailed information that parents need to make education choices<br />
+				<i class="fa fa-arrow-circle-right"></i> consistently grow and expand our listing<br />
+				<i class="fa fa-arrow-circle-right"></i> to help you in making sure your children achieve their full potential<br />
+				<i class="fa fa-arrow-circle-right"></i> to provide a quality service to schools, free of any fees<br />
+				<br />
 			</p>
 		</div>
 		<div class="span3">

@@ -112,6 +112,10 @@ body > .container {
 	color: #F43E28;
 }
 
+.LB-image {
+	padding-top: 15px;
+}
+
 .header {
 	padding: 0 20px;
 }
@@ -209,7 +213,7 @@ body > .container {
 
 .float-img-contact {
 	float:left;
-	margin:0 20px 20px 0;
+	margin:0 20px 10px 0;
 }
 
 
