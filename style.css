@@ -1096,6 +1096,14 @@ div.mc-field-group input {
 		margin: 0 0 15px 0;
 	}
 
+	/* -- Blog --*/
+	.blog-body {
+		padding: 20px;
+	}
+	div#school-sidebar.blog-sidebar {
+		padding: 0px 30px;
+	}
+
 	/* -- Footer --*/
 	#page-footer {
 		text-align: center;

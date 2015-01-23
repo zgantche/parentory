@@ -17,7 +17,7 @@ get_header(); ?>
 
 		<div class="row-fluid">
 			<!-- school content -->
-			<div class="span8">
+			<div class="span8 blog-body">
 				<?php 
 				//blog posts won't show up without this, but WP says it's bad to use..
 				query_posts('post_type=post')
@@ -41,7 +41,7 @@ get_header(); ?>
 			</div>
 
 			<!-- school sidebar -->
-			<div id="school-sidebar" class="span4">
+			<div id="school-sidebar" class="span4 blog-sidebar">
 				<div id="form-title" class="arial-narrow">
 					FEATURED BLOG POSTS
 				</div>
