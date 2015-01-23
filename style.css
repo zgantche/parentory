@@ -217,6 +217,14 @@ body > .container {
 }
 
 
+/* =Home Page
+-------------------------------------------------------------- */
+
+.home-page-blog-posts {
+	padding: 0 0;
+}
+
+
 /* =Page
 -------------------------------------------------------------- */
 
@@ -243,6 +251,7 @@ body > .container {
 
 #header-image {
 	display: block;
+	text-align: center;
 }
 
 #menu-alert {
@@ -623,8 +632,8 @@ ul.tabs li.current{
 }
 
 .archive-school-logo-holder {
-	border: 1px solid #DDD;
-	padding: 10px;
+	/*border: 1px solid #DDD;
+	padding: 10px;*/
 
 	height: 125px;
 	width: 125px;
@@ -1045,6 +1054,26 @@ div.mc-field-group input {
 -------------------------------------------------------------- */
 
 @media (max-width: 767px) {
+	/* -- Header --*/
+	#simpleSearch {
+		width: 244px;
+	}
+
+	/* -- Home Page --*/
+	.home-page-blog-posts {
+		padding: 0 20px;
+	}
+
+	/* -- Footer --*/
+	#page-footer {
+		text-align: center;
+	}
+
+	.footer-nav {
+		margin: 0 0 30px 0;
+	}
+
+
 	/* -- Advanced Search Page -- */
 	.advanced-search * {
 		text-align: center;
@@ -1059,7 +1088,9 @@ div.mc-field-group input {
 		width: 100%;
 	}
 	#feature-images > .span4 {
+		text-align: center;
 		padding-right: 40px;
+		padding-bottom: 20px;
 	}
 	body {
 		padding:0;

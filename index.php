@@ -39,7 +39,7 @@ get_header(); ?>
 </div>
 
 
-<section id="primary" class="span12">
+<section id="primary" class="span12 home-page-blog-posts">
 	<h2>Latest Blog Posts</h2>
 	<?php tha_content_before(); ?>
 	<div id="content" role="main">
