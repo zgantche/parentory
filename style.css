@@ -609,6 +609,15 @@ ul.tabs li.current{
 	padding-top: 20px;
 }
 
+.school-filter-form {
+	margin-top: 30px;
+	text-align:center;
+}
+
+.filter-form-address {
+	width: 300px;
+}
+
 #archive-filter-bottom {
 	text-align: right;
 }
@@ -1113,6 +1122,14 @@ div.mc-field-group input {
 		margin: 0 0 30px 0;
 	}
 
+	/* -- School Archive -- */
+	div#archive-content.container-fluid {
+		text-align: center;
+		margin: 10px;
+	}
+	#school-listings-filter {
+		padding: 10px;
+	}
 
 	/* -- Advanced Search Page -- */
 	.advanced-search * {

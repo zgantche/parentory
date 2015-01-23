@@ -18,7 +18,7 @@ get_header(); ?>
 
 <section id="primary" class="span12">
 	
-	<div id="content" role="main" class="container-fluid">
+	<div id="archive-content" role="main" class="container-fluid">
 		<div id="school-listings-filter" class="container-fluid">
 			<div class="row-fluid">
 				<div class="span12">
@@ -27,22 +27,14 @@ get_header(); ?>
 				</div>
 			</div>
 
-			<div class="row-fluid">
-				<div class="span12"></div>
-			</div>
-
 			<form id="search-form" method="post" action="<?php append_website_URL('school-search-results/'); ?>">
 			<input name="search-type" type="hidden" value="directory-page-search">
 
 			<div class="row-fluid">
-				<div class="span1"></div>
-				<div class="span4">
-					City: <input type="text" name="address" placeholder="Enter City or Address Here">
-				</div>
-				<div class="span6">
-					State/Province:
+				<div class="span12 school-filter-form">
+					<input type="text" class="filter-form-address" name="address" placeholder="Enter City or Address Here">
 					<select name="province">
-						<option value="All Provinces">All</option>
+						<option value="All Provinces">All States/Provinces</option>
 						<option value="Alberta">Alberta</option>
 						<option value="British Columbia">British Columbia</option>
 						<option value="Manitoba">Manitoba</option>
@@ -100,7 +92,7 @@ get_header(); ?>
 					else
 						echo "<hr>";
 					?>
-
+					
 					<div id="school-archive-entry" class="row-fluid">
 						<!-- display school image -->
 						<div class="span2 archive-school-logo-holder">
