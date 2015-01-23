@@ -225,6 +225,19 @@ body > .container {
 }
 
 
+/* =About Us Page
+-------------------------------------------------------------- */
+.fa-ul {
+	margin-bottom: 40px;
+}
+.fa-ul>li {
+	line-height: 30px;
+}
+.fa-ul>li>i {
+	line-height: 30px;
+}
+
+
 /* =Page
 -------------------------------------------------------------- */
 
@@ -1062,6 +1075,25 @@ div.mc-field-group input {
 	/* -- Home Page --*/
 	.home-page-blog-posts {
 		padding: 0 20px;
+	}
+
+	/* -- About Us --*/
+	.about-us-title {
+		text-align: center;
+	}
+	.float-img-contact {
+		display: 
+	}
+	.about-us-body {
+		padding: 20px;
+	}
+	.contact-info {
+		text-align: center;
+	}
+	.float-img-contact {
+		float: none;
+		text-align: center;
+		margin: 0 0 15px 0;
 	}
 
 	/* -- Footer --*/

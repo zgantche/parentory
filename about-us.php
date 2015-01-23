@@ -12,35 +12,35 @@ get_header(); ?>
 		<img src="http://test.parentory.ca/wp-content/uploads/2014/07/about-us-splash.jpg">
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid about-us-body">
 	<div class="row-fluid">
 		<div class="span12">
-			<h2>
+			<h2 class="about-us-title">
 				THE SITE
 			</h2>
 		</div>
 	</div>
 	<div class="row-fluid">
 		<div class="span9">
-			<img src="http://test.parentory.ca/wp-content/uploads/2014/07/about-us-books.jpg" class="float-img-contact">
+			<div  class="float-img-contact">
+				<img src="http://test.parentory.ca/wp-content/uploads/2014/07/about-us-books.jpg">
+			</div>
 
 			<p style="line-height: 30px;">
 				Parentory was made with only one goal in mind – to find you the right school – quickly and efficiently.  Finding a private or Montessori school isn’t easy – the information is sprawled all over the internet and comes in all shapes and sizes. Parentory is changing that to make the significant and life altering task of finding the right education for your child a quick, easy, and efficient process. We pride ourselves on providing accurate and up-to-date information on the private school industry for parents so that you can make an informed and well thought out decision on where to send your children.  The right school makes the world a difference, and we hope to make this process easy and simple for you.
 				<br /><br />
 			</p>
-			<h2>THE MISSION</h2>
-			<p style="line-height: 30px;">
-				<i class="fa fa-arrow-circle-right"></i> be the comprehensive resource for parents across North America<br />
-				<i class="fa fa-arrow-circle-right"></i> provide transparent, accurate and detailed information that parents need to make education choices<br />
-				<i class="fa fa-arrow-circle-right"></i> consistently grow and expand our listing<br />
-				<i class="fa fa-arrow-circle-right"></i> to help you in making sure your children achieve their full potential<br />
-				<i class="fa fa-arrow-circle-right"></i> to provide a quality service to schools, free of any fees<br />
-				<br />
-			</p>
+			<h2 class="about-us-title">THE MISSION</h2>
+			<ul class="fa-ul" style="line-height: 1em;">
+			  <li><i class="fa-li fa fa fa-arrow-circle-right"></i>be the comprehensive resource for parents across North America</li>
+			  <li><i class="fa-li fa fa fa-arrow-circle-right"></i>provide transparent, accurate and detailed information that parents need to make education choices</li>
+			  <li><i class="fa-li fa fa fa-arrow-circle-right"></i>consistently grow and expand our listing</li>
+			  <li><i class="fa-li fa fa fa-arrow-circle-right"></i>to help you in making sure your children achieve their full potential</li>
+			  <li><i class="fa-li fa fa fa-arrow-circle-right"></i>to provide a quality service to schools, free of any fees</li>
+			</ul>
 		</div>
 		<div class="span3">
 			<div class="contact-info">
-
 				<h4>
 					Contact Info
 				</h4>
