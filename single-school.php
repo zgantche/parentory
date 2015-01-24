@@ -81,7 +81,7 @@ get_header(); ?>
 	?>
 
 
-	<div class="container-fluid">
+	<div id="single-school-content" class="container-fluid">
 
 		<div class="row-fluid">
 			<!-- school content -->
@@ -117,19 +117,19 @@ get_header(); ?>
 					<div id="school-info" class="span8">
 						<div class="school-info-criteria"><b>Grades:</b></div>
 						<div class="school-info-data"><?php echo get_post_meta( $school_id, 'school-grades', true ); ?></div>
-
+						<br />
 						<div class="school-info-criteria"><b>Class Size:</b></div>
 						<div class="school-info-data"><?php echo sanitize_text_field( get_post_meta( $school_id, 'school-class-size', true ) ); ?></div>
-
+						<br />
 						<div class="school-info-criteria"><b>School Type:</b></div>
 						<div class="school-info-data"><?php echo sanitize_text_field( get_post_meta( $school_id, 'school-type', true ) ); ?></div>
-
+						<br />
 						<div class="school-info-criteria"><b>Annual Tuition:</b></div>
 						<div class="school-info-data"><?php echo sanitize_text_field( get_post_meta( $school_id, 'school-annual-tuition', true ) ); ?></div>
-
+						<br />
 						<div class="school-info-criteria"><b>Phone Number:</b></div>
 						<div class="school-info-data"><?php echo sanitize_text_field( get_post_meta( $school_id, 'school-phone-number', true ) ); ?></div>
-
+						<br />
 						<div class="school-info-criteria"><b>Website:</b></div>
 						<div class="school-info-data"><a href="<?php echo sanitize_text_field( get_post_meta( $school_id, 'school-website', true ) ); ?>" target="_blank">
 								<?php echo sanitize_text_field( get_post_meta( $school_id, 'school-website', true ) ); ?>

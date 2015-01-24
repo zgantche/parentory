@@ -532,22 +532,19 @@ div.sidebar-mc-field-group input {
 }
 
 #school-info {
-	margin-left: 0;
-	margin-top: 20px;
+	margin: 10px 0 0 0;
+	padding: 0 0 0 25px;
 }
 
 div.school-info-criteria {
-	width: 49%;
-	float: left;
 	padding-top: 5px;
-	text-align: right;
+	display: inline-block;
 }
 
 div.school-info-data {
-	width: 50%;
-	float: right;
 	padding-top: 5px;
 	text-align: left;
+	display: inline-block;
 }
 
 #school-description {
@@ -1129,6 +1126,22 @@ div.mc-field-group input {
 	}
 	#school-listings-filter {
 		padding: 10px;
+	}
+
+	/* -- Single School Page -- */
+	div#single-school-content.container-fluid {
+		text-align: center;
+		margin: 10px;
+	}
+	#school-info {
+		padding: 0 0 0 10%;
+		text-align: left;
+	}
+	#school-description {
+		text-align: left;
+	}
+	#school-sidebar {
+		padding: 0px 30px;
 	}
 
 	/* -- Advanced Search Page -- */
