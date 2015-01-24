@@ -15,7 +15,7 @@ get_header(); ?>
 
 <section id="primary" class="span12">
 	
-	<div id="content" role="main" class="container-fluid">
+	<div id="school-results-content" role="main" class="container-fluid">
 
 		<?php
 			$first_post = true;
