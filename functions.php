@@ -1438,8 +1438,11 @@ function get_adv_search_dropdown_query($grades, $tuition, $class_size){
 
 		*/
 
-
-		return $sql;
+		if ($sql == "")
+			//generic query returning no results
+			return "SELECT ID FROM wp_posts WHERE false";
+		else
+			return $sql;
 	}
 	else
 		return false;
@@ -1532,7 +1535,6 @@ function advanced_search_query(){
 		$sql = $checkbox_query;
 	else
 		$sql = $add_prov_query;
-
 
 	return $sql;
 }
