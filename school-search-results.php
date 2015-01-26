@@ -30,7 +30,7 @@ get_header(); ?>
 			elseif ( isset($_GET['type']) )
 				$_SESSION['search_result_school_ids'] = get_search_results('type-search');
 			elseif ( isset($_POST['search-type']) ) {
-				echo "Searching, search type: " . $_POST['search-type'];
+				//echo "Searching, search type: " . $_POST['search-type'];
 				$_SESSION['search_result_school_ids'] = get_search_results($_POST['search-type']);
 			}
 			else
