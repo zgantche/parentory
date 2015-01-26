@@ -37,14 +37,10 @@
 							client portal</a>
 					</div>
 					<div id="before-header-icons">
-						<a href="http://facebook.com" target="_blank">
-							<i class="fa fa-facebook-square fa-lg"></i></a>
-						<a href="http://twitter.com" target="_blank">
-							<i class="fa fa-twitter-square fa-lg"></i>
-						<a href="https://plus.google.com" target="_blank">
-							<i class="fa fa-google-plus-square fa-lg"></i>
-						<a href="http://linkedin.com" target="_blank">
-							<i class="fa fa-linkedin-square fa-lg"></i>
+						<a href="http://facebook.com" target="_blank"><i class="fa fa-facebook-square fa-lg"></i></a>
+						<a href="http://twitter.com" target="_blank"><i class="fa fa-twitter-square fa-lg"></i></a>
+						<a href="https://plus.google.com" target="_blank"><i class="fa fa-google-plus-square fa-lg"></i></a>
+						<a href="http://linkedin.com" target="_blank"><i class="fa fa-linkedin-square fa-lg"></i></a>
 					</div>
 				</div>
 
@@ -61,15 +57,19 @@
 						) );
 					?>
 					
-					<div class="row">
-						<?php if ( get_header_image() ) : ?>
-						<a id="header-image" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home" class="span3">
-							<img src="<?php header_image(); ?>" width="227px" height="88px" alt="" />
-						</a>
-						<?php endif; ?>
-						<a href="http://www.appleby.on.ca/" target="_blank">
-							<img src="http://parentory.ca/deploy/wp-content/uploads/2015/01/generic-school-LB.jpg" class="span9 LB-image">
-						</a>
+					<div id="header-content" class="row-fluid">
+						<div class="span3">
+							<?php if ( get_header_image() ) : ?>
+							<a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
+								<img src="<?php header_image(); ?>" width="227px" height="88px" alt="" />
+							</a>
+							<?php endif; ?>
+						</div>
+						<div id="header-ad" class="span9">
+							<a href="http://www.appleby.on.ca/" target="_blank">
+								<img src="http://parentory.ca/deploy/wp-content/uploads/2015/01/generic-school-LB.jpg">
+							</a>
+						</div>
 					</div>
 					<br />
 
