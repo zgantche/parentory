@@ -7,7 +7,7 @@ Template Name: Blog
 get_header(); ?>
 
 <div id="main-image" class="row-fluid">
-	<img src="http://test.parentory.ca/wp-content/uploads/2014/05/blog.jpg">
+	<img src="http://parentory.ca/deploy/wp-content/uploads/2014/05/blog.jpg">
 </div>
 
 <div class="container-fluid">

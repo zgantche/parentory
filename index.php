@@ -17,23 +17,23 @@
 get_header(); ?>
 
 <div id="main-image" class="row-fluid">
-	<img src="http://test.parentory.ca/wp-content/uploads/2014/07/main_image.png">
+	<img src="http://parentory.ca/deploy/wp-content/uploads/2014/07/main_image.png">
 </div>
 
 <div id="feature-images" class="row-fluid">
 	<div class="span4">
 		<a href="<?php append_website_URL('advanced-search/'); ?>">
-			<img src="http://test.parentory.ca/wp-content/uploads/2014/06/mini_image1.png" class="feature-images-item">
+			<img src="http://parentory.ca/deploy/wp-content/uploads/2014/06/mini_image1.png" class="feature-images-item">
 		</a>
 	</div>
 	<div class="span4">
 		<a href="<?php append_website_URL('advanced-search/?show=advanced'); ?>">
-			<img src="http://test.parentory.ca/wp-content/uploads/2014/06/mini_image2.png" class="feature-images-item">
+			<img src="http://parentory.ca/deploy/wp-content/uploads/2014/06/mini_image2.png" class="feature-images-item">
 		</a>
 	</div>
 	<div class="span4">
 		<a href="<?php append_website_URL('advanced-search/?show=focused'); ?>">
-			<img src="http://test.parentory.ca/wp-content/uploads/2014/06/mini_image3.png" class="feature-images-item">
+			<img src="http://parentory.ca/deploy/wp-content/uploads/2014/06/mini_image3.png" class="feature-images-item">
 		</a>
 	</div>
 </div>

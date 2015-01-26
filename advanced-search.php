@@ -12,7 +12,7 @@ get_header(); ?>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 
 	<div id="main-image" class="row-fluid">
-		<img src="http://test.parentory.ca/wp-content/uploads/2014/12/advanced-search-splash.jpg">
+		<img src="http://parentory.ca/deploy/wp-content/uploads/2014/12/advanced-search-splash.jpg">
 	</div>
 
 	<script type="text/javascript">

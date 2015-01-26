@@ -12,7 +12,7 @@
 
 get_header(); ?>
 <div id="main-image" class="row">
-	<img src="http://test.parentory.ca/wp-content/uploads/2014/05/montessori-schools.jpg">
+	<img src="http://parentory.ca/deploy/wp-content/uploads/2014/05/montessori-schools.jpg">
 </div>
 
 

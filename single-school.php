@@ -70,7 +70,7 @@ get_header(); ?>
 
 
 	<div id="main-image" class="row-fluid">
-		<img src="http://test.parentory.ca/wp-content/uploads/2014/05/montessori-schools.jpg">
+		<img src="http://parentory.ca/deploy/wp-content/uploads/2014/05/montessori-schools.jpg">
 	</div>
 
 
@@ -241,7 +241,7 @@ get_header(); ?>
 
 				<div id="ad-bigBox1" class="row-fluid" style="padding-bottom:30px;">
 					<a href="http://www.gilesschool.ca" target="_blank">
-						<img src="http://test.parentory.ca/wp-content/uploads/2015/01/generic-school-BB.jpg">
+						<img src="http://parentory.ca/deploy/wp-content/uploads/2015/01/generic-school-BB.jpg">
 					</a>
 				</div>
 				

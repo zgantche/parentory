@@ -9,7 +9,7 @@ get_header(); ?>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 <div id="main-image" class="row-fluid">
-		<img src="http://test.parentory.ca/wp-content/uploads/2014/07/about-us-splash.jpg">
+		<img src="http://parentory.ca/deploy/wp-content/uploads/2014/07/about-us-splash.jpg">
 </div>
 
 <div class="container-fluid about-us-body">
@@ -23,7 +23,7 @@ get_header(); ?>
 	<div class="row-fluid">
 		<div class="span9">
 			<div  class="float-img-contact">
-				<img src="http://test.parentory.ca/wp-content/uploads/2014/07/about-us-books.jpg">
+				<img src="http://parentory.ca/deploy/wp-content/uploads/2014/07/about-us-books.jpg">
 			</div>
 
 			<p style="line-height: 30px;">
