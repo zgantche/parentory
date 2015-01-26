@@ -498,9 +498,9 @@ div.sidebar-mc-field-group input {
 	font-size: 20px;
 	font-weight: bold;
 
-	text-align: center;
+	text-align: left;
 
-	padding: 30px 0px 10px 0px;
+	padding: 30px 0px 10px 20px;
 }
 
 #school-address {
@@ -508,8 +508,8 @@ div.sidebar-mc-field-group input {
 	font-size: 17px;
 	font-weight: normal;
 
-	text-align: center;
-	padding: 0px 0px 20px 0px;
+	text-align: left;
+	padding: 0px 0px 20px 20px;
 }
 
 #school-thumbnail-holder {
@@ -1129,9 +1129,18 @@ div.mc-field-group input {
 	}
 
 	/* -- Single School Page -- */
+
 	div#single-school-content.container-fluid {
 		text-align: center;
 		margin: 10px;
+	}
+	#school-title {
+		text-align: center;
+		padding: 30px 0px 10px 0px;
+	}
+	#school-address {
+		text-align: center;
+		padding: 0px 0px 20px 0px;
 	}
 	#school-info {
 		padding: 0 0 0 10%;
