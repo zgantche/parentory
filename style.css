@@ -112,6 +112,10 @@ body > .container {
 	color: #F43E28;
 }
 
+#header-content {
+
+}
+
 .LB-image {
 	padding-top: 15px;
 }
@@ -262,10 +266,6 @@ body > .container {
     box-shadow: 0 0 10px #AAA;
 }
 
-#header-image {
-	display: block;
-	text-align: center;
-}
 
 #menu-alert {
 	margin: 4px 0 0;
@@ -273,8 +273,9 @@ body > .container {
 	position: absolute;
 }
 
+
+
 #branding hgroup,
-#header-image,
 .entry-content {
 	margin-bottom: 10px;
 }
@@ -1074,6 +1075,17 @@ div.mc-field-group input {
 
 @media (max-width: 767px) {
 	/* -- Header --*/
+	#before-header {
+		margin: 0 0 10px 0;
+	}
+	#header-content {
+		text-align: center;
+	}
+	#header-lb-ad {
+		/* display: none;*/
+		margin-top: 20px;
+
+	}
 	#simpleSearch {
 		width: 244px;
 	}
