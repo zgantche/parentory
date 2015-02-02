@@ -573,6 +573,73 @@ function get_school_address ($school_id, $args){
 
 
 /**
+ * Render one of three school information meta data:
+ *	1. grades
+ *	2. tuition
+ *	3. class-size
+ *
+ * @author	Zlatko
+ * @since	01.27.2015
+ *
+ * @return	void
+ */
+function render_school_info($school_id, $info_type){
+
+	//grab min & max values
+	$min_value = get_post_meta( $school_id, "school-{$info_type}-min", true );
+	$max_value = get_post_meta( $school_id, "school-{$info_type}-max", true );
+
+
+	//print min & max values
+	if ( $min_value != "N/A" && $min_value != ""){
+
+		//add currency, if number is monetary
+		if ($info_type == "annual-tuition"){
+			$min_value = "$" . number_format($min_value);
+			$max_value = "$" . number_format($max_value);
+		}
+
+		echo $min_value;
+
+		if ( $max_value != "N/A" && $max_value != "")
+			echo " to {$max_value}";
+	}
+	else
+		echo "N/A";
+}
+
+/**
+ * Render desired school's type(s)
+ *
+ * @author	Zlatko
+ * @since	01.27.2015
+ *
+ * @return	void
+ */
+function render_school_type($school_id){
+	//get all taxonomy terms
+	$taxonomy_terms = get_terms('school-type', array( 'hide_empty' => false ));
+	
+	$first_term = true;
+	//render taxonomy terms within meta box
+	foreach($taxonomy_terms as $current_term){
+		if (has_term($current_term->name, 'school-type', $school_id)){
+			if ($first_term){
+				$first_term = false;
+				echo $current_term->name;
+			}
+			else
+				echo ", " . $current_term->name;
+		}
+	}
+
+	//print N/A if no school-type terms were found
+	if ($first_term)
+		echo "N/A";
+}
+
+
+/**
  * Break down all search results into a results array of appropriate page size 
  *
  * @author	Zlatko

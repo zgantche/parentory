@@ -122,19 +122,19 @@ get_header(); ?>
 						<div class="span5">
 							<span class="archive-school-data-box">
 								<div><b>Grades</b></div>
-								<?php echo get_post_meta( $school_id, 'school-grades', true ); ?>
+								<?php render_school_info($school_id, 'grades') ?>
 							</span>
 							<span class="archive-school-data-box">
 								<div><b>Tuition</b></div>
-								<?php echo get_post_meta( $school_id, 'school-annual-tuition', true ); ?>
+								<?php render_school_info($school_id, 'annual-tuition') ?>
 							</span>
 							<span class="archive-school-data-box">
 								<div><b>School Type</b></div>
-								<?php echo get_post_meta( $school_id, 'school-type', true ); ?>
+								<?php render_school_type($school_id) ?>
 							</span>
 							<span class="archive-school-data-box">
 								<div><b>Class Size</b></div>
-								<?php echo get_post_meta( $school_id, 'school-class-size', true ); ?>
+								<?php render_school_info($school_id, 'class-size') ?>
 							</span>
 						</div>
 					</div>

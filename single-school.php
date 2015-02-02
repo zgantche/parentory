@@ -117,58 +117,22 @@ get_header(); ?>
 					<div id="school-info" class="span8">
 						<div class="school-info-criteria"><b>Grades:</b></div>
 						<div class="school-info-data">
-							<?php
-								$grades_min = get_post_meta( $school_id, 'school-grades-min', true );
-								$grades_max = get_post_meta( $school_id, 'school-grades-max', true );
-
-								if ( $grades_min != "N/A" && $grades_min != ""){
-									echo $grades_min;
-
-									if ( $grades_max != "N/A" && $grades_max != "")
-										echo " - " . $grades_max;
-								}
-								else
-									echo "N/A";
-							 ?>
+							<?php render_school_info($school_id, 'grades') ?>
 						</div>
 						<br />
 						<div class="school-info-criteria"><b>Class Size:</b></div>
 						<div class="school-info-data">
-							<?php 
-								$class_size_min = get_post_meta( $school_id, 'school-class-size-min', true );
-								$class_size_max = get_post_meta( $school_id, 'school-class-size-max', true );
-
-								if ( $class_size_min != "N/A" && $class_size_min != ""){
-									echo $class_size_min;
-
-									if ( $class_size_max != "N/A" && $class_size_max != "")
-										echo " - " . $class_size_max;
-								}
-								else
-									echo "N/A";
-							?>
+							<?php render_school_info($school_id, 'class-size') ?>
 						</div>
 						<br />
 						<div class="school-info-criteria"><b>School Type:</b>
-							
+							<?php render_school_type($school_id) ?>
 						</div>
 						<div class="school-info-data"><?php echo sanitize_text_field( get_post_meta( $school_id, 'school-type', true ) ); ?></div>
 						<br />
 						<div class="school-info-criteria"><b>Annual Tuition:</b></div>
 						<div class="school-info-data">
-							<?php 
-								$tuition_min = get_post_meta( $school_id, 'school-annual-tuition-min', true );
-								$tuition_max = get_post_meta( $school_id, 'school-annual-tuition-max', true );
-
-								if ( $tuition_min != "N/A" && $tuition_min != ""){
-									echo "$" . $tuition_min;
-
-									if ( $tuition_max != "N/A" && $tuition_max != "")
-										echo " - $" . $tuition_max;
-								}
-								else
-									echo "N/A";
-							?>
+							<?php render_school_info($school_id, 'annual-tuition') ?>
 						</div>
 						<br />
 						<div class="school-info-criteria"><b>Phone Number:</b></div>

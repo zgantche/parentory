@@ -79,7 +79,7 @@ get_header(); ?>
 						City/Address:
 					</div>
 					<div class="span4 search-input">
-						<input type="text" name="address" placeholder="Enter City or Address Here">
+						<input type="text" name="address" placeholder="Enter City or Postal Code Here">
 					</div>
 				</div>
 				<div class="row-fluid">
