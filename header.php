@@ -66,7 +66,7 @@
 							<?php endif; ?>
 						</div>
 						<div class="span9 LB-ad">
-							hello world!!!
+							hello world!!!!
 							<a href="http://www.appleby.on.ca/" target="_blank">
 								<img src="http://parentory.ca/deploy/wp-content/uploads/2015/01/generic-school-LB.jpg">
 							</a>
