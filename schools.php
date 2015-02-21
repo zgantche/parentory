@@ -110,7 +110,7 @@ get_header(); ?>
 							</div>
 							<div>
 								<i>
-								<?php get_school_address( $school_id, array('street-address', 'city', 'province', 'postal-code') ); ?>
+								<?php echo get_school_address( $school_id, array('street-address', 'city', 'province', 'postal-code') ); ?>
 								</i>
 							</div>
 							<div class="school-excerpt">

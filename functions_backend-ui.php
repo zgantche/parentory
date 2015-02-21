@@ -219,6 +219,19 @@ function contact_info_box_content( $post ) {
 	<table cellspacing="20px">
 		<tr>
 			<td>
+				<?php
+					$lat = get_post_meta( $post->ID, 'school-latitude', true );
+					$lng = get_post_meta( $post->ID, 'school-longitude', true );
+					
+					if ( !empty($lat) && !empty($lng) )
+						echo "<div><b>Latitude:</b> {$lat}, <b>Longitude:</b> {$lng}</div>";
+					else
+						echo "<b>Latitude and Longitude values can't be located.</b>";
+				?>
+			</td>
+		</tr>
+		<tr>
+			<td>
 				<label for="school-street-address">Street Address:</label><br />
 				<input type="text" id="school-street-address" name="school-street-address" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-street-address', true ) ); ?>" />
 			</td>
@@ -563,6 +576,47 @@ add_filter( 'attachments_default_instance', '__return_false' ); // disable the d
 
 
 /**
+ * Print out a school's address information, according to requests
+ *	> $args = 'street-address', 'city', 'province', 'postal-code'
+ *
+ * @author	Zlatko
+ * @since	01.06.2015
+ *
+ * @return	String $address
+ */
+function get_school_address($school_id, $args){
+	$comma = false;
+	$address = "";
+
+	//loop through
+	for ($i=0; $i < count($args); $i++) {
+		//add comma if not first entry
+		if ($comma)
+			$address .= ", ";
+		else
+			$comma = true;
+		
+		switch ($args[$i]) {
+			case "street-address":
+				$address .= sanitize_text_field( get_post_meta( $school_id, 'school-street-address', true ) );
+				break;
+			case "city":
+				$address .= sanitize_text_field( get_post_meta( $school_id, 'school-city', true ) );
+				break;
+			case "province":
+				$address .= sanitize_text_field( get_post_meta( $school_id, 'school-province', true ) );
+				break;
+			case "postal-code":
+				$address .= sanitize_text_field( get_post_meta( $school_id, 'school-postal-code', true ) );
+				break;
+		}
+	}
+
+	return $address;
+}
+
+
+/**
  * Handle SUBMITTED Meta Box content
  *
  * @author	Zlatko
@@ -589,6 +643,7 @@ function custom_meta_box_save( $post_id ) {
 			return;
 	}
 
+
 	
 	//----------- update school taxonomies -----------//
 	foreach (get_taxonomies(array('public' => true, '_builtin' => false)) as $current_taxonomy) {
@@ -605,6 +660,56 @@ function custom_meta_box_save( $post_id ) {
 		//call custom post terms function
 		wp_set_object_terms( $post_id, $school_taxonomy_terms, $current_taxonomy, false );
 	}
+
+
+	//----------- update latitude & longitude values -----------//
+
+	//retrieve minimum address info
+	$streetAddress = get_post_meta( $post->ID, 'street-address', true );
+	$city = get_post_meta( $post->ID, 'school-city', true );
+	$province = get_post_meta( $post->ID, 'province', true );
+	$postalCode = get_post_meta( $post->ID, 'postal-code', true );
+
+	//only perform geocode if minimum address info exists
+	if ( !empty($streetAddress) && !empty($city) && !empty($province) ){
+		//define URL variables
+		$url_prefix = "https://maps.googleapis.com/maps/api/geocode/xml?address=";
+		$apiKey = "AIzaSyAYGh2dJ3nL8r1RibL5knf67j8zTcJBZQ8";
+		$address = get_school_address( $post_id, array('street-address', 'city', 'province', 'postal-code') );
+		$address = urlencode( $address );
+
+		$url = $url_prefix . $address . "&key=" . $apiKey;
+
+		//call Google geocoding API for XML file
+		$file_content = file_get_contents( $url );
+
+		//parse through XML file and update lat/lng coordinates
+		if( $file_content === false )
+			;//return "Could not get XML File content!";
+		else {
+			$xml = new SimpleXMLElement( $file_content );
+			
+			$latitude = (String)$xml->result->geometry->location->lat;
+			$longitude = (String)$xml->result->geometry->location->lng;
+
+			if ( isset($latitude) )
+				update_post_meta( $post_id, 'school-latitude', $latitude );
+			else
+				update_post_meta( $post_id, 'school-latitude', null );
+
+			if ( isset($longitude) )
+				update_post_meta( $post_id, 'school-longitude', $longitude );
+			else
+				update_post_meta( $post_id, 'school-longitude', null );
+
+		}
+	}
+	else{
+		//nullify lat & lng values if there's insufficient info
+		update_post_meta( $post_id, 'school-latitude', null );
+		update_post_meta( $post_id, 'school-longitude', null );
+	}
+
 
 	
 	//----------- update school meta keys, if necessary -----------//
@@ -637,10 +742,11 @@ function custom_meta_box_save( $post_id ) {
 		if ( '' == $new_meta_value && isset($meta_value) )
 			delete_post_meta( $post_id, $meta_key, $meta_value );
 		//else, add or update the meta value
-		else
+		else 
 			update_post_meta( $post_id, $meta_key, $new_meta_value );
+			
+		
 	}
 }
 add_action( 'save_post', 'custom_meta_box_save' );
-
 ?>

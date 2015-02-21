@@ -8,6 +8,108 @@
 
 session_start(); //begin a php session
 get_header(); ?>
+<style type="text/css">
+	#map-canvas {
+		height: 300px;
+		margin: 20px 0;
+	}
+</style>
+
+<?php
+
+	// -- Refresh Session Variables: --
+	// determine what to do; different types of searching, or pagination
+	if ( isset($_GET['pageid']) )
+		$pageid = (int)$_GET['pageid'];
+	// perform SQL Query, store result in php session
+	elseif ( isset($_GET['city']) )
+		$_SESSION['search_result_school_ids'] = get_search_results('city-search');
+	elseif ( isset($_GET['type']) )
+		$_SESSION['search_result_school_ids'] = get_search_results('type-search');
+	elseif ( isset($_POST['search-type']) ) {
+		//echo "Searching, search type: " . $_POST['search-type'];
+		$_SESSION['search_result_school_ids'] = get_search_results($_POST['search-type']);
+	}
+	else
+		echo "Search Type is not set!"; // error
+	
+	// -- Calculate Center of Map --
+	$latitude_sum = 0;
+	$longitude_sum = 0;
+	$num_latitudes = 0;
+	$num_longitudes = 0;
+
+	if (count($_SESSION['search_result_school_ids']) >= 1) {
+		foreach ($_SESSION['search_result_school_ids'] as $school_id) {
+			$latitude = get_post_meta( $school_id, 'school-latitude', true );
+			$longitude = get_post_meta( $school_id, 'school-longitude', true );
+
+			if (!empty($latitude)){
+				$latitude_sum += $latitude;
+				$num_latitudes++;
+			}
+
+			if (!empty($longitude)){
+				$longitude_sum += $longitude;
+				$num_longitudes++;
+			}
+		}
+	}
+
+	//check if it's possible to calculate average, if not set center coordinates to Toronto
+	if ($num_latitudes != 0 && $num_longitudes != 0){
+		$avg_latitude = $latitude_sum/$num_latitudes;
+		$avg_longitude = $longitude_sum/$num_longitudes;
+	}
+	else{
+		$avg_latitude = 43.700;
+		$avg_longitude = -79.400;
+	}
+?>
+
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYGh2dJ3nL8r1RibL5knf67j8zTcJBZQ8">
+</script>
+<script type="text/javascript">
+	function initialize() {
+		var mapOptions = {
+				<?php 
+					echo "center: { lat: {$avg_latitude}, lng: {$avg_longitude} },"; 
+					echo "zoom: 9"
+				?>
+			};
+
+		var myMap = new google.maps.Map(document.getElementById('map-canvas'),
+	    	mapOptions);
+
+		<?php
+			// loop through search results and add them as markers on the map
+			if (count($_SESSION['search_result_school_ids']) >= 1) {
+				foreach ($_SESSION['search_result_school_ids'] as $school_id) {
+					$latitude = get_post_meta( $school_id, 'school-latitude', true );
+					$longitude = get_post_meta( $school_id, 'school-longitude', true );
+
+					if ( !empty($latitude) && !empty($longitude) ){
+						echo "new google.maps.Marker({ 
+									map: myMap,
+									position: { lat: {$latitude}, lng: {$longitude} },
+									title: 'I am at TITLE!!'
+								});";
+					}
+				}
+			}
+		?>
+
+		var marker = new google.maps.Marker({ 
+			map: myMap,
+			position: {lat: 43.5820756, lng: -79.7140110},
+			title: "I'm at TITLE!!"
+		});
+	}
+
+	google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
 <div id="main-image" class="row-fluid">
 	<img src="http://parentory.ca/deploy/wp-content/uploads/2015/01/search-results-splash.jpg">
 </div>
@@ -16,25 +118,38 @@ get_header(); ?>
 <section id="primary" class="span12">
 	
 	<div id="school-results-content" role="main" class="container-fluid">
+		<div class="row-fluid">
+			<div id="map-canvas" clas="span12"></div>
+			<?php
+			//----------
+				
 
+
+				$url_prefix = "https://maps.googleapis.com/maps/api/geocode/xml?address=";
+				$apiKey = "AIzaSyAYGh2dJ3nL8r1RibL5knf67j8zTcJBZQ8";
+				$address = "261 Buena Vista Rd, Ottawa, Ontario, K1M 0V9";
+				$address = urlencode( $address );
+
+				$url = $url_prefix . $address . "&key=" . $apiKey;
+
+				$file_content = file_get_contents( $url );
+
+				if( $file_content === false )
+					return "Could not get XML File content!";
+				else{
+					$xml = new SimpleXMLElement( $file_content );
+					
+					echo "latitude: " . $xml->result->geometry->location->lat;
+					echo ", longitude: " . $xml->result->geometry->location->lng;
+					echo ", avg_latitude: {$avg_latitude}, avg_longitude: {$avg_longitude}";
+				}
+			?>
+		</div>
+		
 		<?php
 			$first_post = true;
 			$pageid = 1;
 
-			// determine what to do; different types of searching, or pagination
-			if ( isset($_GET['pageid']) )
-				$pageid = (int)$_GET['pageid'];
-			// perform SQL Query, store result in php session
-			elseif ( isset($_GET['city']) )
-				$_SESSION['search_result_school_ids'] = get_search_results('city-search');
-			elseif ( isset($_GET['type']) )
-				$_SESSION['search_result_school_ids'] = get_search_results('type-search');
-			elseif ( isset($_POST['search-type']) ) {
-				//echo "Searching, search type: " . $_POST['search-type'];
-				$_SESSION['search_result_school_ids'] = get_search_results($_POST['search-type']);
-			}
-			else
-				echo "Search Type is not set!"; // error
 
 			// check if there are posts to be shown
 			if ( isset($_SESSION['search_result_school_ids']) && !empty($_SESSION['search_result_school_ids']) ) {
@@ -74,7 +189,7 @@ get_header(); ?>
 							</div>
 							<div>
 								<i>
-								<?php get_school_address( $school_id, array('street-address', 'city', 'province', 'postal-code') ); ?>
+								<?php echo get_school_address( $school_id, array('street-address', 'city', 'province', 'postal-code') ); ?>
 								</i>
 							</div>
 							<div class="school-excerpt">
