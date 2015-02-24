@@ -225,8 +225,11 @@ function contact_info_box_content( $post ) {
 					
 					if ( !empty($lat) && !empty($lng) )
 						echo "<div><b>Latitude:</b> {$lat}, <b>Longitude:</b> {$lng}</div>";
-					else
+					else{
 						echo "<b>Latitude and Longitude values can't be located.</b>";
+						//echo error logs
+						echo "<br />Error: " . $lng;
+					}
 				?>
 			</td>
 		</tr>
@@ -662,54 +665,6 @@ function custom_meta_box_save( $post_id ) {
 	}
 
 
-	//----------- update latitude & longitude values -----------//
-
-	//retrieve minimum address info
-	$streetAddress = get_post_meta( $post->ID, 'street-address', true );
-	$city = get_post_meta( $post->ID, 'school-city', true );
-	$province = get_post_meta( $post->ID, 'province', true );
-	$postalCode = get_post_meta( $post->ID, 'postal-code', true );
-
-	//only perform geocode if minimum address info exists
-	if ( !empty($streetAddress) && !empty($city) && !empty($province) ){
-		//define URL variables
-		$url_prefix = "https://maps.googleapis.com/maps/api/geocode/xml?address=";
-		$apiKey = "AIzaSyAYGh2dJ3nL8r1RibL5knf67j8zTcJBZQ8";
-		$address = get_school_address( $post_id, array('street-address', 'city', 'province', 'postal-code') );
-		$address = urlencode( $address );
-
-		$url = $url_prefix . $address . "&key=" . $apiKey;
-
-		//call Google geocoding API for XML file
-		$file_content = file_get_contents( $url );
-
-		//parse through XML file and update lat/lng coordinates
-		if( $file_content === false )
-			;//return "Could not get XML File content!";
-		else {
-			$xml = new SimpleXMLElement( $file_content );
-			
-			$latitude = (String)$xml->result->geometry->location->lat;
-			$longitude = (String)$xml->result->geometry->location->lng;
-
-			if ( isset($latitude) )
-				update_post_meta( $post_id, 'school-latitude', $latitude );
-			else
-				update_post_meta( $post_id, 'school-latitude', null );
-
-			if ( isset($longitude) )
-				update_post_meta( $post_id, 'school-longitude', $longitude );
-			else
-				update_post_meta( $post_id, 'school-longitude', null );
-
-		}
-	}
-	else{
-		//nullify lat & lng values if there's insufficient info
-		update_post_meta( $post_id, 'school-latitude', null );
-		update_post_meta( $post_id, 'school-longitude', null );
-	}
-
 
 	
 	//----------- update school meta keys, if necessary -----------//
@@ -747,6 +702,71 @@ function custom_meta_box_save( $post_id ) {
 			
 		
 	}
+
+
+
+	//----------- update latitude & longitude values -----------//
+
+	//retrieve minimum address info
+	$streetAddress = get_post_meta( $post_id, 'school-street-address', true );
+	$city = get_post_meta( $post_id, 'school-city', true );
+	$province = get_post_meta( $post_id, 'school-province', true );
+
+	//keep track of XML operations' success
+	$xml_error = "No Error";
+
+	//only perform geocode if minimum address info exists
+	if ( !empty($streetAddress) && !empty($city) && !empty($province) ){
+		//define URL variables
+		$url_prefix = "https://maps.googleapis.com/maps/api/geocode/xml?address=";
+		$apiKey = "AIzaSyAYGh2dJ3nL8r1RibL5knf67j8zTcJBZQ8";
+		$address = get_school_address( $post_id, array('street-address', 'city', 'province', 'postal-code') );
+		$address = urlencode( $address );
+
+		$url = $url_prefix . $address . "&key=" . $apiKey;
+
+		//call Google geocoding API for XML file
+		$file_content = file_get_contents( $url );
+
+		//parse through XML file and update lat/lng coordinates
+		if( $file_content === false )
+			$xml_error = "Could not get XML File content!";
+		else {
+			$xml = new SimpleXMLElement( $file_content );
+			
+			$latitude = (String)$xml->result->geometry->location->lat;
+			$longitude = (String)$xml->result->geometry->location->lng;
+
+			if ( isset($latitude) && isset($longitude) ){
+				update_post_meta( $post_id, 'school-latitude', $latitude );
+				update_post_meta( $post_id, 'school-longitude', $longitude );
+			}
+			else
+				$xml_error = "Could not fetch Lat or Lng from XML file!";
+		}
+	}
+	else{
+		//retrieve empty address field and save to error msg
+		$empty = "";
+
+		if (empty($streetAddress))
+			$empty .= " Street Address";
+		if (empty($city))
+			$empty .= " City";
+		if (empty($province))
+			$empty .= " Province";
+
+		$xml_error = "Insufficient Address Info, missing; {$empty}";
+		
+	}
+
+	
+	//if an error was encountered, store error msg in longitude
+	if ( $xml_error != "No Error" ){
+		update_post_meta( $post_id, 'school-latitude', null );
+		update_post_meta( $post_id, 'school-longitude', $xml_error );
+	}
+
 }
 add_action( 'save_post', 'custom_meta_box_save' );
 ?>
