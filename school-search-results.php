@@ -88,23 +88,26 @@ get_header(); ?>
 				foreach ($_SESSION['search_result_school_ids'] as $school_id) {
 					$latitude = get_post_meta( $school_id, 'school-latitude', true );
 					$longitude = get_post_meta( $school_id, 'school-longitude', true );
+					$school_title = get_the_title($school_id);
 
 					if ( !empty($latitude) && !empty($longitude) ){
 						echo "new google.maps.Marker({ 
 									map: myMap,
 									position: { lat: {$latitude}, lng: {$longitude} },
-									title: 'I am at TITLE!!'
+									title: '{$school_title}'
 								});";
 					}
 				}
 			}
 		?>
 
+		/*
 		var marker = new google.maps.Marker({ 
 			map: myMap,
 			position: {lat: 43.5820756, lng: -79.7140110},
 			title: "I'm at TITLE!!"
 		});
+		*/
 	}
 
 	google.maps.event.addDomListener(window, 'load', initialize);
@@ -121,9 +124,6 @@ get_header(); ?>
 		<div class="row-fluid">
 			<div id="map-canvas" clas="span12"></div>
 			<?php
-			//----------
-				
-
 
 				$url_prefix = "https://maps.googleapis.com/maps/api/geocode/xml?address=";
 				$apiKey = "AIzaSyAYGh2dJ3nL8r1RibL5knf67j8zTcJBZQ8";
@@ -136,6 +136,7 @@ get_header(); ?>
 
 				if( $file_content === false )
 					return "Could not get XML File content!";
+				/*
 				else{
 					$xml = new SimpleXMLElement( $file_content );
 					
@@ -143,6 +144,7 @@ get_header(); ?>
 					echo ", longitude: " . $xml->result->geometry->location->lng;
 					echo ", avg_latitude: {$avg_latitude}, avg_longitude: {$avg_longitude}";
 				}
+				*/
 			?>
 		</div>
 		
