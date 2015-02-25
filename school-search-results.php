@@ -82,6 +82,11 @@ get_header(); ?>
 		var myMap = new google.maps.Map(document.getElementById('map-canvas'),
 	    	mapOptions);
 
+		var infoWindow = new google.maps.InfoWindow({
+			content: 'Placeholder Content'
+		});
+
+
 		<?php
 			// loop through search results and add them as markers on the map
 			if (count($_SESSION['search_result_school_ids']) >= 1) {
@@ -90,24 +95,28 @@ get_header(); ?>
 					$longitude = get_post_meta( $school_id, 'school-longitude', true );
 					$school_title = get_the_title($school_id);
 
+					//each school's marker & info_window variables
+					$marker_var = str_replace(array(' '), array('_'), strtolower($school_title));
+					$info_window_var = $marker_var . "_info";
+					$info_window_content = "<div>Into Content goes HERE!</div>";
+
 					if ( !empty($latitude) && !empty($longitude) ){
-						echo "new google.maps.Marker({ 
+						//define and place map marker
+						print "\r\n var {$marker_var} = new google.maps.Marker({
 									map: myMap,
 									position: { lat: {$latitude}, lng: {$longitude} },
-									title: '{$school_title}'
+									title: '{$marker_var}'
+								});";
+
+						//add click listener to display info box on each
+						echo "google.maps.event.addListener({$marker_var}, 'click', function() {
+								infoWindow.setContent('{$info_window_content}');
+								infoWindow.open(myMap, {$marker_var});
 								});";
 					}
 				}
 			}
 		?>
-
-		/*
-		var marker = new google.maps.Marker({ 
-			map: myMap,
-			position: {lat: 43.5820756, lng: -79.7140110},
-			title: "I'm at TITLE!!"
-		});
-		*/
 	}
 
 	google.maps.event.addDomListener(window, 'load', initialize);
