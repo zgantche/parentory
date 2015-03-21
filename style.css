@@ -146,9 +146,8 @@ body > .container {
 	z-index: 1;
 }
 
-
 /* regular & collapsible NON-ACTIVE menu link */
-.navbar .nav>li>a:link {
+.navbar .nav>li>a {
 	font-family: "Arial Narrow", Arial, sans-serif;
 	font-size: 15px;
 	font-weight: bold;
