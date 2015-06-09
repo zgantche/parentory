@@ -156,6 +156,11 @@ get_header(); ?>
 				</div>
 				<div class="row-fluid">
 					<div id="school-tabs" class="span12">
+						<div id="focused-search-heading" class="row-fluid search-collapsible-heading">
+							<div class="span12 search-heading-text">
+								<h4>Map</h4><span>+</span>
+							</div>
+						</div>
 
 						<ul class="tabs">
 							<li class="tab-link current" data-tab="tab-1">Map</li>
