@@ -84,7 +84,7 @@ body > .container {
 }
 .collapsible-div-title>span {
 	float:right;
-	padding:7px 20px 0 0;
+	padding:9px 20px 0 0;
 	font-size:25px;
 	color:#777;
 }
@@ -549,52 +549,6 @@ div.school-info-data {
 
 #school-description {
 	padding: 40px 0px 20px 0px;
-}
-
-ul.tabs{
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
-}
-ul.tabs li{
-	background: #f3f3f3;
-
-	border: 1px solid #e7e7e7;
-	border-bottom: none;
-	-moz-border-radius: 0px;
-	-webkit-border-radius: 3px 3px 0px 0px;
-	border-radius: 3px 3px 0px 0px; 
-
-	display: inline-block;
-	padding: 10px 15px;
-	cursor: pointer;
-
-	font-weight: normal;
-	color: #6a6a6a;
-}
-
-ul.tabs li.current{
-	background: #e7e7e7;
-
-	border: 1px solid #CCC;
-	border-bottom: none;
-	-moz-border-radius: 0px;
-	-webkit-border-radius: 3px 3px 0px 0px;
-	border-radius: 3px 3px 0px 0px;
-
-	color: #333;
-	font-weight: bold;
-}
-
-.tab-content{
-	border-top: 2px solid #DDD;
-	display: none;
-	background: none;
-	padding: 15px;
-}
-
-.tab-content.current{
-	display: inherit;
 }
 
 

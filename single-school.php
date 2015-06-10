@@ -45,16 +45,23 @@ get_header(); ?>
 			}
 		});
 
-		/*----- Interactive Tabs Code -----*/
-		$('ul.tabs li').click(function(){
-			var tab_id = $(this).attr('data-tab');
+		/*----- Collapsible Divs Code -----*/
 
-			$('ul.tabs li').removeClass('current');
-			$('.tab-content').removeClass('current');
+		//hide all divs on page load
+		$("#pictures-content").hide();
+		$("#comments-content").hide();
 
-			$(this).addClass('current');
-			$("#"+tab_id).addClass('current');
+		//click funcionality to hide/show search options
+		$('#map-heading').click(function(){
+			$('#map-content').slideToggle('fast');
 		});
+		$('#pictures-heading').click(function(){
+			$('#pictures-content').slideToggle('fast');
+		});
+		$('#comments-heading').click(function(){
+			$('#comments-content').slideToggle('fast');
+		});
+
 	});
 	</script>
 
@@ -161,15 +168,7 @@ get_header(); ?>
 								<h4>Map</h4><span>+</span>
 							</div>
 						</div>
-
-						<ul class="tabs">
-							<li class="tab-link current" data-tab="tab-1">Map</li>
-							<li class="tab-link" data-tab="tab-2">Pictures</li>
-							<li class="tab-link" data-tab="tab-3">Comments</li>
-						</ul>
-
-						<div id="tab-1" class="tab-content current">
-
+						<div id="map-content" class="container-fluid search-options-field">
 							<iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAj9z8VXVzdTEoJTNTw7MZHzud9XMMfGEM&
 									q=
 									<?php 
@@ -184,10 +183,13 @@ get_header(); ?>
 										echo $school_info;
 									?>" 
 								width="100%" height="500" frameborder="0" style="border:0"></iframe>
-
 						</div>
-						<div id="tab-2" class="tab-content">
-
+						<div id="pictures-heading" class="row-fluid collapsible-div-heading">
+							<div class="span12 collapsible-div-title">
+								<h4>Pictures</h4><span>+</span>
+							</div>
+						</div>
+						<div id="pictures-content" class="container-fluid search-options-field">
 							<div class="fotorama" data-width="100%" data-maxheight="500px" data-fit="cover" data-nav="thumbs" data-navposition="top">
 							<?php 
 								// retrieve all Attachments for the 'pictures' instance of current post
@@ -202,14 +204,15 @@ get_header(); ?>
 									echo "No pictures!";
 								endif; ?>
 
-							</div>	
-
+							</div>
 						</div>
-						<div id="tab-3" class="tab-content">
-
+						<div id="comments-heading" class="row-fluid collapsible-div-heading">
+							<div class="span12 collapsible-div-title">
+								<h4>Comments</h4><span>+</span>
+							</div>
+						</div>
+						<div id="comments-content" class="container-fluid search-options-field">
 							<?php comments_template(); ?>
-
-
 						</div>
 
 					</div>
