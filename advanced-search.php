@@ -116,8 +116,8 @@ get_header(); ?>
 					render_advanced_search_taxonomies( array(""), array(array("school-type")) );
 				?>
 			</div>
-			<div id="advanced-search-heading" class="row-fluid search-collapsible-heading">
-				<div class="span12 search-heading-text">
+			<div id="advanced-search-heading" class="row-fluid collapsible-div-heading">
+				<div class="span12 collapsible-div-title">
 					<h4>Advanced Search</h4><span>+</span>
 				</div>
 			</div>
@@ -144,8 +144,8 @@ get_header(); ?>
 					render_advanced_search_taxonomies(array(""), $groupMembers);
 				?>
 			</div>
-			<div id="focused-search-heading" class="row-fluid search-collapsible-heading">
-				<div class="span12 search-heading-text">
+			<div id="focused-search-heading" class="row-fluid collapsible-div-heading">
+				<div class="span12 collapsible-div-title">
 					<h4>Focused Search</h4><span>+</span>
 				</div>
 			</div>

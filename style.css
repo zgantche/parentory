@@ -65,6 +65,30 @@ body > .container {
 	display: block;
 }
 
+.collapsible-div-heading {
+	background-color: #EEE;
+	margin: 10px 0;
+
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 7px 7px 7px 7px;
+	border-radius: 7px 7px 7px 7px;
+
+	cursor: pointer;
+}
+.collapsible-div-title {
+	padding-left: 40px;
+}
+.collapsible-div-title>h4 {
+	display: inline;
+	float: left;
+}
+.collapsible-div-title>span {
+	float:right;
+	padding:7px 20px 0 0;
+	font-size:25px;
+	color:#777;
+}
+
 /* =Header
 -------------------------------------------------------------- */
 
@@ -325,30 +349,6 @@ article.page {
 }
 .advanced-search-taxonomy {
 	margin-top: 20px;
-}
-
-.search-collapsible-heading {
-	background-color: #EEE;
-	margin: 10px 0;
-
-	-moz-border-radius: 0px;
-	-webkit-border-radius: 7px 7px 7px 7px;
-	border-radius: 7px 7px 7px 7px;
-
-	cursor: pointer;
-}
-.search-heading-text {
-	padding-left: 40px;
-}
-.search-heading-text>h4 {
-	display: inline;
-	float: left;
-}
-.search-heading-text>span {
-	float:right;
-	padding:10px 20px 0 0;
-	font-size:25px;
-	color:#777;
 }
 
 .advanced-search-text {
@@ -1169,10 +1169,10 @@ div.mc-field-group input {
 	.advanced-search * {
 		text-align: center;
 	}
-	.search-heading-text {
+	.collapsible-div-title {
 		padding-left: 0px;
 	}
-	.search-collapsible-heading {
+	.collapsible-div-heading {
 		width: auto;
 		padding-left: 20px;
 		margin: 10px;
