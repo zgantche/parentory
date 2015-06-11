@@ -1131,6 +1131,9 @@ div.mc-field-group input {
 		padding-left: 20px;
 		margin: 10px;
 	}
+	#school-tags>.collapsible-div-heading {
+		margin: 10px 0px;
+	}
 
 	/* -- School Search Results Page -- */
 	div#school-results-content.container-fluid {

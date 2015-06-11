@@ -48,7 +48,7 @@ get_header(); ?>
 		/*----- Collapsible Divs Code -----*/
 
 		//hide all divs on page load
-		$("#pictures-content").hide();
+		//$("#pictures-content").hide();
 		$("#comments-content").hide();
 
 		//click funcionality to hide/show search options
@@ -162,7 +162,7 @@ get_header(); ?>
 					</div>
 				</div>
 				<div class="row-fluid">
-					<div id="school-tabs" class="span12">
+					<div id="school-tags" class="span12">
 						<div id="map-heading" class="row-fluid collapsible-div-heading">
 							<div class="span12 collapsible-div-title">
 								<h4>Map</h4><span>+</span>
@@ -189,7 +189,7 @@ get_header(); ?>
 								<h4>Pictures</h4><span>+</span>
 							</div>
 						</div>
-						<div id="pictures-content" class="container-fluid search-options-field">
+						<div id="pictures-content" class="container-fluid search-options-field" hidden>
 							<div class="fotorama" data-width="100%" data-maxheight="500px" data-fit="cover" data-nav="thumbs" data-navposition="top">
 							<?php 
 								// retrieve all Attachments for the 'pictures' instance of current post
