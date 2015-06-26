@@ -16,7 +16,7 @@
 
 get_header(); ?>
 
-<div id="main-image" class="row-fluid home-page-search-background"><!--div id="main-image" class="row-fluid"-->
+<div id="main-image" class="row-fluid home-page-search-background">
 	<div class="home-page-search-container">
 		<form id="search-form" method="post" action="<?php append_website_URL('school-search-results/'); ?>">
 			<div class="span5">
@@ -41,6 +41,7 @@ get_header(); ?>
 				</select>
 			</div>
 			<div class="span2">
+				<input name="search-type" type="hidden" value="directory-page-search">
 				<input type="submit" name="submit" class="submitButton" value="Find Schools">
 			</div>
 		</form>

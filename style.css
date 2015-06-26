@@ -247,14 +247,14 @@ body > .container {
 /* =Home Page
 -------------------------------------------------------------- */
 
-.home-page-search-background {
+#page .home-page-search-background {
 	background-image: url('http://parentory.ca/deploy/wp-content/uploads/2014/07/main_image.png');
 
 	display: table-cell;
 	vertical-align: middle;
 
 	height: 365px;
-	width: 100%;
+	width: 1%;
 }
 
 .home-page-search-container {
@@ -320,7 +320,7 @@ body > .container {
 -------------------------------------------------------------- */
 
 #main-image {
-	width: 1%;
+	width: 100%;
 	margin: 0px;
 
 	border-bottom:1px solid #CCC;
