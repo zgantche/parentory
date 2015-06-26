@@ -247,6 +247,57 @@ body > .container {
 /* =Home Page
 -------------------------------------------------------------- */
 
+.home-page-search-background {
+	background-image: url('http://parentory.ca/deploy/wp-content/uploads/2014/07/main_image.png');
+
+	display: table-cell;
+	vertical-align: middle;
+
+	height: 365px;
+	width: 100%;
+}
+
+.home-page-search-container {
+	margin: auto auto;
+	vertical-align: middle;
+	padding: 20px 10%;
+	display: inline-block;
+	width: 80%;
+
+	background-color: rgba(255,255,255,0.8);
+}
+
+.home-page-search-container form input[type=text] {
+	height: 39px;
+	padding: 5px 5%;
+	margin: auto auto;
+	width: 90%;
+	font-size: 15px;
+	line-height: 1.5;
+	color: #222222;
+	background-color: white;
+	background-image: none;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+}
+
+.home-page-search-container form select {
+	height: 50px;
+	width: 100%;
+	margin: 0px;
+}
+
+.home-page-search-container form .submitButton {
+	height: 50px;
+	padding: 5px 25px;
+	margin-top: 0px;
+	margin-left: 0px;
+
+	font-size: 17px;
+	line-height: 1.5;
+	border-radius: 3px;
+}
+
 .home-page-blog-posts {
 	padding: 0 0;
 }
@@ -269,7 +320,7 @@ body > .container {
 -------------------------------------------------------------- */
 
 #main-image {
-	width: 100%;
+	width: 1%;
 	margin: 0px;
 
 	border-bottom:1px solid #CCC;
@@ -1045,6 +1096,14 @@ div.mc-field-group input {
 	}
 
 	/* -- Home Page --*/
+	.home-page-search-container form {
+		text-align: center;
+		margin: 0px;
+	}
+	.home-page-search-container form select {
+		margin: 10px 0;
+	}
+
 	.home-page-blog-posts {
 		padding: 0 20px;
 	}

@@ -16,8 +16,35 @@
 
 get_header(); ?>
 
-<div id="main-image" class="row-fluid">
-	<img src="http://parentory.ca/deploy/wp-content/uploads/2014/07/main_image.png">
+<div id="main-image" class="row-fluid home-page-search-background"><!--div id="main-image" class="row-fluid"-->
+	<div class="home-page-search-container">
+		<form id="search-form" method="post" action="<?php append_website_URL('school-search-results/'); ?>">
+			<div class="span5">
+				<input type="text" name="address" placeholder="Enter City or Address Here" />
+			</div>
+			<div class="span4">
+				<select name="province">
+					<option value="All Provinces">All States/Provinces</option>
+					<option value="Alberta">Alberta</option>
+					<option value="British Columbia">British Columbia</option>
+					<option value="Manitoba">Manitoba</option>
+					<option value="New Brunswick">New Brunswick</option>
+					<option value="Newfoundland Labrador">Newfoundland and Labrador</option>
+					<option value="Nova Scotia">Nova Scotia</option>
+					<option value="Ontario">Ontario</option>
+					<option value="Prince Edward Island">Prince Edward Island</option>
+					<option value="Quebec">Quebec</option>
+					<option value="Saskatchewan">Saskatchewan</option>
+					<option value="Northwest Territories">Northwest Territories</option>
+					<option value="Nunavut">Nunavut</option>
+					<option value="Yukon">Yukon</option>
+				</select>
+			</div>
+			<div class="span2">
+				<input type="submit" name="submit" class="submitButton" value="Find Schools">
+			</div>
+		</form>
+	</div>
 </div>
 
 <div id="feature-images" class="row-fluid">
