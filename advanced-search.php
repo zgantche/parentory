@@ -38,7 +38,7 @@ get_header(); ?>
 		$('#focused-search-heading').click(function(){
 			$('#focused-search-options').slideToggle('fast');
 		});
-		
+
 	});
 	</script>
 
@@ -112,7 +112,7 @@ get_header(); ?>
 						</select>
 					</div>
 				</div>
-				<?php 
+				<?php
 					render_advanced_search_taxonomies( array(""), array(array("school-type")) );
 				?>
 			</div>
@@ -136,7 +136,7 @@ get_header(); ?>
 						</select>
 					</div>
 				</div>
-				<?php 
+				<?php
 					$groupMembers = array(
 						array('additional-services', 'additional-criteria')
 					);
@@ -150,10 +150,10 @@ get_header(); ?>
 				</div>
 			</div>
 			<div id="focused-search-options" class="container-fluid search-options-field">
-				<?php 
+				<?php
 					$groupNames = array(
-						"", 
-						"Courses", 
+						"",
+						"Courses",
 						"Athletics and Clubs"
 					);
 					$groupMembers = array(

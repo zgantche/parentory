@@ -4,7 +4,7 @@ include 'functions_search-queries.php';
 include 'functions_backend-ui.php';
 
 
-// This theme uses wp_nav_menu() in two locations.  
+// This theme uses wp_nav_menu() in two locations.
 register_nav_menus( array(
 	'footer-2' => __('Footer Menu 2', 'the-bootstrap-child'),
 	'footer-3' => __('Footer Menu 3', 'the-bootstrap-child')
@@ -47,7 +47,7 @@ function get_menu_title() {
  *
  * @author	Zlatko Gantchev
  * @since	07.30.2014
- * 
+ *
  * @param	bool	$echo	Optional - whether to echo the form
  *
  * @return	void
@@ -146,7 +146,7 @@ function my_custom_post_school() {
 		'view_item'          => __( 'View School' ),
 		'search_items'       => __( 'Search Schools' ),
 		'not_found'          => __( 'No schools found' ),
-		'not_found_in_trash' => __( 'No schools found in the Trash' ), 
+		'not_found_in_trash' => __( 'No schools found in the Trash' ),
 		'parent_item_colon'  => '',
 		'menu_name'          => 'Schools'
 	);
@@ -188,7 +188,7 @@ function school_taxonomies_init() {
 		'school-assistance',
 		'special-support',
 		'religious-focus' );
-	
+
 	$taxonomies_names = array (
 		'School Type',
 		'Additional Services',
@@ -202,7 +202,7 @@ function school_taxonomies_init() {
 		'School Assistance',
 		'Special Support',
 		'Religious Focus' );
-	
+
 	//define all taxonomies
 	foreach (array_combine($taxonomies, $taxonomies_names) as $taxonomy => $taxonomy_name) {
 		register_taxonomy(
@@ -213,7 +213,7 @@ function school_taxonomies_init() {
 				'rewrite' => array( 'slug' => $taxonomy ),
 				'show_ui' => false
 			)
-		);	
+		);
 	}
 
 }
@@ -423,7 +423,7 @@ function validate_form($school_id) {
  */
 function email_school($school_id) {
 	$email_address = $_POST["email"];
-	
+
 	//send email to school
 	//get_post_meta( $school_id, 'school-street-address', true );
 	//mail("webmaster@example.com", sanitize_text_field($subject), sanitize_text_field($message), "From: $from\n");
@@ -481,7 +481,7 @@ function advanced_search_render_single_taxonomy($taxonomy_group_name, $taxonomy_
 		$rowCounter = 0;
 
 		$terms = get_terms($taxonomy->name, 'hide_empty=0');
-		
+
 		echo "<div class='row-fluid'>"; // --- initial row
 		foreach ( $terms as $term ){
 			//print HTML for new row
@@ -577,7 +577,7 @@ function render_school_info($school_id, $info_type){
 function render_school_type($school_id){
 	//get all taxonomy terms
 	$taxonomy_terms = get_terms('school-type', array( 'hide_empty' => false ));
-	
+
 	$first_term = true;
 	//render taxonomy terms within meta box
 	foreach($taxonomy_terms as $current_term){
@@ -598,7 +598,7 @@ function render_school_type($school_id){
 
 
 /**
- * Break down all search results into a results array of appropriate page size 
+ * Break down all search results into a results array of appropriate page size
  *
  * @author	Zlatko
  * @since	01.06.2015
@@ -644,7 +644,7 @@ function print_page_numbers($current_page, $results_num){
 			$result_page_url = "school-search-results/?pageid=" . ($current_page-1);
 			echo "<a class='next page-numbers' href='" . get_website_URL($result_page_url) . "'>« Previous</a> ";
 		}
-		
+
 		//print page numbers
 		for ($i=1; $i<=$total_pages; $i++){
 			$result_page_url = "school-search-results/?pageid=" . $i;

@@ -113,7 +113,7 @@
 
 						</div>
 
-						
+
 					</div><!-- #page-footer .well .clearfix -->
 					<?php tha_footer_bottom(); ?>
 				</footer><!-- #colophon -->

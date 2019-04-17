@@ -9,13 +9,13 @@ function header_search_query($search_terms){
 	$terms_array_length = count($terms_array) - 1;
 
 	// begin SELECT statement; INNER JOIN with post meta; WHERE posts are 'school' AND 'published'
-	$sql = "SELECT 		wp_posts.ID 
-			FROM 		wp_posts 
-			INNER JOIN 	wp_postmeta 
-						ON wp_posts.ID = wp_postmeta.post_id 
-			WHERE 		wp_posts.post_type IN ('school') 
+	$sql = "SELECT 		wp_posts.ID
+			FROM 		wp_posts
+			INNER JOIN 	wp_postmeta
+						ON wp_posts.ID = wp_postmeta.post_id
+			WHERE 		wp_posts.post_type IN ('school')
 			AND 		wp_posts.post_status =  'publish'";
-	
+
 	// AND ( (post.title LIKE '%word1%' OR post.title LIKE '%word2%')
 	$sql .= " AND (";
 
@@ -39,14 +39,14 @@ function header_search_query($search_terms){
 				$sql .= " OR ";
 			}
 		}
-	
-	// UNION 
+
+	// UNION
 	// SELECT taxonomy terms
 	$sql .= ")
-			UNION 
-			SELECT wp_term_relationships.object_id FROM wp_term_relationships 
-			INNER JOIN wp_term_taxonomy ON wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id 
-			INNER JOIN wp_terms ON wp_term_taxonomy.term_id = wp_terms.term_id 
+			UNION
+			SELECT wp_term_relationships.object_id FROM wp_term_relationships
+			INNER JOIN wp_term_taxonomy ON wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id
+			INNER JOIN wp_terms ON wp_term_taxonomy.term_id = wp_terms.term_id
 			WHERE ";
 
 	//  WHERE ( taxonomy.term LIKE '%word1%' OR taxonomy.term LIKE '%word2%' )
@@ -75,19 +75,19 @@ function directory_page_search_query($address, $province){
 		$groupResults = true;
 	else
 		$groupResults = false;
-	
+
 	if ($groupResults){
 		$sql .= "SELECT 	G.ID
 				 FROM		(";
 	}
-	
-	$sql .= "SELECT 	wp_posts.ID 
-			FROM 		wp_posts 
-			INNER JOIN 	wp_postmeta 
-						ON wp_posts.ID = wp_postmeta.post_id 
-			WHERE 		wp_posts.post_type IN ('school') 
+
+	$sql .= "SELECT 	wp_posts.ID
+			FROM 		wp_posts
+			INNER JOIN 	wp_postmeta
+						ON wp_posts.ID = wp_postmeta.post_id
+			WHERE 		wp_posts.post_type IN ('school')
 			AND 		wp_posts.post_status = 'publish' ";
-	
+
 	// if Province was input, search for Province
 	if ( $province !== "All Provinces" ){
 		$sql .= $wpdb->prepare("AND (
@@ -232,7 +232,7 @@ function get_adv_search_dropdown_query($grades, $tuition, $class_size){
 	}
 	else
 		return false;
-	
+
 }
 
 function get_adv_search_checkbox_query(){
@@ -251,10 +251,10 @@ function get_adv_search_checkbox_query(){
 		$tax_query = "SELECT 	G2.object_id
 					  FROM		(
 						SELECT 		wp_term_relationships.object_id
-						FROM 		wp_term_relationships 
-						INNER JOIN 	wp_term_taxonomy 
-									ON wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id 
-						INNER JOIN 	wp_terms 
+						FROM 		wp_term_relationships
+						INNER JOIN 	wp_term_taxonomy
+									ON wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id
+						INNER JOIN 	wp_terms
 									ON wp_term_taxonomy.term_id = wp_terms.term_id
 						WHERE		wp_terms.slug IN (";
 
@@ -273,7 +273,7 @@ function get_adv_search_checkbox_query(){
 				$total_checked_terms += count($_POST[$taxonomy->name]);
 			}
 		echo "Total checked boxes: " . $total_checked_terms;
-		
+
 		$tax_query .= ")) as G2
 				GROUP BY	G2.object_id
 				HAVING 		Count(*) = " . $total_checked_terms;
@@ -293,28 +293,28 @@ function advanced_search_query(){
 
 	//get query for Address & Province fields
 	$add_prov_query = directory_page_search_query($_POST['address'], $_POST['province']);
-	
+
 	//get query for dropdown ranges, if any
 	$dropdown_query = get_adv_search_dropdown_query($_POST['grades'], $_POST['tuition'], $_POST['classSize']);
 
 	//get query for Taxonomy checkboxes, if any
 	$checkbox_query = get_adv_search_checkbox_query();
-	
+
 	//join all partial queries
 	$sql = "";
 
 	/*if ($add_prov_query !== "" && $range_query !== "" && $checkbox_query !== "")
-		$sql = "SELECT result1.ID FROM (" . $add_prov_query . ") AS result1 
+		$sql = "SELECT result1.ID FROM (" . $add_prov_query . ") AS result1
 				INNER JOIN (" . $dropdown_query . ") AS result2 ON result1.ID = result2.post_id
 				INNER JOIN (" . $checkbox_query . ") AS result3 ON result1.ID = result3.object_id";
 	else if ($add_prov_query !== "" && $dropdown_query !== "")
-		$sql = "SELECT result1.ID FROM (" . $add_prov_query . ") AS result1 
+		$sql = "SELECT result1.ID FROM (" . $add_prov_query . ") AS result1
 				INNER JOIN (" . $dropdown_query . ") AS result2 ON result1.ID = result2.post_id";
 	else if ($add_prov_query !== "" && $checkbox_query !== "")
-		$sql = "SELECT result1.ID FROM (" . $add_prov_query . ") AS result1 
+		$sql = "SELECT result1.ID FROM (" . $add_prov_query . ") AS result1
 				INNER JOIN (" . $checkbox_query . ") AS result3 ON result1.ID = result3.object_id";
 	*/
-	
+
 	if ($dropdown_query !== false )
 		$sql = $dropdown_query;
 	else if ($checkbox_query !== false)
@@ -329,41 +329,41 @@ function advanced_search_query(){
 function city_search_query($city){
 	$sql = "SELECT 		wp_postmeta.post_id
 			FROM 		wp_postmeta
-			INNER JOIN 	wp_posts 
+			INNER JOIN 	wp_posts
 						ON wp_postmeta.post_id = wp_posts.ID
-			WHERE 		wp_posts.post_type IN ('school') 
-					AND wp_posts.post_status = 'publish' 
+			WHERE 		wp_posts.post_type IN ('school')
+					AND wp_posts.post_status = 'publish'
 					AND wp_postmeta.meta_key = 'school-city'
 					AND wp_postmeta.meta_value = '{$city}'";
-	
+
 	return $sql;
 }
 // FOR footer Type Search
 function type_search_query($type){
 	if ($type == "SpecialNeeds")
 		$sql = "SELECT DISTINCT	wp_term_relationships.object_id
-				FROM 			wp_term_relationships 
-				INNER JOIN 		wp_term_taxonomy 
-								ON wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id 
-				INNER JOIN 		wp_terms 
-								ON wp_term_taxonomy.term_id = wp_terms.term_id 
-				WHERE 			wp_terms.slug IN ('addadhd', 
-											  'asperger-disorder', 
-											  'autism', 
-											  'behavioral', 
-											  'down-syndrome', 
-											  'dyslexia', 
-											  'physical-disability-assistance', 
+				FROM 			wp_term_relationships
+				INNER JOIN 		wp_term_taxonomy
+								ON wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id
+				INNER JOIN 		wp_terms
+								ON wp_term_taxonomy.term_id = wp_terms.term_id
+				WHERE 			wp_terms.slug IN ('addadhd',
+											  'asperger-disorder',
+											  'autism',
+											  'behavioral',
+											  'down-syndrome',
+											  'dyslexia',
+											  'physical-disability-assistance',
 											  'special-needs-assistance')";
 	else
 		$sql = "SELECT 		wp_term_relationships.object_id
-				FROM 		wp_term_relationships 
-				INNER JOIN 	wp_term_taxonomy 
-							ON wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id 
-				INNER JOIN 	wp_terms 
-							ON wp_term_taxonomy.term_id = wp_terms.term_id 
+				FROM 		wp_term_relationships
+				INNER JOIN 	wp_term_taxonomy
+							ON wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id
+				INNER JOIN 	wp_terms
+							ON wp_term_taxonomy.term_id = wp_terms.term_id
 				WHERE 		wp_terms.slug = '{$type}'";
-	
+
 	return $sql;
 }
 
@@ -391,7 +391,7 @@ function get_search_results($search_type){
 		case "type-search":
 			$sql_query = type_search_query($_GET['type']); break;
 	}
-	
+
 	/**** For Debugging - add "echo" to end of $search_type to show SQL query on screen ****/
 	if ( substr($search_type, -4) == "echo" ){
 		switch ($search_type) {

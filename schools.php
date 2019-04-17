@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * Template Name: Schools
  * school.php
  *
@@ -17,7 +17,7 @@ get_header(); ?>
 
 
 <section id="primary" class="span12">
-	
+
 	<div id="archive-content" role="main" class="container-fluid">
 		<div id="school-listings-filter" class="container-fluid">
 			<div class="row-fluid">
@@ -66,7 +66,7 @@ get_header(); ?>
 				</div>
 			</div>
 		</div>
-		
+
 		<?php
 			// protect against arbitrary paged values
 			$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
@@ -92,7 +92,7 @@ get_header(); ?>
 					else
 						echo "<hr>";
 					?>
-					
+
 					<div id="school-archive-entry" class="row-fluid">
 						<!-- display school image -->
 						<div class="span2 archive-school-logo-holder">
@@ -166,7 +166,7 @@ get_header(); ?>
 		</center>
 
 	</div><!-- #content -->
-	
+
 </section><!-- #primary -->
 
 

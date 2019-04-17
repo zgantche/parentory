@@ -10,7 +10,7 @@ function hd_add_box() {
 	if ( !current_user_can('edit_others_posts') && count_user_posts( get_current_user_id() >= 1 ) )
 		echo "cannot post any new schools";
 	else
-		echo "can post 1 new school";	
+		echo "can post 1 new school";
 	global $submenu;
 	unset($submenu['edit.php?post_type=yourcustomposttype'][10]);
 }
@@ -222,7 +222,7 @@ function contact_info_box_content( $post ) {
 				<?php
 					$lat = get_post_meta( $post->ID, 'school-latitude', true );
 					$lng = get_post_meta( $post->ID, 'school-longitude', true );
-					
+
 					if ( !empty($lat) && !empty($lng) )
 						echo "<div><b>Latitude:</b> {$lat}, <b>Longitude:</b> {$lng}</div>";
 					else{
@@ -301,7 +301,7 @@ function contact_info_box_content( $post ) {
 			</td>
 		</tr>
 	</table>
-	
+
 	<br />
 <?php
 }
@@ -326,7 +326,7 @@ function school_info_box_content( $post ) {
 			<td>
 				<label>School Grades:</label><br />
 				<select id="school-grades-min" name="school-grades-min">
-				<?php 
+				<?php
 					for ($i=0; $i<13; $i++){
 						if ($i == 0)
 							$number = "N/A";
@@ -339,7 +339,7 @@ function school_info_box_content( $post ) {
 						echo ">" . $number . "</option>";
 					}
 				?>
-				</select> - to - 
+				</select> - to -
 				<select id="school-grades-max" name="school-grades-max">
 				<?php
 					for ($i=0; $i<=13; $i++){
@@ -362,7 +362,7 @@ function school_info_box_content( $post ) {
 			<td>
 				<label>Class Size:</label><br />
 				<select id="school-class-size-min" name="school-class-size-min">
-				<?php 
+				<?php
 					for ($i=0; $i<=21; $i++){
 						if ($i == 0)
 							$number = "N/A";
@@ -377,9 +377,9 @@ function school_info_box_content( $post ) {
 						echo ">" . $number . "</option>";
 					}
 				?>
-				</select> - to - 
+				</select> - to -
 				<select id="school-class-size-max" name="school-class-size-max">
-				<?php 
+				<?php
 					for ($i=0; $i<=21; $i++){
 						if ($i == 0)
 							$number = "N/A";
@@ -400,12 +400,12 @@ function school_info_box_content( $post ) {
 		<tr>
 			<td>
 				<label for="school-annual-tuition">Annual Tuition (numbers only):</label><br />
-				$<input type="text" size="10" id="school-annual-tuition-min" name="school-annual-tuition-min" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-annual-tuition-min', true ) ); ?>" /> - to - 
+				$<input type="text" size="10" id="school-annual-tuition-min" name="school-annual-tuition-min" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-annual-tuition-min', true ) ); ?>" /> - to -
 				$<input type="text" size="10" id="school-annual-tuition-max" name="school-annual-tuition-max" value="<?php echo esc_attr( get_post_meta( $post->ID, 'school-annual-tuition-max', true ) ); ?>" />
 			</td>
 		</tr>
 	</table>
-	
+
 <?php
 }
 
@@ -598,7 +598,7 @@ function get_school_address($school_id, $args){
 			$address .= ", ";
 		else
 			$comma = true;
-		
+
 		switch ($args[$i]) {
 			case "street-address":
 				$address .= sanitize_text_field( get_post_meta( $school_id, 'school-street-address', true ) );
@@ -628,9 +628,9 @@ function get_school_address($school_id, $args){
  * @return	void
  */
 function custom_meta_box_save( $post_id ) {
-	
+
 	// stop WP from clearing custom fields on autosave
-	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
 		return;
 
 	// verify nonce before continuing
@@ -647,7 +647,7 @@ function custom_meta_box_save( $post_id ) {
 	}
 
 
-	
+
 	//----------- update school taxonomies -----------//
 	foreach (get_taxonomies(array('public' => true, '_builtin' => false)) as $current_taxonomy) {
 
@@ -666,20 +666,20 @@ function custom_meta_box_save( $post_id ) {
 
 
 
-	
+
 	//----------- update school meta keys, if necessary -----------//
 	foreach (array(
 					'school-street-address',
 					'school-city',
 					'school-province',
 					'school-postal-code',
-					'school-website', 
-					'school-phone-number', 
+					'school-website',
+					'school-phone-number',
 					'school-email-address',
 					'school-facebook-page',
-					'school-type', 
-					'school-grades', 
-					'school-class-size', 
+					'school-type',
+					'school-grades',
+					'school-class-size',
 					'school-annual-tuition',
 					'school-class-size-min',
 					'school-class-size-max',
@@ -692,15 +692,15 @@ function custom_meta_box_save( $post_id ) {
 		$meta_value = get_post_meta( $post_id, $meta_key, true );
 		//get new meta data
 		$new_meta_value = ( isset( $_POST[$meta_key] ) ? sanitize_text_field( $_POST[$meta_key] ) : '' );
-		
+
 		//If there is no new meta value but an old value exists, delete it
 		if ( '' == $new_meta_value && isset($meta_value) )
 			delete_post_meta( $post_id, $meta_key, $meta_value );
 		//else, add or update the meta value
-		else 
+		else
 			update_post_meta( $post_id, $meta_key, $new_meta_value );
-			
-		
+
+
 	}
 
 
@@ -733,7 +733,7 @@ function custom_meta_box_save( $post_id ) {
 			$xml_error = "Could not get XML File content!";
 		else {
 			$xml = new SimpleXMLElement( $file_content );
-			
+
 			$latitude = (String)$xml->result->geometry->location->lat;
 			$longitude = (String)$xml->result->geometry->location->lng;
 
@@ -757,10 +757,10 @@ function custom_meta_box_save( $post_id ) {
 			$empty .= " Province";
 
 		$xml_error = "Insufficient Address Info, missing; {$empty}";
-		
+
 	}
 
-	
+
 	//if an error was encountered, store error msg in longitude
 	if ( $xml_error != "No Error" ){
 		update_post_meta( $post_id, 'school-latitude', null );

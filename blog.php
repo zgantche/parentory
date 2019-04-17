@@ -13,19 +13,19 @@ get_header(); ?>
 <div class="container-fluid">
 
 	<div class="container-fluid">
-		
+
 
 		<div class="row-fluid">
 			<!-- school content -->
 			<div class="span8 blog-body">
-				<?php 
+				<?php
 				//blog posts won't show up without this, but WP says it's bad to use..
 				query_posts('post_type=post')
 
 				?>
 
-				<?php 
-				
+				<?php
+
 				if ( have_posts() ) {
 					while ( have_posts() ) {
 						the_post();
@@ -36,7 +36,7 @@ get_header(); ?>
 				else {
 					get_template_part( '/partials/content', 'not-found' );
 				}
-			
+
 				?>
 			</div>
 
@@ -45,7 +45,7 @@ get_header(); ?>
 				<div id="form-title" class="arial-narrow">
 					FEATURED BLOG POSTS
 				</div>
-				
+
 				<div id="sidebar-form" class="sidebar-featured-posts">
 					<ul>
 						<?php

@@ -32,7 +32,7 @@ get_header(); ?>
 	}
 	else
 		echo "Search Type is not set!"; // error
-	
+
 	// -- Calculate Center of Map --
 	$latitude_sum = 0;
 	$longitude_sum = 0;
@@ -73,8 +73,8 @@ get_header(); ?>
 <script type="text/javascript">
 	function initialize() {
 		var mapOptions = {
-				<?php 
-					echo "center: { lat: {$avg_latitude}, lng: {$avg_longitude} },"; 
+				<?php
+					echo "center: { lat: {$avg_latitude}, lng: {$avg_longitude} },";
 					echo "zoom: 9"
 				?>
 			};
@@ -128,7 +128,7 @@ get_header(); ?>
 
 
 <section id="primary" class="span12">
-	
+
 	<div id="school-results-content" role="main" class="container-fluid">
 		<div class="row-fluid">
 			<div id="map-canvas" clas="span12"></div>
@@ -148,7 +148,7 @@ get_header(); ?>
 				/*
 				else{
 					$xml = new SimpleXMLElement( $file_content );
-					
+
 					echo "latitude: " . $xml->result->geometry->location->lat;
 					echo ", longitude: " . $xml->result->geometry->location->lng;
 					echo ", avg_latitude: {$avg_latitude}, avg_longitude: {$avg_longitude}";
@@ -156,7 +156,7 @@ get_header(); ?>
 				*/
 			?>
 		</div>
-		
+
 		<?php
 			$first_post = true;
 			$pageid = 1;
@@ -169,7 +169,7 @@ get_header(); ?>
 
 			    // begin The Loop
 				foreach ( $school_ids as $post_id )
-				{	
+				{
 					$post = get_post($post_id);
 					setup_postdata( $post );
 
@@ -236,12 +236,12 @@ get_header(); ?>
 				if ( isset($_SESSION['search_result_school_ids']) && isset($_POST['search-type']) )
 					switch ($_POST['search-type']) {
 						case "header-search":
-							echo '<h2 class="error">Sorry, no schools were found matching the search: "' . $_POST['search-query'] . '"</h2>'; 
+							echo '<h2 class="error">Sorry, no schools were found matching the search: "' . $_POST['search-query'] . '"</h2>';
 							break;
 						case "directory-page-search":
-							echo '<h2 class="error">Sorry, no schools were found matching the search: "' 
-									. $_POST['address'] . ', ' 
-									. $_POST['province'] . '"</h2>'; 
+							echo '<h2 class="error">Sorry, no schools were found matching the search: "'
+									. $_POST['address'] . ', '
+									. $_POST['province'] . '"</h2>';
 							break;
 						case "advanced-search":
 							echo '<h2 class="error">Sorry, no schools were found matching your search.</h2>';
@@ -259,7 +259,7 @@ get_header(); ?>
 		?>
 
 	</div><!-- #content -->
-	
+
 </section><!-- #primary -->
 
 
