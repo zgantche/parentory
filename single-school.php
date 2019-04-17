@@ -93,7 +93,7 @@ get_header(); ?>
 		<div class="row-fluid">
 			<!-- school content -->
 			<div class="span8">
-			
+
 				<div class="row-fluid">
 					<div id="school-title">
 						<?php echo $school_object->post_title; ?>
@@ -104,19 +104,19 @@ get_header(); ?>
 						<?php get_school_address( $school_id, array('street-address', 'city', 'province', 'postal-code') ); ?>
 					</div>
 				</div>
-		
+
 				<!-- image & info -->
 				<div class="row-fluid">
 					<!-- school main image -->
 					<div id="school-thumbnail-holder" class="span4">
 						<span class="vertical-align-helper"></span>
-						<?php 
+						<?php
 							$default_attr = array(
 								'class' => "school-thumbnail",
 								'maxheight' => "160"
 							);
 
-							the_post_thumbnail( "full", $default_attr ); 
+							the_post_thumbnail( "full", $default_attr );
 						?>
 					</div>
 
@@ -152,7 +152,7 @@ get_header(); ?>
 						</div>
 					</div>
 				</div>
-				
+
 
 
 				<div class="row-fluid">
@@ -169,9 +169,8 @@ get_header(); ?>
 							</div>
 						</div>
 						<div id="map-content" class="container-fluid search-options-field">
-							<iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAj9z8VXVzdTEoJTNTw7MZHzud9XMMfGEM&
-									q=
-									<?php 
+							<iframe src="https://www.google.com/maps/embed/v1/place?key=<?=getenv('MAPSKEE')?>&q=
+									<?php
 										$school_info_title = str_replace(" ", "+", sanitize_text_field( $school_object->post_title ));
 										$school_info_address = str_replace(" ", "+", sanitize_text_field( get_post_meta( $school_id, 'school-street-address', true ) ));
 										$school_info_city = str_replace(" ", "+", sanitize_text_field( get_post_meta( $school_id, 'school-city', true ) ));
@@ -181,7 +180,7 @@ get_header(); ?>
 										$school_info = $school_info_title . "," . $school_info_address . "," . $school_info_city . "," . $school_info_province. "," . $school_info_postal;
 
 										echo $school_info;
-									?>" 
+									?>"
 								width="100%" height="500" frameborder="0" style="border:0"></iframe>
 						</div>
 						<div id="pictures-heading" class="row-fluid collapsible-div-heading">
@@ -191,7 +190,7 @@ get_header(); ?>
 						</div>
 						<div id="pictures-content" class="container-fluid search-options-field" hidden>
 							<div class="fotorama" data-width="100%" data-maxheight="500px" data-fit="cover" data-nav="thumbs" data-navposition="top">
-							<?php 
+							<?php
 								// retrieve all Attachments for the 'pictures' instance of current post
 								// 	->url(); ->total(); ->image( 'thumbnail' );
 								$pictures = new Attachments( 'my_pictures', $school_id );
@@ -217,7 +216,7 @@ get_header(); ?>
 
 					</div>
 				</div>
-				
+
 			</div>
 
 
@@ -235,23 +234,23 @@ get_header(); ?>
 							$email_address = email_school($school_id);
 						}
 					?>
-					
+
 					<form id="sidebar-form" method="POST" action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" novalidate>
-						<input type="text" class="formElement" name="email" 
-							value="<?php echo (isset ($email_address) ? $email_address : ""); ?>" 
+						<input type="text" class="formElement" name="email"
+							value="<?php echo (isset ($email_address) ? $email_address : ""); ?>"
 							placeholder="Enter Email Address">
 						<br />
 
-						<input type="text" class="formElement" name="subject" 
-							value="<?php echo (isset($subject) ? $subject : ""); ?>" 
+						<input type="text" class="formElement" name="subject"
+							value="<?php echo (isset($subject) ? $subject : ""); ?>"
 							placeholder="Enter Subject">
 						<br />
 
-						<textarea name="message" class="formElement" rows="5" cols="40" 
+						<textarea name="message" class="formElement" rows="5" cols="40"
 							placeholder="Your Message"><?php echo (isset($message) ? $message : "");?></textarea>
 						<br />
 
-						<input type="submit" name="submit" class="submitButton" value="Submit"> 
+						<input type="submit" name="submit" class="submitButton" value="Submit">
 					</form>
 				</div>
 
@@ -260,7 +259,7 @@ get_header(); ?>
 						<img src="http://parentory.ca/deploy/wp-content/uploads/2015/01/generic-school-BB.jpg">
 					</a>
 				</div>
-				
+
 				<div class="row-fluid">
 					<div class="fb-like-box" data-href="<?php echo get_post_meta( $school_id, 'school-facebook-page', true ); ?>" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="true"></div>
 				</div>
